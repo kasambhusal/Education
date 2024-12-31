@@ -1,6 +1,6 @@
 import React from 'react'
-import BottomNav from './Child Components/BottomNav'
-import TopNav from './Child Components/TopNav'
+import TopNav from "../Child Components/NavComponents/TopNav"
+import BottomNav from "../Child Components/NavComponents/BottomNav"
 
 export default function MainNav() {
     return (
