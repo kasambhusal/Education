@@ -7,12 +7,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './Components/Main Components/Home'
 import Login from './Components/Main Components/Login'
 import PageUser from './Components/Main Components/PageUser'
+import { ThemeProvider } from './Components/Context/ThemeContext'
 
 function App() {
 
   return (
     <BrowserRouter>
-      <PageUser />
+      <ThemeProvider>
+        <PageUser />
+      </ThemeProvider>
     </BrowserRouter>
   )
 }
