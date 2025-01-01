@@ -7,7 +7,7 @@ export default function TopNav() {
     console.log(value)
   }
   return (
-    <div className='w-full flex justify-evenly md:h-[50px] items-center bg-[rgb(230,238,258)]'>
+    <div className='w-full flex justify-evenly md:h-[50px] items-center bg-[white]'>
       <h1><Link to="/">Logo</Link></h1>
       <Search
         placeholder="Search"

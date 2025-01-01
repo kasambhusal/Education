@@ -2,7 +2,7 @@ import React from "react";
 
 export default function BottomNav() {
   return (
-    <div className="relative bg-[rgb(18,23,93)] text-white flex justify-between items-center px-8 py-6 h-[50px]">
+    <div className="relative bg-[rgb(37,5,101)] text-white flex justify-between items-center px-8 py-6 h-[50px]">
 
       <div className="flex gap-4 md:gap-10 md:pl-[150px]">
         <span className="cursor-pointer hover:">Opportunities</span>
