@@ -1,7 +1,5 @@
 import React from "react";
 import { useTheme } from "../Context/ThemeContext";
-import { ArrowRightOutlined, YoutubeOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import Contact from "../Child Components/Others/Contact";
 
 const Footer = () => {
@@ -11,17 +9,17 @@ const Footer = () => {
             <div
                 style={{
                     width: "100%",
-                    // minHeight: "50vh",
-                    background: `linear-gradient(to bottom,rgb(124, 148, 255),${themeColor} )`,
+                    borderTopLeftRadius: "150px",
+                    background: `linear-gradient(to bottom,rgb(20, 33, 96),${themeColor} )`,
                 }}
             >
                 <hr
                     className="my-10"
                     style={{ border: "none", borderTop: "2px solidrgb(152, 153, 156)" }}
                 />
-                <div className="h-full" style={{ width: "95%", padding: "50px auto" }}>
+                <div className="h-full sm:pl-[50px] md:pl-[80px] xl:pl-[100px]" style={{ width: "95%", padding: "50px auto" }} >
                     <div className="grid grid-cols-4 h-full gap-[30px] sm:gap-0 py-[30px]">
-                        <div className="col-span-4 sm:col-span-1 text-[#d9d9d9] flex flex-col  items-center h-full">
+                        <div className="col-span-4 md:col-span-1 text-[#d9d9d9] flex flex-col  items-center h-full">
                             <img src="/logo.jpg" alt="logo" width={250} height={150} />
 
                             <div className="mt-4">
@@ -30,8 +28,8 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-span-4 sm:col-span-1 flex flex-col  items-center gap-[10px] text-[#d9d9d9] text-[18px] text-underline">
-                            <h2 style={{ color: themeColor }} className="font-bold">Oppourtunities</h2>
+                        <div className="col-span-4 md:col-span-1 flex flex-col  items-center gap-[10px] text-[#d9d9d9] text-[18px] text-underline">
+                            <h2 style={{ color: "white" }} className="font-bold">Oppourtunities</h2>
                             <ul style={{ listStyleType: "circle", listStyle: "outside" }}>
                                 <li>Scholarships</li>
                                 <li>Hackathon</li>
@@ -39,15 +37,15 @@ const Footer = () => {
                                 <li>Olympiad</li>
                             </ul>
                         </div>
-                        <div className="col-span-4 sm:col-span-1 flex flex-col  text-[#d9d9d9]  items-center gap-2">
-                            <h2 style={{ color: themeColor }} className="font-bold">Exem-prep</h2>
+                        <div className="col-span-4 md:col-span-1 flex flex-col  text-[#d9d9d9]  items-center gap-2">
+                            <h2 style={{ color: "white" }} className="font-bold">Exem-prep</h2>
                             <ul style={{ listStyleType: "circle", listStyle: "outside" }}>
                                 <li>NePho</li>
                                 <li>SAT</li>
                             </ul>
                         </div>
-                        <div className="col-span-4 sm:col-span-1 flex flex-col  items-center gap-[10px]">
-                            <h2 style={{ color: themeColor }} className="font-bold">Team Members</h2>
+                        <div className="col-span-4 md:col-span-1 flex flex-col  items-center gap-[10px]">
+                            <h2 style={{ color: "white" }} className="font-bold">Team Members</h2>
                             <div className="flex w-full flex-col items-center">
                                 {" "}
                                 <h2 className="text-[18px] font-bold text-[#d9d9d9]">
