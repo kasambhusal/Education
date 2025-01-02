@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <div>
             <div className='flex w-screen px-5 py-8 bg-gradient-to-b from-[rgb(229,244,255)] to-[rgb(185,229,255)]'>
-                <div className="imageDiv flex-[1]">
+                <div className="imageDiv ml-28 flex-[1]">
                     <img src="/homeImg.png" alt="HomeImage" />
                 </div>
                 <div className="homerightcontent flex-[1] flex flex-col gap-10">
