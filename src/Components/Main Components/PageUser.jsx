@@ -7,6 +7,7 @@ import SignUp from './SignUp'
 import ForgotPassword from './ForgotPassword'
 import ScrollToTop from '../Child Components/Others/ScrollToTop'
 import MainFooter from './MainFooter'
+import Oppourtunity from './Oppourtunity'
 
 const PageUser = () => {
     const location = useLocation();
@@ -22,6 +23,7 @@ const PageUser = () => {
                 <Route path="dashboard/login" element={<Login />} />
                 <Route path="dashboard/sign-up" element={<SignUp />} />
                 <Route path="dashboard/password-forgot" element={<ForgotPassword />} />
+                <Route path="/oppourtunities" element={<Oppourtunity />} />
             </Routes>
             <div>
                 <MainFooter />

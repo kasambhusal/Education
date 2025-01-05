@@ -1,5 +1,6 @@
 import React from "react";
 import { useTheme } from "../../Context/ThemeContext";
+import { Link } from "react-router-dom"
 
 export default function BottomNav() {
   const { themeColor } = useTheme()
@@ -7,7 +8,7 @@ export default function BottomNav() {
     <div className="relative text-white flex justify-between items-center px-8 py-6 h-[50px]" style={{ backgroundColor: themeColor }}>
 
       <div className="flex gap-4 md:gap-10 md:pl-[150px]">
-        <span className="cursor-pointer hover:">Opportunities</span>
+        <Link to="/oppourtunities" className="cursor-pointer hover:">Opportunities</Link>
         <span className="cursor-pointer hover:">Exam-Prep</span>
         <span className="cursor-pointer hover:">Clubs</span>
         <span className="cursor-pointer hover:">Sign In</span>
