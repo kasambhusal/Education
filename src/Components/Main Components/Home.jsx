@@ -1,5 +1,6 @@
 import { ArrowRightOutlined } from '@ant-design/icons'
 import React from 'react'
+import HomeCard from '../Child Components/Others/HomeCard'
 
 export default function Home() {
     return (
@@ -43,6 +44,18 @@ export default function Home() {
                     <div className="3 w-[150px] text-[14px] text-center">Making you ready for competitions</div>
                 </div>
 
+            </div>
+            <div className="homecardsection flex flex-col items-center justify-center gap-20 mt-8">
+                <div className="topcontent flex flex-col gap-3 w-[500px]">
+                    <p className="toptextheading text-3xl font-bold text-center w-full">This is a dummy text, and will be replaced</p>
+                    <p className="toptext w-full text-center">This is gonna be replaced too as soon as possible</p>
+                </div>
+                <div className="cardgrid grid grid-cols-2 gap-x-20 gap-y-28">
+                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
+                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
+                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
+                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
+                </div>
             </div>
         </div>
     )
