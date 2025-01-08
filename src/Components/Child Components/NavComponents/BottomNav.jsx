@@ -7,11 +7,11 @@ export default function BottomNav() {
   return (
     <div className="relative text-white flex justify-between items-center px-8 py-6 h-[50px]" style={{ backgroundColor: themeColor }}>
 
-      <div className="flex gap-4 md:gap-10 md:pl-[150px]">
+      <div className="flex w-[85%] gap-4 md:gap-10 md:pl-[150px] text-lg justify-center">
         <Link to="/oppourtunities" className="cursor-pointer hover:">Opportunities</Link>
-        <span className="cursor-pointer hover:">Exam-Prep</span>
-        <span className="cursor-pointer hover:">Clubs</span>
-        <span className="cursor-pointer hover:">Sign In</span>
+        <Link to="/exam-prep" className="cursor-pointer hover:">Exam-Prep</Link>
+        <Link to="/clubs" className="cursor-pointer hover:">Clubs</Link>
+        
       </div>
 
       {/* Right Cutout */}

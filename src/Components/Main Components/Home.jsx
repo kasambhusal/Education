@@ -47,14 +47,14 @@ export default function Home() {
             </div>
             <div className="homecardsection flex flex-col items-center justify-center gap-20 mt-8">
                 <div className="topcontent flex flex-col gap-3 w-[500px]">
-                    <p className="toptextheading text-3xl font-bold text-center w-full">This is a dummy text, and will be replaced</p>
-                    <p className="toptext w-full text-center">This is gonna be replaced too as soon as possible</p>
+                    <p className="toptextheading text-3xl font-bold text-center w-full">A collection of opportunities to uplift you</p>
+                    <p className="toptext w-full text-center">Indulge in vast things outside your schoool curriculum to see the word around you better</p>
                 </div>
                 <div className="cardgrid grid grid-cols-2 gap-x-20 gap-y-28">
-                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
-                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
-                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
-                    <HomeCard heading = 'Olympiad for You' image='insta.jpg' text='Explore different opportunities for olympiads across various fields'/>
+                    <HomeCard heading = 'Olympiads for You' image='homeImg.png' text='Explore different opportunities for olympiads across various fields'/>
+                    <HomeCard heading = 'Prepare for NePhO' image='homeImg.png' text='Learn concepts and practice for Nepal Physics Olympiad'/>
+                    <HomeCard heading = 'Upcoming Hackathons' image='homeImg.png' text='Be up-to-date about upcoming hackathon opportunities.'/>
+                    <HomeCard heading = 'Events that aligns with you' image='homeImg.png' text='Explore more workshops and events where you can be a part of'/>
                 </div>
             </div>
         </div>
