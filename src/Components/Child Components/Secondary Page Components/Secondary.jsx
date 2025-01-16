@@ -133,7 +133,7 @@ const Secondary = () => {
                 <Content
                     className="m-6 p-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
                     style={{
-                        height: 'calc(100vh - 96px)', // 64px header + 32px margins
+                        height: 'calc(100vh - 96px)',
                     }}
                 >
                     <AnimatePresence mode="wait">

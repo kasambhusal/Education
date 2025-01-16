@@ -2,8 +2,6 @@ import { motion } from 'framer-motion'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import React, { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import Particles from "react-tsparticles"
-import { loadFull } from "tsparticles"
 import HomeCard from '../Child Components/Others/HomeCard'
 import FloatingBar from '../Child Components/Others/FloatingBar'
 import Testimonial from '../Child Components/Others/Testimonial'
@@ -66,29 +64,9 @@ export default function Home() {
         }
     }, [])
 
-    const particlesInit = async (main) => {
-        await loadFull(main)
-    }
-
-    const particlesOptions = {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: "#ffffff" },
-            shape: { type: "circle" },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            move: { enable: true, speed: 1, direction: "none", random: true, out_mode: "out" }
-        }
-    }
-
     return (
         <div className="overflow-x-hidden relative">
-            <Particles
-                id="tsparticles"
-                init={particlesInit}
-                options={particlesOptions}
-                className="absolute inset-0 pointer-events-none"
-            />
+
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
