@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { FaArrowUp } from "react-icons/fa";
 
 export default function ScrollToTop() {
     const [isVisible, setIsVisible] = useState(false);
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsVisible(window.scrollY > 300); // Show button after scrolling down 300px
+            setIsVisible(window.scrollY > 300);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -21,16 +28,37 @@ export default function ScrollToTop() {
     };
 
     return (
-        <div>
-            {isVisible && (
-                <button
-                    className="fixed bottom-4 right-4 bg-blue-600 text-white rounded-full p-2 w-10 h-10 flex items-center justify-center shadow-md hover:bg-blue-500 transition-all duration-300 transform hover:scale-110 z-50"
-                    onClick={scrollToTop}
-                    aria-label="Scroll to Top"
-                >
-                    <FaArrowUp size={16} />
-                </button>
-            )}
-        </div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isVisible ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-4 right-4 z-50"
+        >
+            <button
+                className="bg-blue-400 text-white rounded-full p-3 w-12 h-12 flex items-center justify-center shadow-md hover:bg-blue-500 transition-all duration-300 transform hover:scale-110"
+                onClick={scrollToTop}
+                aria-label="Scroll to Top"
+            >
+                <FaArrowUp size={20} />
+            </button>
+            <svg className="absolute -top-1 -left-1 w-14 h-14" viewBox="0 0 44 44">
+                <motion.circle
+                    cx="22"
+                    cy="22"
+                    r="20"
+                    fill="none"
+                    stroke="#3B82F6"
+                    strokeWidth="4"
+                    style={{
+                        pathLength: scaleX,
+                        rotate: -90,
+                        originX: 0.5,
+                        originY: 0.5,
+                        strokeLinecap: "round",
+                    }}
+                />
+            </svg>
+        </motion.div>
     );
 }
+

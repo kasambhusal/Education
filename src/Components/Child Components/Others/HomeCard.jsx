@@ -27,7 +27,6 @@ const HomeCard = ({ heading, image, text }) => {
         <motion.h2
           className="font-bold text-3xl"
           style={{ color: themeColor }}
-          whileHover={{ scale: 1.1 }}
         >
           {heading}
         </motion.h2>
