@@ -8,14 +8,14 @@ export default function TopNav() {
   }
   return (
     <div className='w-full flex justify-evenly md:h-[50px] items-center bg-[white]'>
-      <h1><Link to="/">Logo</Link></h1>
+      <h1><Link className='flex gap-2' to="/"><img className='h-[45px] w-[60px] md:w-[45px]' src="/ES.jpg" alt="logo" /><img className='h-[45px]' src="/Edusphere.jpg" alt="logo" /></Link></h1>
       <Search
         placeholder="Search"
         onSearch={onSearch}
         style={{
           maxWidth: 500,
         }}
-        className='rounded-lg'
+        className='rounded-lg border-green-400'
       />
 
       <Link to="/dashboard/login">

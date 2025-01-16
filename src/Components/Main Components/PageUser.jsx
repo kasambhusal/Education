@@ -4,6 +4,7 @@ import Home from './Home'
 import Login from './Login'
 import MainNav from './MainNav'
 import SignUp from './SignUp'
+import Clubs from './Clubs'
 import ForgotPassword from './ForgotPassword'
 import ScrollToTop from '../Child Components/Others/ScrollToTop'
 import MainFooter from './MainFooter'
@@ -25,6 +26,7 @@ const PageUser = () => {
                 <Route path="dashboard/sign-up" element={<SignUp />} />
                 <Route path="dashboard/password-forgot" element={<ForgotPassword />} />
                 <Route path="/oppourtunities" element={<Oppourtunity />} />
+                <Route path ="/clubs" element={<Clubs />}/>
                 <Route path="*" element={<ErrorPage />} /> 
 
             </Routes>
