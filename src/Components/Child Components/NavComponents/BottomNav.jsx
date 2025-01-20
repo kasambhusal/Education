@@ -8,10 +8,10 @@ export default function BottomNav() {
     <div className="relative text-white flex justify-between items-center px-8 py-6 h-[50px]" style={{ backgroundColor: themeColor }}>
 
       <div className="flex w-[85%] gap-4 md:gap-10 md:pl-[150px] text-lg justify-center">
-        <Link to="/oppourtunities" className="cursor-pointer hover:">Opportunities</Link>
+        <Link to="/opportunities" className="cursor-pointer hover:">Opportunities</Link>
         <Link to="/exam-prep" className="cursor-pointer hover:">Exam-Prep</Link>
         <Link to="/clubs" className="cursor-pointer hover:">Clubs</Link>
-        
+
       </div>
 
       {/* Right Cutout */}

@@ -8,7 +8,9 @@ export default function TopNav() {
   }
   return (
     <div className='w-full flex justify-evenly md:h-[50px] items-center bg-[white]'>
-      <h1><Link className='flex gap-2' to="/"><img className='h-[45px] w-[60px] md:w-[45px]' src="/ES.jpg" alt="logo" /><img className='h-[45px]' src="/Edusphere.jpg" alt="logo" /></Link></h1>
+      <div className="h-full flex items-center">
+        <Link className='flex gap-2' to="/"><img className='h-[48px] w-[180px]' src="/logo.png" alt="logo" /></Link>
+      </div>
       <Search
         placeholder="Search"
         onSearch={onSearch}

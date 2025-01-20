@@ -13,8 +13,8 @@ const ErrorPage = () => {
                 className="flex items-center justify-center w-36 h-36 rounded-full bg-[rgb(19,58,82)] shadow-lg"
             >
                 <motion.div
-                    initial={{ y: -10 }}
-                    animate={{ y: 10 }}
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
                     transition={{
                         duration: 1.5,
                         repeat: Infinity,

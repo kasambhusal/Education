@@ -25,9 +25,9 @@ const PageUser = () => {
                 <Route path="dashboard/login" element={<Login />} />
                 <Route path="dashboard/sign-up" element={<SignUp />} />
                 <Route path="dashboard/password-forgot" element={<ForgotPassword />} />
-                <Route path="/oppourtunities" element={<Oppourtunity />} />
-                <Route path ="/clubs" element={<Clubs />}/>
-                <Route path="*" element={<ErrorPage />} /> 
+                <Route path="/opportunities" element={<Oppourtunity />} />
+                <Route path="/clubs" element={<Clubs />} />
+                <Route path="*" element={<ErrorPage />} />
 
             </Routes>
             <div>

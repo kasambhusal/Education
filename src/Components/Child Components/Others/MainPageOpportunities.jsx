@@ -16,7 +16,7 @@ const itemVariants = {
     visible: { y: 0, opacity: 1 }
 };
 
-export default function MainBarPage({ name }) {
+export default function MainPageOpportunities({ name }) {
     const Competitions = [
         {
             title: "International Physics Olympiad",

@@ -6,18 +6,21 @@ import {
     CompassOutlined,
     TrophyOutlined,
     RocketOutlined,
+    ExperimentOutlined,
+    BookOutlined,
+    GlobalOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import MainBarPage from "../Others/MainBarPage";
+import MainPageClubs from "../Others/MainPageClubs";
 import { useTheme } from '../../Context/ThemeContext';
 
 const { Header, Sider, Content } = Layout;
 
-const Secondary = () => {
+const SecondaryClubs = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [headText, setHeadText] = useState("");
     const { themeColor } = useTheme();
-    const [selectedLabel, setSelectedLabel] = useState('Competitions');
+    const [selectedLabel, setSelectedLabel] = useState('Physics Club');
 
     useEffect(() => {
         function getCapitalizedWordFromCurrentURL() {
@@ -36,17 +39,32 @@ const Secondary = () => {
         {
             key: '1',
             icon: <TrophyOutlined />,
-            label: 'Competitions',
+            label: 'Physics Club',
         },
         {
             key: '2',
             icon: <RocketOutlined />,
-            label: 'Hackathons',
+            label: 'Math Club',
         },
         {
             key: '3',
             icon: <CompassOutlined />,
-            label: 'Workshops',
+            label: 'Computer Club',
+        },
+        {
+            key: '4',
+            icon: <ExperimentOutlined />,
+            label: 'Chemistry Club',
+        },
+        {
+            key: '5',
+            icon: <BookOutlined />,
+            label: 'Literature Club',
+        },
+        {
+            key: '6',
+            icon: <GlobalOutlined />,
+            label: 'Geography Club',
         },
     ];
 
@@ -125,7 +143,7 @@ const Secondary = () => {
                     <div className="px-6">
                         <input
                             type="search"
-                            placeholder="Search opportunities..."
+                            placeholder="Search clubs..."
                             className="px-4 h-[40px] rounded-full border border-gray-200 focus:outline-none focus:border-blue-500 w-64 transition-all duration-300"
                         />
                     </div>
@@ -145,7 +163,7 @@ const Secondary = () => {
                             transition={{ duration: 0.2 }}
                             className="h-full"
                         >
-                            <MainBarPage name={selectedLabel} />
+                            <MainPageClubs name={selectedLabel} />
                         </motion.div>
                     </AnimatePresence>
                 </Content>
@@ -154,4 +172,4 @@ const Secondary = () => {
     );
 };
 
-export default Secondary;
+export default SecondaryClubs;
