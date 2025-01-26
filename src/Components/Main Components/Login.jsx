@@ -1,17 +1,71 @@
-import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { motion } from 'framer-motion';
-import { LockClosedIcon, UserIcon } from '@heroicons/react/24/solid';
-
+import React, { useEffect, useState } from "react"
+import { Button, Form, Input } from "antd"
+import { motion } from "framer-motion"
+import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid"
+import { useUser } from "../Context/UserContext"
+import { Post } from "../../utils/API" // Your custom API.js file
+import { Link } from "react-router-dom"
+import { notification } from "antd"
 
 export default function Login() {
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  const { login } = useUser()
+  const [form] = Form.useForm()
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user")
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser)
+        if (typeof parsedUser === "string") {
+          form.setFieldsValue({ email: parsedUser })
+        } else if (parsedUser && typeof parsedUser.email === "string") {
+          form.setFieldsValue({ email: parsedUser.email })
+        }
+      } catch (error) {
+        console.error("Error parsing stored user:", error)
+      }
+    }
+  }, [form])
+
+  const onFinish = async (values) => {
+    try {
+      const response = await Post({
+        url: "/users/login",
+        data: {
+          email: values.email,
+          password: values.password,
+        },
+      })
+
+      localStorage.setItem("user", JSON.stringify(values.email))
+
+      // After successful login, update context with user data and token
+      login(response.user, response.token)
+
+      notification.success({
+        message: "Success",
+        description: "Login successful.",
+        duration: 3,
+      })
+
+      window.location.href = "/"
+    } catch (error) {
+      console.error("Login failed", error?.response?.data)
+
+      const errorMessage = error?.response?.data?.error || "An unexpected error occurred. Please try again."
+
+      notification.error({
+        message: "Login Error",
+        description: Array.isArray(errorMessage) ? errorMessage[0] : errorMessage,
+        duration: 3,
+      })
+    }
+  }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+    console.log("Failed:", errorInfo)
+  }
+
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-gradient-to-br from-purple-400 to-indigo-600">
       <motion.div
@@ -21,11 +75,9 @@ export default function Login() {
         className="w-full max-w-md"
       >
         <Form
+          form={form}
           className="bg-white shadow-2xl rounded-lg px-8 pt-6 pb-8 mb-4"
           name="basic"
-          initialValues={{
-            remember: true,
-          }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -35,26 +87,26 @@ export default function Login() {
             className="text-center mb-8"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
           >
             <span className="text-3xl font-bold text-indigo-600">LOGO</span>
             <span className="text-xl text-gray-600 ml-2">Kya huwa re</span>
           </motion.div>
 
           <Form.Item
-            name="username"
+            name="email"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: "Please input your email!",
+              },
+              {
+                type: "email",
+                message: "Please input a valid email!",
               },
             ]}
           >
-            <Input
-              prefix={<UserIcon className="h-5 w-5 text-gray-400" />}
-              placeholder="Username"
-              className="rounded-md"
-            />
+            <Input prefix={<UserIcon className="h-5 w-5 text-gray-400" />} placeholder="Email" className="rounded-md" />
           </Form.Item>
 
           <Form.Item
@@ -62,7 +114,7 @@ export default function Login() {
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: "Please input your password!",
               },
             ]}
           >
@@ -72,16 +124,19 @@ export default function Login() {
               className="rounded-md"
             />
           </Form.Item>
-
-          <Form.Item name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
+          <div className="text-center mt-4 flex justify-center gap-1">
+            <p className="text-gray-600">Don&apos;t have an account? </p>
+            <Link to="/user/sign-up" className="text-sm text-indigo-600 hover:text-indigo-800">
+              Sign Up
+            </Link>
+          </div>
+          <div className="flex justify-center mb-3">
+            <Link to="/user/password-forgot" className="text-indigo-600">
+              Forgot password?
+            </Link>
+          </div>
           <Form.Item>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -91,17 +146,9 @@ export default function Login() {
               </Button>
             </motion.div>
           </Form.Item>
-
-          <div className="text-center mt-4">
-            <a href="/dashboard/password-forgot" className="text-sm text-indigo-600 hover:text-indigo-800">Forgot password?</a>
-          </div>
-          <div className="text-center mt-4">
-            <span className="text-gray-600">Don't have an account? </span>
-            <a href="/dashboard/sign-up" className="text-sm text-indigo-600 hover:text-indigo-800">Sign Up</a>
-          </div>
         </Form>
       </motion.div>
     </div>
-  );
+  )
 }
 

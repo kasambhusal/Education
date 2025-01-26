@@ -1,35 +1,78 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { motion } from 'framer-motion';
 import { EnvelopeIcon, LockClosedIcon, KeyIcon } from '@heroicons/react/24/solid';
+import { Post } from '../../utils/API';
 
 const ForgotPassword = () => {
     const [step, setStep] = useState(1);
     const [email, setEmail] = useState('');
+    const [form] = Form.useForm()
 
-    const onFinishEmail = (values) => {
-        console.log('Email submitted:', values.email);
-        setEmail(values.email);
-        message.success('OTP sent to your email');
-        setStep(2);
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user")
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser)
+                if (typeof parsedUser === "string") {
+                    form.setFieldsValue({ email: parsedUser })
+                } else if (parsedUser && typeof parsedUser.email === "string") {
+                    form.setFieldsValue({ email: parsedUser.email })
+                }
+            } catch (error) {
+                console.error("Error parsing stored user:", error)
+            }
+        }
+    }, [form])
+
+
+    const onFinishEmail = async (values) => {
+        console.log("Hello guys from finished email")
+        console.log(values.email)
+        try {
+            const response = await Post({ url: "/users/forgot-password", data: { email: values.email } });
+            message.success(response.message);
+            setEmail(values.email);
+            setStep(2);
+        } catch (error) {
+            console.error("Error on Sending OTP", error)
+            message.error(error.response?.data?.message || "Failed to send OTP");
+        }
     };
 
-    const onFinishOTP = (values) => {
-        console.log('OTP submitted:', values.otp);
-        message.success('OTP verified successfully');
-        setStep(3);
+
+    const onFinishOTP = async (values) => {
+        try {
+            const response = await Post({ url: "/users/verify-otp", data: { email, otp: values.otp } });
+            message.success(response.message);
+            setStep(3);
+        } catch (error) {
+            message.error(error.response?.data?.message || "Invalid OTP");
+        }
     };
 
-    const onFinishNewPassword = (values) => {
-        console.log('New password submitted:', values.newPassword);
-        message.success('Password updated successfully');
+
+    const onFinishNewPassword = async (values) => {
+        try {
+            const response = await Post({
+                url: "/users/reset-password", data: {
+                    email,
+                    newPassword: values.newPassword,
+                }
+            });
+            message.success(response.message);
+            window.location.href = '/user/login';
+        } catch (error) {
+            message.error(error.response?.data?.message || "Failed to reset password");
+        }
     };
+
 
     const renderStep = () => {
         switch (step) {
             case 1:
                 return (
-                    <Form name="forgotPassword" onFinish={onFinishEmail} layout="vertical">
+                    <Form name="forgotPassword" form={form} onFinish={onFinishEmail} layout="vertical">
                         <Form.Item
                             name="email"
                             rules={[
@@ -159,7 +202,7 @@ const ForgotPassword = () => {
                     </h2>
                     {renderStep()}
                     <div className="text-center mt-4">
-                        <a href="/dashboard/login" className="text-sm text-indigo-600 hover:text-indigo-800">Back to Login</a>
+                        <a href="/user/login" className="text-sm text-indigo-600 hover:text-indigo-800">Back to Login</a>
                     </div>
                 </div>
             </motion.div>

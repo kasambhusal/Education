@@ -16,23 +16,23 @@ const PageUser = () => {
     return (
         <div>
             {
-                !location.pathname.toLowerCase().includes("/dashboard") && <MainNav />
+                !location.pathname.toLowerCase().includes("/user") && <MainNav />
             }
             <ScrollToTop />
 
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="dashboard/login" element={<Login />} />
-                <Route path="dashboard/sign-up" element={<SignUp />} />
-                <Route path="dashboard/password-forgot" element={<ForgotPassword />} />
+                <Route path="user/login" element={<Login />} />
+                <Route path="user/sign-up" element={<SignUp />} />
+                <Route path="user/password-forgot" element={<ForgotPassword />} />
                 <Route path="/opportunities" element={<Oppourtunity />} />
                 <Route path="/clubs" element={<Clubs />} />
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
-            <div>
-                <MainFooter />
-            </div>
+            {
+                !location.pathname.toLowerCase().includes("/user") && <MainFooter />
+            }
         </div>
     )
 }

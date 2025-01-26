@@ -1,19 +1,39 @@
 import React from 'react';
-import { Button, Form, Input, Select, Radio } from 'antd';
+import { Button, Form, Input, Radio, notification } from 'antd';
 import { motion } from 'framer-motion';
-import { UserIcon, EnvelopeIcon, LockClosedIcon, MapPinIcon } from '@heroicons/react/24/solid';
+import { UserIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid';
+import { Post } from '../../utils/API'; // Adjust the path as needed
 
-const { Option } = Select;
+const SignUp = () => {
+    const onFinish = async (values) => {
+        try {
+            const response = await Post({
+                url: '/users/register', // Your backend signup endpoint
+                data: {
+                    fullname: values.username,
+                    email: values.email,
+                    password: values.password,
+                },
+            });
+            notification.success({
+                message: 'Registration Successful',
+                description: 'You have successfully registered. Please log in.',
+            });
+        } catch (error) {
+            notification.error({
+                message: 'Registration Failed',
+                description: error?.response?.data?.errors || 'Something went wrong. Please try again.',
+            });
+        }
+    };
 
-const onFinish = (values) => {
-    console.log('Success:', values);
-};
+    const onFinishFailed = (errorInfo) => {
+        notification.warning({
+            message: 'Validation Failed',
+            description: 'Please check the form and try again.',
+        });
+    };
 
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
-
-export default function SignUp() {
     return (
         <div className="flex justify-center items-center w-screen min-h-screen bg-gradient-to-br from-purple-400 to-indigo-600 py-12">
             <motion.div
@@ -30,6 +50,7 @@ export default function SignUp() {
                     autoComplete="off"
                     layout="vertical"
                 >
+                    {/* Logo Section */}
                     <motion.div
                         className="text-center mb-8"
                         initial={{ scale: 0 }}
@@ -40,6 +61,7 @@ export default function SignUp() {
                         <span className="text-xl text-gray-600 ml-2">Kya huwa re</span>
                     </motion.div>
 
+                    {/* Form Fields */}
                     <Form.Item
                         name="username"
                         rules={[{ required: true, message: 'Please input your username!' }]}
@@ -55,7 +77,7 @@ export default function SignUp() {
                         name="email"
                         rules={[
                             { required: true, message: 'Please input your email!' },
-                            { type: 'email', message: 'Please enter a valid email!' }
+                            { type: 'email', message: 'Please enter a valid email!' },
                         ]}
                     >
                         <Input
@@ -97,35 +119,9 @@ export default function SignUp() {
                             className="rounded-md"
                         />
                     </Form.Item>
-
-                    <Form.Item
-                        name="gender"
-                        rules={[{ required: true, message: 'Please select your gender!' }]}
-                    >
-                        <Radio.Group className="w-full flex justify-between">
-                            <Radio value="male">Male</Radio>
-                            <Radio value="female">Female</Radio>
-                            <Radio value="other">Other</Radio>
-                        </Radio.Group>
-                    </Form.Item>
-
-                    <Form.Item
-                        name="address"
-                        rules={[{ required: true, message: 'Please input your address!' }]}
-                    >
-                        <Input.TextArea
-                            prefix={<MapPinIcon className="h-5 w-5 text-gray-400" />}
-                            placeholder="Address"
-                            className="rounded-md"
-                            rows={3}
-                        />
-                    </Form.Item>
-
+                    {/* Submit Button */}
                     <Form.Item>
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                             <Button
                                 type="primary"
                                 htmlType="submit"
@@ -136,13 +132,15 @@ export default function SignUp() {
                         </motion.div>
                     </Form.Item>
 
+                    {/* Redirect to Login */}
                     <div className="text-center mt-4">
                         <span className="text-gray-600">Already have an account? </span>
-                        <a href="/dashboard/login" className="text-sm text-indigo-600 hover:text-indigo-800">Log in</a>
+                        <a href="/user/login" className="text-sm text-indigo-600 hover:text-indigo-800">Log in</a>
                     </div>
                 </Form>
             </motion.div>
         </div>
     );
-}
+};
 
+export default SignUp;

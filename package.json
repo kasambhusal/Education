@@ -13,6 +13,7 @@
     "@ant-design/icons": "^5.5.2",
     "@heroicons/react": "^2.2.0",
     "antd": "^5.22.6",
+    "axios": "^1.7.9",
     "framer-motion": "^11.15.0",
     "i": "^0.3.7",
     "lucide-react": "^0.471.1",

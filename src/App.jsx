@@ -8,13 +8,16 @@ import Home from './Components/Main Components/Home'
 import Login from './Components/Main Components/Login'
 import PageUser from './Components/Main Components/PageUser'
 import { ThemeProvider } from './Components/Context/ThemeContext'
+import { UserProvider } from './Components/Context/UserContext'
 
 function App() {
 
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <PageUser />
+        <UserProvider>
+          <PageUser />
+        </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
   )
