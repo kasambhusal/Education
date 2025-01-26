@@ -10,6 +10,7 @@ import ScrollToTop from '../Child Components/Others/ScrollToTop'
 import MainFooter from './MainFooter'
 import Oppourtunity from './Oppourtunity'
 import ErrorPage from '../Child Components/Others/ErrorPage'
+import ExamPrep from './Exam-prep'
 
 const PageUser = () => {
     const location = useLocation();
@@ -27,6 +28,7 @@ const PageUser = () => {
                 <Route path="user/password-forgot" element={<ForgotPassword />} />
                 <Route path="/opportunities" element={<Oppourtunity />} />
                 <Route path="/clubs" element={<Clubs />} />
+                <Route path="/exam-prep" element={<ExamPrep/>} />
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
