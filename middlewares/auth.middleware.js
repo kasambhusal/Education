@@ -1,33 +1,26 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+const userService = require('./user.service');  // Ensure correct import of userService
 
 const validateToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Extract token from Authorization header
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: Token missing' });
+  }
+
+  // Check if the token is blacklisted
+  if (userService.isTokenBlacklisted(token)) {
+    return res.status(403).json({ error: 'Token has been invalidated. Please log in again.' });
+  }
+
   try {
-    const authHeader = req.headers["authorization"];
-    if (!authHeader) {
-      return res.status(401).json({ error: "Authorization header missing" });
-    }
-
-    // Extract token from "Bearer {token}" format
-    const token = authHeader.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({ error: "Token missing" });
-    }
-
-    // Verify the token
-    const secretKey = process.env.JWT_SECRET; 
-    jwt.verify(token, secretKey, (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ error: "Invalid or expired token" });
-      }
-
-      // Attach user info to the request object for downstream use
-      req.user = decoded;
-      next(); // Proceed to the next middleware or controller
-    });
-  } catch (error) {
-    console.error("Error in validateToken middleware:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    // Verify the token using JWT
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Add the decoded user data to the request object
+    next(); // Allow the request to proceed to the next handler
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid or expired token' });
   }
 };
 
-module.exports = validateToken;
+module.exports = { validateToken };

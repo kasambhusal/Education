@@ -44,3 +44,23 @@ module.exports.loginUser = async (req, res, next) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// Controller function for logout
+module.exports.logoutUser = async (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Extract token from Authorization header
+
+  if (!token) {
+    return res.status(400).json({ error: 'Token is required to log out' });
+  }
+
+  try {
+    // Add the token to the blacklist
+    userService.addToBlacklist(token);
+    
+    // Optionally, you can send a success message and clear the user's session on the frontend
+    res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Logout Error:', error);
+    res.status(500).json({ error: 'Something went wrong during logout' });
+  }
+};

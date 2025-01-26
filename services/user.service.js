@@ -51,3 +51,16 @@ module.exports.authenticateUser = async ({ email, password }) => {
     user: { _id: user._id, fullname: user.fullname, email: user.email },
   };
 };
+
+// Simulating an in-memory blacklist for tokens (use a database/Redis for production)
+let tokenBlacklist = new Set();
+// Function to add token to blacklist
+module.exports.addToBlacklist = (token) => {
+  tokenBlacklist.add(token); // Add token to the blacklist
+  console.log('Token added to blacklist:', token);
+};
+
+// Function to check if token is blacklisted
+module.exports.isTokenBlacklisted = (token) => {
+  return tokenBlacklist.has(token); // Check if the token is blacklisted
+};
