@@ -28,13 +28,14 @@ const PageUser = () => {
                 <Route path="user/password-forgot" element={<ForgotPassword />} />
                 <Route path="/opportunities" element={<Oppourtunity />} />
                 <Route path="/clubs" element={<Clubs />} />
-                <Route path="/exam-prep" element={<ExamPrep/>} />
+                <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
             {
-                !location.pathname.toLowerCase().includes("/user") && <MainFooter />
+                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && <MainFooter />
             }
+
         </div>
     )
 }
