@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, Radio, notification } from 'antd';
 import { motion } from 'framer-motion';
-import { UserIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid';
+import { UserIcon, EnvelopeIcon, CameraIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { Post } from '../../utils/API'; // Adjust the path as needed
 
 const SignUp = () => {
@@ -12,6 +12,7 @@ const SignUp = () => {
                 data: {
                     fullname: values.username,
                     email: values.email,
+                    image: values.image,
                     password: values.password,
                 },
             });
@@ -20,10 +21,15 @@ const SignUp = () => {
                 description: 'You have successfully registered. Please log in.',
             });
         } catch (error) {
+            console.error("SignUp failed", error?.response?.data)
+
+            const errorMessage = error?.response?.data?.errors || "An unexpected error occurred. Please try again."
+
             notification.error({
-                message: 'Registration Failed',
-                description: error?.response?.data?.errors || 'Something went wrong. Please try again.',
-            });
+                message: "Login Error",
+                description: Array.isArray(errorMessage) ? errorMessage[0] : errorMessage,
+                duration: 3,
+            })
         }
     };
 
@@ -83,6 +89,19 @@ const SignUp = () => {
                         <Input
                             prefix={<EnvelopeIcon className="h-5 w-5 text-gray-400" />}
                             placeholder="Email"
+                            className="rounded-md"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name="image"
+                        rules={[
+                            { required: true, message: 'Please input your Image url!' },
+                            { type: 'url', message: 'Please enter a valid url!' },
+                        ]}
+                    >
+                        <Input
+                            prefix={<CameraIcon className="h-5 w-5 text-gray-400" />}
+                            placeholder="Image Url"
                             className="rounded-md"
                         />
                     </Form.Item>

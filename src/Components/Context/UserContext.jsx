@@ -9,10 +9,12 @@ export const UserProvider = ({ children }) => {
     id: null,
     fullname: '',
     email: '',
+    image: '',
     address: '',
     gender: '',
     standard: '',
     goal: '',
+    role: 'ADMIN'
   });
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   // Update user state from localStorage if the token exists
@@ -37,6 +39,7 @@ export const UserProvider = ({ children }) => {
       id: null,
       fullname: '',
       email: '',
+      image: '',
       address: '',
       gender: '',
       standard: '',
@@ -45,6 +48,7 @@ export const UserProvider = ({ children }) => {
     setToken(null);
     localStorage.removeItem('token');
     localStorage.removeItem('userData');
+    localStorage.removeItem('user');
   };
 
   return (

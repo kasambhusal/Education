@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react"
-import { Button, Form, Input } from "antd"
-import { motion } from "framer-motion"
-import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid"
-import { useUser } from "../Context/UserContext"
-import { Post } from "../../utils/API" // Your custom API.js file
-import { Link } from "react-router-dom"
-import { notification } from "antd"
+import React, { useEffect, useState } from "react";
+import { Button, Form, Input, notification } from "antd";
+import { motion } from "framer-motion";
+import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";
+import { useUser } from "../Context/UserContext";
+import { Post } from "../../utils/API"; // Your custom API.js file
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login } = useUser()
-  const [form] = Form.useForm()
+  const { login } = useUser();
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user")
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
-        const parsedUser = JSON.parse(storedUser)
+        const parsedUser = JSON.parse(storedUser);
         if (typeof parsedUser === "string") {
-          form.setFieldsValue({ email: parsedUser })
+          form.setFieldsValue({ email: parsedUser });
         } else if (parsedUser && typeof parsedUser.email === "string") {
-          form.setFieldsValue({ email: parsedUser.email })
+          form.setFieldsValue({ email: parsedUser.email });
         }
       } catch (error) {
-        console.error("Error parsing stored user:", error)
+        console.error("Error parsing stored user:", error);
       }
     }
-  }, [form])
+  }, [form]);
 
   const onFinish = async (values) => {
     try {
@@ -35,36 +36,39 @@ export default function Login() {
           email: values.email,
           password: values.password,
         },
-      })
+      });
 
-      localStorage.setItem("user", JSON.stringify(values.email))
+      localStorage.setItem("user", JSON.stringify(values.email));
 
-      // After successful login, update context with user data and token
-      login(response.user, response.token)
+      // Update context with user data and token
+      login(response.user, response.token);
 
       notification.success({
         message: "Success",
         description: "Login successful.",
         duration: 3,
-      })
+      });
 
-      window.location.href = "/"
+      // Redirect to the previous page if available, otherwise go to "/"
+      const redirectTo = location.state?.redirectTo || "/";
+      navigate(redirectTo, { replace: true });
+
     } catch (error) {
-      console.error("Login failed", error?.response?.data)
+      console.error("Login failed", error?.response?.data);
 
-      const errorMessage = error?.response?.data?.error || "An unexpected error occurred. Please try again."
+      const errorMessage = error?.response?.data?.error || "An unexpected error occurred. Please try again.";
 
       notification.error({
         message: "Login Error",
         description: Array.isArray(errorMessage) ? errorMessage[0] : errorMessage,
         duration: 3,
-      })
+      });
     }
-  }
+  };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo)
-  }
+    console.log("Failed:", errorInfo);
+  };
 
   return (
     <div className="flex justify-center items-center w-screen h-screen bg-gradient-to-br from-purple-400 to-indigo-600">
@@ -149,6 +153,5 @@ export default function Login() {
         </Form>
       </motion.div>
     </div>
-  )
+  );
 }
-

@@ -1,10 +1,11 @@
-import { Button, Input } from "antd"
-import React, { useEffect, useState } from "react"
+import { Input } from "antd"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useUser } from "../../Context/UserContext"
 import { Settings, LogOut, UserPlus } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Post } from "../../../utils/API"
+// import Image from "next/image" //Removed import for Next.js Image
 const { Search } = Input
 
 const AccountManagement = ({ onClose }) => (
@@ -97,8 +98,16 @@ export default function TopNav() {
           className="flex gap-2 items-center"
         >
           <div className="flex items-center gap-4 p-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-              <span className="font-bold text-3xl text-blue-800">{user?.fullname?.charAt(0).toUpperCase()}</span>
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center overflow-hidden">
+              {user?.image ? (
+                <img
+                  src={user.image || "/placeholder.svg"}
+                  alt={user.fullname}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="font-bold text-3xl text-blue-800">{user?.fullname?.charAt(0).toUpperCase()}</span>
+              )}
             </div>
             <h1 className="font-semibold text-xl">{`Hi, ${user?.fullname}`}</h1>
           </div>
@@ -114,7 +123,7 @@ export default function TopNav() {
             <AnimatePresence>
               {showDropdown && (
                 <motion.div
-                  initial={{ opacity: 0, y: -10, }}
+                  initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md py-2 z-10"

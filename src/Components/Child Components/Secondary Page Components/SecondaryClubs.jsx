@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     TrophyOutlined,
@@ -10,14 +10,12 @@ import {
 } from "@ant-design/icons"
 import { Layout, Menu } from "antd"
 import MainPageClubs from "../Others/MainPageClubs"
-import { useTheme } from "../../Context/ThemeContext"
 
 const { Sider, Content } = Layout
 
 const SecondaryClubs = () => {
     const [collapsed, setCollapsed] = useState(false)
-    const { themeColor } = useTheme()
-    const [selectedLabel, setSelectedLabel] = useState("Physics Club")
+    const [selectedLabel, setSelectedLabel] = useState("")
 
     const menuItems = [
         {
@@ -52,10 +50,21 @@ const SecondaryClubs = () => {
         },
     ]
 
+    useEffect(() => {
+        // Retrieve selected label from localStorage
+        const storedLabel = localStorage.getItem("selectedClub");
+        if (storedLabel) {
+            setSelectedLabel(storedLabel); // Set the saved label on page load
+        } else {
+            setSelectedLabel("Physics Club"); // Default to Physics Club if no label is saved
+        }
+    }, [])
+
     const handleMenuClick = ({ key }) => {
         const clickedItem = menuItems.find((item) => item.key === key)
         if (clickedItem) {
             setSelectedLabel(clickedItem.label)
+            localStorage.setItem("selectedClub", clickedItem.label); // Save the selected label to localStorage
         }
     }
 
@@ -112,7 +121,7 @@ const SecondaryClubs = () => {
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={["1"]}
+                        selectedKeys={[menuItems.find(item => item.label === selectedLabel)?.key || "0"]}
                         items={menuItems}
                         onClick={handleMenuClick}
                         className="border-none"
@@ -125,7 +134,7 @@ const SecondaryClubs = () => {
 
             <Layout>
                 <Content
-                    className="m-6 py-3 px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
+                    className="my-2 mx-4 py-3 px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
                     style={{
                         height: "calc(100vh - 48px)",
                     }}
@@ -149,4 +158,3 @@ const SecondaryClubs = () => {
 }
 
 export default SecondaryClubs
-
