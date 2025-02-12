@@ -126,7 +126,7 @@ const ExamPrep = () => {
             </div>
 
 
-            <div className="examPrepMain flex flex-col gap-8 pt-8">
+            <div className="examPrepMain w-[67vw] flex flex-col gap-8 pt-8">
                 {!isAnswer ? currentQuestions.index.map((item) => {
                     return (
                         <div className="mainComponentExamSection flex flex-col gap-8 w-[90%] py-4 px-8 mx-auto border border-slate-300 border-t-blue-500 border-t-4 rounded-sm">

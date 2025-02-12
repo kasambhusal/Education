@@ -11,6 +11,7 @@ export default function BottomNav() {
         <Link to="/opportunities" className="cursor-pointer hover:">Opportunities</Link>
         <Link to="/exam-prep" className="cursor-pointer hover:">Exam-Prep</Link>
         <Link to="/clubs" className="cursor-pointer hover:">Clubs</Link>
+        <Link to="/courses" className="cursor-pointer hover:">Courses</Link>
 
       </div>
 

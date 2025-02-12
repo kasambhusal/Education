@@ -12,6 +12,7 @@ import Oppourtunity from './Oppourtunity'
 import ErrorPage from '../Child Components/Others/ErrorPage'
 import ExamPrep from './Exam-prep'
 import SinglePost from './SinglePost'
+import Courses from './Courses'
 
 const PageUser = () => {
     const location = useLocation();
@@ -31,6 +32,7 @@ const PageUser = () => {
                 <Route path="/clubs" element={<Clubs />} />
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
+                <Route path='/courses' element={<Courses/>}/>
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
