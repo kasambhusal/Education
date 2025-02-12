@@ -56,7 +56,7 @@ const SecondaryClubs = () => {
         if (storedLabel) {
             setSelectedLabel(storedLabel); // Set the saved label on page load
         } else {
-            setSelectedLabel("Physics Club"); // Default to Physics Club if no label is saved
+            setSelectedLabel("Competitions"); // Default to Physics Club if no label is saved
         }
     }, [])
 
