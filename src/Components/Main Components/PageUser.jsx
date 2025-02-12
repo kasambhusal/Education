@@ -35,7 +35,7 @@ const PageUser = () => {
 
             </Routes>
             {
-                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && <MainFooter />
+                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && !location.pathname.toLowerCase().includes("/opportunities") && <MainFooter />
             }
 
         </div>

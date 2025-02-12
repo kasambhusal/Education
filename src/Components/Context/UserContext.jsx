@@ -22,7 +22,11 @@ export const UserProvider = ({ children }) => {
     if (token) {
       const userData = JSON.parse(localStorage.getItem('userData'));
       if (userData) {
-        setUser(userData);
+        setUser((prev) => ({
+          ...prev,
+          ...userData,
+          role: userData.role || 'ADMIN', // Default role if missing
+        }));
       }
     }
   }, [token]);
@@ -43,6 +47,7 @@ export const UserProvider = ({ children }) => {
       address: '',
       gender: '',
       standard: '',
+      role: '',
       goal: '',
     });
     setToken(null);

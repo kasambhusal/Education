@@ -1,10 +1,11 @@
+"use client"
+
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import UserAvatar from "../Secondary Page Components/UserAvatar"
 import { Get } from "../../../utils/API"
 import { useUser } from "../../Context/UserContext"
-import PostTime from "../Secondary Page Components/PostTime"
 import NewOpportunity from "../Secondary Page Components/NewOpportunity"
+import SingleOpportunity from "../Secondary Page Components/SingleOpportunity"
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -16,28 +17,31 @@ const containerVariants = {
     },
 }
 
-const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-}
-
 export default function MainPageOpportunities({ name }) {
     const [opportunities, setOpportunities] = useState([])
     const [visibleOpportunities, setVisibleOpportunities] = useState(5)
     const [searchTerm, setSearchTerm] = useState("")
-    const [selectedCategory, setSelectedCategory] = useState("All")
+    const [selectedType, setSelectedType] = useState("All")
     const [selectedStatus, setSelectedStatus] = useState("All")
     const [isNewPostOpen, setIsNewPostOpen] = useState(false)
+    const [uniqueTypes, setUniqueTypes] = useState([])
 
     const { token } = useUser()
+
     useEffect(() => {
         fetchOpportunities()
     }, [])
 
+    useEffect(() => {
+        // Extract unique types from opportunities
+        const types = [...new Set(opportunities.map((opp) => opp.type))]
+        setUniqueTypes(types)
+    }, [opportunities])
+
     const fetchOpportunities = async () => {
         try {
             const response = await Get({
-                url: `http://localhost:4000/opportunities/get?category=${name}`,
+                url: `/opportunities/get?category=${name.toLowerCase()}`,
                 headers: {
                     Authorization: token,
                     "Content-Type": "application/json",
@@ -52,16 +56,18 @@ export default function MainPageOpportunities({ name }) {
     const filteredOpportunities = opportunities.filter(
         (opportunity) =>
             opportunity.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-            (selectedCategory === "All" || opportunity.category === selectedCategory) &&
+            (selectedType === "All" || opportunity.type === selectedType) &&
             (selectedStatus === "All" || opportunity.status === selectedStatus),
     )
 
     const handleShowMore = () => {
         setVisibleOpportunities((prevVisible) => prevVisible + 5)
     }
+
     const handleNewPost = () => {
         fetchOpportunities()
     }
+
     return (
         <motion.div variants={containerVariants} initial="hidden" animate="visible" className="h-full">
             <div className="flex justify-between items-center mb-8">
@@ -76,13 +82,15 @@ export default function MainPageOpportunities({ name }) {
                     />
                     <select
                         className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        value={selectedType}
+                        onChange={(e) => setSelectedType(e.target.value)}
                     >
-                        <option value="All">All Categories</option>
-                        <option value="Competitions">Competitions</option>
-                        <option value="Hackathons">Hackathons</option>
-                        <option value="Workshops">Workshops</option>
+                        <option value="All">All Types</option>
+                        {uniqueTypes.map((type) => (
+                            <option key={type} value={type}>
+                                {type}
+                            </option>
+                        ))}
                     </select>
                     <select
                         className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
@@ -94,8 +102,10 @@ export default function MainPageOpportunities({ name }) {
                         <option value="Closed">Closed</option>
                         <option value="Coming Soon">Coming Soon</option>
                     </select>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                        onClick={() => setIsNewPostOpen(true)}>
+                    <button
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        onClick={() => setIsNewPostOpen(true)}
+                    >
                         + Add New
                     </button>
                 </div>
@@ -104,42 +114,7 @@ export default function MainPageOpportunities({ name }) {
             <AnimatePresence>
                 <motion.div className="grid gap-4">
                     {filteredOpportunities.slice(0, visibleOpportunities).map((opportunity, index) => (
-                        <motion.div
-                            key={opportunity._id}
-                            variants={itemVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                            className="p-6 bg-gray-50 rounded-xl hover:shadow-md transition-all duration-300 cursor-pointer border border-gray-100"
-                        >
-                            <div className="flex justify-between items-center">
-                                <div className="flex items-center space-x-4">
-                                    <UserAvatar user={opportunity.from} />
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-gray-800">{opportunity.title}</h3>
-                                        <div className="mt-1">
-                                            <PostTime date={opportunity.createdAt} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4 items-center">
-                                    <span className="px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
-                                        {opportunity.category}
-                                    </span>
-                                    <span
-                                        className={`px-3 py-1 rounded-full text-sm ${opportunity.status === "Open"
-                                            ? "bg-green-100 text-green-800"
-                                            : opportunity.status === "Closed"
-                                                ? "bg-red-100 text-red-800"
-                                                : "bg-yellow-100 text-yellow-800"
-                                            }`}
-                                    >
-                                        {opportunity.status}
-                                    </span>
-                                </div>
-                            </div>
-                            <p className="mt-4 text-gray-700">{opportunity.text}</p>
-                        </motion.div>
+                        <SingleOpportunity key={index} opportunity={opportunity} fetchOpportunities={handleNewPost} />
                     ))}
                 </motion.div>
             </AnimatePresence>

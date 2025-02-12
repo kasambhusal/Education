@@ -6,6 +6,8 @@ import UserAvatar from "./UserAvatar"
 import { useUser } from "../../Context/UserContext"
 import { Post as PostRequest } from "../../../utils/API"
 import PostTime from "./PostTime"
+import { Statistic } from "antd"
+import { formatNumber } from "../../JS/formatNumber"
 
 const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -27,7 +29,6 @@ const Post = ({ post: initialPost }) => {
     const commentInputRef = useRef(null)
     const commentSectionRef = useRef(null)
     const textToCopy = `http://localhost:5173/clubs/post/${post?._id}`
-
     useEffect(() => {
         if (isLikeAnimating) {
             const timer = setTimeout(() => setIsLikeAnimating(false), 1000)
@@ -139,7 +140,7 @@ const Post = ({ post: initialPost }) => {
             <div className="flex items-start space-x-4">
                 <UserAvatar user={post.from} />
                 <div className="flex-grow">
-                    <h3 className="font-semibold text-xl mb-2">{post.title}</h3>
+                    <h3 className="font-semibold text-xl mb-2 line-clamp-1">{post.title}</h3>
                     <p className="text-gray-600 text-sm mb-4">
                         Posted by {post.from.name} on {new Date(post.createdAt).toLocaleDateString()}
                     </p>
@@ -151,11 +152,16 @@ const Post = ({ post: initialPost }) => {
                         />
                     )}
 
-                    <p className="text-gray-800 mb-4">
-                        {isTextExpanded ? post.text : `${post.text.slice(0, 200)}...`}
-                        {post.text.length > 200 && !isTextExpanded && (
+                    <p className="text-gray-800 mb-4 text-justify">
+                        {isTextExpanded || post.text.length <= 300 ? post.text : `${post.text.slice(0, 300)}...`}
+                        {post.text.length > 300 && !isTextExpanded && (
                             <button className="text-blue-500 text-sm ml-2" onClick={() => setIsTextExpanded(true)}>
-                                Show More
+                                See More
+                            </button>
+                        )}
+                        {isTextExpanded && post.text.length > 300 && (
+                            <button className="text-blue-500 text-sm ml-2" onClick={() => setIsTextExpanded(false)}>
+                                See Less
                             </button>
                         )}
                     </p>
@@ -178,7 +184,13 @@ const Post = ({ post: initialPost }) => {
                                 exit={{ opacity: 0, y: 10 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                {likeCount}
+                                <Statistic
+                                    value={formatNumber(likeCount)}
+                                    valueStyle={{
+                                        color: "#6B7280", fontSize: "16px"
+                                    }}
+
+                                />
                             </motion.span>
                         </motion.button>
 

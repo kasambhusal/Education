@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, useCallback, useRef } from "react"
 import { motion } from "framer-motion"
 import NewPostForm from "../Secondary Page Components/NewPostForm"
@@ -24,6 +26,7 @@ export default function MainPageClubs({ name }) {
     const limit = 10
     const { token } = useUser()
     const observer = useRef()
+    const initialLoadDone = useRef(false)
 
     const lastPostElementRef = useCallback(
         (node) => {
@@ -41,11 +44,14 @@ export default function MainPageClubs({ name }) {
 
     const loadPosts = useCallback(
         async (refresh = false) => {
-            if (isLoading || (!hasMore && !refresh)) return
+            if (isLoading || (!hasMore && !refresh) || !name) return
 
             setIsLoading(true)
             try {
                 const pageToFetch = refresh ? 1 : currentPage
+                console.log("Loading posts for:", name.toLowerCase())
+                console.log("Page:", pageToFetch)
+                console.log("Limit:", limit)
                 const response = await Get({
                     url: `/clubs/get/${name.toLowerCase()}?page=${pageToFetch}&limit=${limit}`,
                     headers: {
@@ -76,17 +82,24 @@ export default function MainPageClubs({ name }) {
                 setIsLoading(false)
             }
         },
-        [name, currentPage, token, hasMore],
-    ) // Added hasMore to dependencies
+        [name, currentPage, token, hasMore, isLoading], // Added isLoading to dependencies
+    )
 
     useEffect(() => {
-        loadPosts()
-    }, [loadPosts])
+        if (name && !initialLoadDone.current) {
+            loadPosts()
+            initialLoadDone.current = true
+        }
+    }, [name, loadPosts])
 
     const handleNewPost = () => {
         setCurrentPage(1)
         setHasMore(true)
         loadPosts(true)
+    }
+
+    if (!name) {
+        return <div>Loading...</div>
     }
 
     return (

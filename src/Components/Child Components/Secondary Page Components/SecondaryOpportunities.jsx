@@ -20,6 +20,14 @@ const SecondaryOpportunities = () => {
     const [selectedLabel, setSelectedLabel] = useState('Competitions');
 
     useEffect(() => {
+        // Retrieve selected label from localStorage
+        const storedLabel = localStorage.getItem("selectedOpportunity");
+        if (storedLabel) {
+            setSelectedLabel(storedLabel); // Set the saved label on page load
+        } else {
+            setSelectedLabel("Competitions"); // Default label if none is stored
+        }
+
         function getCapitalizedWordFromCurrentURL() {
             const url = window.location.href;
             const lastSegment = url.split('/').filter(Boolean).pop();
@@ -51,14 +59,46 @@ const SecondaryOpportunities = () => {
     ];
 
     const handleMenuClick = ({ key }) => {
-        const clickedItem = menuItems.find(item => item.key === key);
+        const clickedItem = menuItems.find((item) => item.key === key)
         if (clickedItem) {
             setSelectedLabel(clickedItem.label);
+            localStorage.setItem("selectedOpportunity", clickedItem.label); // Save the selected label to localStorage
         }
     };
 
     return (
         <Layout className="min-h-screen max-h-screen overflow-hidden">
+            {/* Custom sliding button */}
+            <div
+                className="fixed top-1/2 left-0 -translate-y-1/2 z-50"
+                style={{
+                    transform: collapsed ? "translateX(80px)" : "translateX(260px)",
+                    transition: "transform 0.2s ease-in-out",
+                }}
+            >
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setCollapsed(!collapsed)}
+                    className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer border border-gray-200"
+                >
+                    <motion.div animate={{ rotate: collapsed ? 0 : 180 }} transition={{ duration: 0.2 }}>
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </motion.div>
+                </motion.button>
+            </div>
+
             <Sider
                 trigger={null}
                 collapsible
@@ -77,16 +117,14 @@ const SecondaryOpportunities = () => {
                     transition={{ duration: 0.2 }}
                     className="h-full"
                 >
-                    <div className="p-4 text-white text-xl font-bold border-b border-blue-400/30">
-                        {!collapsed && 'Navigation'}
-                    </div>
+
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={['1']}
+                        selectedKeys={[menuItems.find(item => item.label === selectedLabel)?.key || "1"]}
                         items={menuItems}
                         onClick={handleMenuClick}
-                        className="border-none"
+                        className="border-none mt-5"
                         style={{
                             background: 'transparent',
                         }}
@@ -94,44 +132,8 @@ const SecondaryOpportunities = () => {
                 </motion.div>
             </Sider>
             <Layout>
-                <Header
-                    className="p-0 flex items-center justify-between"
-                    style={{
-                        background: 'rgba(255, 255, 255, 0.9)',
-                        backdropFilter: 'blur(10px)',
-                        borderBottom: '1px solid rgba(0,0,0,0.1)',
-                    }}
-                >
-                    <div className="flex items-center">
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                            className="hover:bg-blue-50"
-                        />
-                        <motion.h1
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 text-transparent bg-clip-text"
-                        >
-                            {headText}
-                        </motion.h1>
-                    </div>
-                    <div className="px-6">
-                        <input
-                            type="search"
-                            placeholder="Search opportunities..."
-                            className="px-4 h-[40px] rounded-full border border-gray-200 focus:outline-none focus:border-blue-500 w-64 transition-all duration-300"
-                        />
-                    </div>
-                </Header>
                 <Content
-                    className="m-6 p-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
+                    className="my-2 mx-4 py-3 px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
                     style={{
                         height: 'calc(100vh - 96px)',
                     }}

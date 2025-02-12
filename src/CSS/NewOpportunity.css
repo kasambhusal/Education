@@ -1,0 +1,64 @@
+.edusphere-modal .ant-modal-content {
+    background: transparent;
+    box-shadow: none;
+  }
+  
+  .edusphere-modal .ant-modal-body {
+    padding: 0;
+  }
+  
+  .edusphere-modal .ant-input,
+  .edusphere-modal .ant-select-selector,
+  .edusphere-modal .ant-input-affix-wrapper {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .edusphere-modal .ant-input:hover,
+  .edusphere-modal .ant-select-selector:hover,
+  .edusphere-modal .ant-input-affix-wrapper:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  .edusphere-modal .ant-input:focus,
+  .edusphere-modal .ant-select-selector:focus,
+  .edusphere-modal .ant-input-affix-wrapper-focused {
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+  
+  .edusphere-modal .ant-form-item-label > label {
+    font-weight: 600;
+    color: #4b5563;
+  }
+  
+  .edusphere-modal .ant-select-arrow {
+    color: #3b82f6;
+  }
+  
+  .edusphere-modal .ant-input-prefix {
+    margin-right: 8px;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .bg-gradient-text {
+    background: linear-gradient(45deg, #3b82f6, #6366f1, #3b82f6);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  
