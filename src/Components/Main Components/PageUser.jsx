@@ -32,12 +32,12 @@ const PageUser = () => {
                 <Route path="/clubs" element={<Clubs />} />
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
-                <Route path='/courses' element={<Courses/>}/>
+                <Route path='/courses' element={<Courses />} />
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
             {
-                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && !location.pathname.toLowerCase().includes("/opportunities") && <MainFooter />
+                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && !location.pathname.toLowerCase().includes("/opportunities") && !location.pathname.toLowerCase().includes("/courses") && <MainFooter />
             }
 
         </div>

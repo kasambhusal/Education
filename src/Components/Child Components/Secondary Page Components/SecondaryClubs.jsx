@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons"
 import { Layout, Menu } from "antd"
 import MainPageClubs from "../Others/MainPageClubs"
+import { getLocalStorage, setLocalStorage } from "../../../utils/localStorageUtils"
 
 const { Sider, Content } = Layout
 
@@ -52,7 +53,7 @@ const SecondaryClubs = () => {
 
     useEffect(() => {
         // Retrieve selected label from localStorage
-        const storedLabel = localStorage.getItem("selectedClub");
+        const storedLabel = getLocalStorage("selectedClub")
         if (storedLabel) {
             setSelectedLabel(storedLabel); // Set the saved label on page load
         } else {
@@ -64,7 +65,7 @@ const SecondaryClubs = () => {
         const clickedItem = menuItems.find((item) => item.key === key)
         if (clickedItem) {
             setSelectedLabel(clickedItem.label)
-            localStorage.setItem("selectedClub", clickedItem.label); // Save the selected label to localStorage
+            setLocalStorage("selectedClub", clickedItem.label, 300000)
         }
     }
 

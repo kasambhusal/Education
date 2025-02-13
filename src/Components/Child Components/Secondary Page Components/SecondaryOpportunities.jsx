@@ -9,19 +9,17 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import MainPageOpportunities from "../Others/MainPageOpportunities";
-import { useTheme } from '../../Context/ThemeContext';
+import { getLocalStorage, setLocalStorage } from '../../../utils/localStorageUtils';
 
 const { Header, Sider, Content } = Layout;
 
 const SecondaryOpportunities = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [headText, setHeadText] = useState("");
-    const { themeColor } = useTheme();
     const [selectedLabel, setSelectedLabel] = useState('Competitions');
 
     useEffect(() => {
-        // Retrieve selected label from localStorage
-        const storedLabel = localStorage.getItem("selectedOpportunity");
+        const storedLabel = getLocalStorage("selectedOpportunity")
         if (storedLabel) {
             setSelectedLabel(storedLabel); // Set the saved label on page load
         } else {
@@ -62,7 +60,8 @@ const SecondaryOpportunities = () => {
         const clickedItem = menuItems.find((item) => item.key === key)
         if (clickedItem) {
             setSelectedLabel(clickedItem.label);
-            localStorage.setItem("selectedOpportunity", clickedItem.label); // Save the selected label to localStorage
+            setLocalStorage("selectedOpportunity", clickedItem.label, 300000)
+
         }
     };
 
