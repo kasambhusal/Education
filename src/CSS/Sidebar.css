@@ -116,3 +116,24 @@ body {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
+.ant-menu-sub {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ) !important; /* Lighten submenu background */
+}
+
+.ant-menu-item {
+  color: #fff !important; /* Ensures text is readable */
+}
+
+.ant-menu-item-selected {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ) !important; /* Slight highlight on selection */
+}

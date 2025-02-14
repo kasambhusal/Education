@@ -32,7 +32,7 @@ const PageUser = () => {
                 <Route path="/clubs" element={<Clubs />} />
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
-                <Route path='/courses' element={<Courses />} />
+                <Route path='/courses/*' element={<Courses />} />
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
