@@ -27,7 +27,7 @@ const CourseGrid = () => {
                     key={course.id}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`p-6 rounded-lg shadow-lg bg-gradient-to-r ${course.color} text-white`}
+                    className={`p-6 rounded-lg shadow-lg  ${course.color} text-white`}
                 >
                     <div className="text-4xl mb-4">{iconMap[course.icon]}</div>
                     <h3 className="text-xl font-bold mb-2">{course.title}</h3>

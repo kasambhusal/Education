@@ -101,7 +101,7 @@ const TableOfContents = ({ scrollToSection }) => {
 const MainContent = ({ contentRef }) => {
     return (
         <div ref={contentRef} className="md:w-3/4 overflow-auto pr-4 max-h-[calc(100vh-120px)]">
-            <Section id="introduction" title="Introduction to SAT">
+            <Section id="introduction" title="1. Introduction to SAT">
                 <p>
                     The SAT (Scholastic Assessment Test) is a standardized test widely used for college admissions in the United
                     States. It is designed to assess a student's readiness for college and is typically taken by high school
@@ -114,7 +114,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="structure" title="SAT Structure and Content">
+            <Section id="structure" title="2. SAT Structure and Content">
                 <p>The SAT consists of two main sections:</p>
                 <ul className="list-disc list-inside mt-2">
                     <li>Evidence-Based Reading and Writing</li>
@@ -129,7 +129,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="dsat" title="Digital SAT (DSAT)">
+            <Section id="dsat" title="3. Digital SAT (DSAT)">
                 <p>
                     Starting from March 2023 internationally and March 2024 in the U.S., the College Board introduced the Digital
                     SAT (DSAT). This new format brings several changes to the traditional paper-based test:
@@ -143,7 +143,7 @@ const MainContent = ({ contentRef }) => {
                 </ul>
             </Section>
 
-            <Section id="adaptive" title="Adaptive Nature of DSAT">
+            <Section id="adaptive" title="4. Adaptive Nature of DSAT">
                 <p>
                     One of the most significant changes in the Digital SAT is its adaptive nature. The DSAT uses a multistage
                     adaptive testing approach:
@@ -160,7 +160,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="preparation" title="Preparation Strategies">
+            <Section id="preparation" title="5. Preparation Strategies">
                 <p>To prepare effectively for the SAT or DSAT, consider the following strategies:</p>
                 <ul className="list-disc list-inside mt-2">
                     <li>Familiarize yourself with the test format and question types</li>
@@ -173,44 +173,51 @@ const MainContent = ({ contentRef }) => {
                 </ul>
             </Section>
 
-            <Section id="resources" title="Official Resources">
-                <p>Here are some official resources to help you prepare for the SAT:</p>
-                <ul className="list-none mt-2">
-                    <li className="mb-2">
+            <Section id="resources" title="6. Official Resources">
+                <p className="text-lg font-semibold">Here are some official resources to help you prepare effectively for the SAT:</p>
+                <ul className="list-none mt-4 space-y-4">
+                    <li className="mb-4">
                         <a
                             href="https://www.collegeboard.org/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 flex items-center"
+                            className="text-blue-600 hover:text-blue-800 flex items-center text-lg font-medium"
                         >
-                            College Board <LinkOutlined className="h-5 w-5 ml-1" />
+                            College Board <LinkOutlined className="h-6 w-6 ml-2" />
                         </a>
-                        <p className="text-sm text-gray-600">Official SAT website for registration and information</p>
+                        <p className="text-base text-gray-700 mt-1">
+                            The official SAT website for test registration, detailed information about the exam structure, important dates, and official practice resources.
+                        </p>
                     </li>
-                    <li className="mb-2">
+                    <li className="mb-4">
                         <a
                             href="https://satsuite.collegeboard.org/digital"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 flex items-center"
+                            className="text-blue-600 hover:text-blue-800 flex items-center text-lg font-medium"
                         >
-                            Digital SAT Information <LinkOutlined className="h-5 w-5 ml-1" />
+                            Digital SAT Information <LinkOutlined className="h-6 w-6 ml-2" />
                         </a>
-                        <p className="text-sm text-gray-600">Detailed information about the Digital SAT</p>
+                        <p className="text-base text-gray-700 mt-1">
+                            A comprehensive guide to the Digital SAT, including format changes, adaptive testing features, and official practice questions.
+                        </p>
                     </li>
                     <li>
                         <a
                             href="https://www.khanacademy.org/sat"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 flex items-center"
+                            className="text-blue-600 hover:text-blue-800 flex items-center text-lg font-medium"
                         >
-                            Khan Academy SAT Prep <LinkOutlined className="h-5 w-5 ml-1" />
+                            Khan Academy SAT Prep <LinkOutlined className="h-6 w-6 ml-2" />
                         </a>
-                        <p className="text-sm text-gray-600">Free, comprehensive SAT preparation</p>
+                        <p className="text-base text-gray-700 mt-1">
+                            A free, comprehensive SAT preparation platform with personalized study plans, interactive lessons, and full-length practice tests directly linked to College Board.
+                        </p>
                     </li>
                 </ul>
             </Section>
+            <div className="h-[40%]"></div>
         </div>
     )
 }

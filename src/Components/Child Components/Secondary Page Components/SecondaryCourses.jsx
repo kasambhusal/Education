@@ -4,7 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     RocketOutlined,
     BookOutlined,
-    TrophyOutlined
+    TrophyOutlined,
+    ClockCircleOutlined,
+    CheckCircleOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { getLocalStorage, setLocalStorage } from '../../../utils/localStorageUtils';
@@ -55,8 +57,8 @@ const SecondaryCourses = () => {
             icon: <RocketOutlined />,
             label: "Assignments",
             children: [
-                { key: "pending", label: "Pending", url: "/courses/pending" },
-                { key: "completed", label: "Completed", url: "/courses/completed" },
+                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/courses/pending" },
+                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/courses/completed" },
             ],
         },
     ];

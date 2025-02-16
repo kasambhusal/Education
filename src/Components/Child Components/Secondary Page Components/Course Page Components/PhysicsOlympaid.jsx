@@ -100,7 +100,7 @@ const TableOfContents = ({ scrollToSection }) => {
 const MainContent = ({ contentRef }) => {
     return (
         <div ref={contentRef} className="md:w-3/4 overflow-auto pr-4 max-h-[calc(100vh-120px)]">
-            <Section id="introduction" title="Introduction to Physics Olympiad">
+            <Section id="introduction" title="1. Introduction to Physics Olympiad">
                 <p>
                     The International Physics Olympiad (IPhO) is an annual competition for high school students, aimed at
                     promoting physics education and fostering talented young physicists worldwide. It's one of the International
@@ -116,7 +116,7 @@ const MainContent = ({ contentRef }) => {
                 </ul>
             </Section>
 
-            <Section id="nepal-context" title="Physics Olympiad in Nepal">
+            <Section id="nepal-context" title="2. Physics Olympiad in Nepal">
                 <p>
                     In Nepal, the Physics Olympiad holds significant importance in promoting scientific education and identifying
                     talented young physicists. The Nepal Physical Society (NPS) plays a crucial role in organizing the national
@@ -132,7 +132,7 @@ const MainContent = ({ contentRef }) => {
                 </ol>
             </Section>
 
-            <Section id="structure" title="Structure and Content">
+            <Section id="structure" title="3. Structure and Content">
                 <p>The Physics Olympiad, both at the national and international levels, typically consists of two parts:</p>
                 <ul className="list-disc list-inside mt-2">
                     <li>Theoretical examination (usually 5 hours)</li>
@@ -153,7 +153,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="preparation" title="Preparation Strategies">
+            <Section id="preparation" title="4. Preparation Strategies">
                 <p>To prepare effectively for the Physics Olympiad, consider the following strategies:</p>
                 <ul className="list-disc list-inside mt-2">
                     <li>Master fundamental physics concepts thoroughly</li>
@@ -170,7 +170,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="past-achievements" title="Nepal's Past Achievements">
+            <Section id="past-achievements" title="5. Nepal's Past Achievements">
                 <p>
                     Nepal has been participating in the International Physics Olympiad since [year]. While specific achievements
                     may vary year to year, Nepali students have shown remarkable progress and have occasionally won honorable
@@ -178,9 +178,9 @@ const MainContent = ({ contentRef }) => {
                 </p>
                 <p className="mt-4">Some notable achievements include:</p>
                 <ul className="list-disc list-inside mt-2">
-                    <li>[Achievement 1]</li>
-                    <li>[Achievement 2]</li>
-                    <li>[Achievement 3]</li>
+                    <li> Nepal's first Bronze Medal in 2018</li>
+                    <li>Bronze medal at the 54th IPhO</li>
+                    <li>Since 2007, Nepal has secured 3 bronze medals and 7 honorable mentions in the IPhO</li>
                 </ul>
                 <p className="mt-4">
                     These accomplishments highlight the growing strength of physics education in Nepal and serve as inspiration
@@ -188,7 +188,7 @@ const MainContent = ({ contentRef }) => {
                 </p>
             </Section>
 
-            <Section id="resources" title="Resources and Support">
+            <Section id="resources" title="6. Resources and Support">
                 <p>Here are some valuable resources to help you prepare for the Physics Olympiad in Nepal:</p>
                 <ul className="list-none mt-2">
                     <li className="mb-4">

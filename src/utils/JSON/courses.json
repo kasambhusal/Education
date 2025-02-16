@@ -4,7 +4,7 @@
     "title": "Web Development with React.js",
     "description": "Learn to build modern web applications using React.js",
     "icon": "RocketOutlined",
-    "color": "from-blue-400 to-blue-600",
+    "color": "bg-gradient-to-r from-blue-400 to-blue-600",
     "url":"/courses/react"
   },
   {
@@ -12,7 +12,7 @@
     "title": "SAT Preparation",
     "description": "Comprehensive SAT prep course to boost your scores",
     "icon": "BookOutlined",
-    "color": "from-green-400 to-green-600",
+    "color": "bg-gradient-to-r from-green-400 to-green-600",
      "url":"/courses/sat"
   },
   {
@@ -20,7 +20,7 @@
     "title": "Physics Olympiad",
     "description": "Advanced physics training for international competitions",
     "icon": "TrophyOutlined",
-    "color": "from-purple-400 to-purple-600",
+    "color": "bg-gradient-to-r from-purple-400 to-purple-600",
      "url":"/courses/physics"
   },
   {
@@ -28,7 +28,7 @@
     "title": "Mathematics Olympiad",
     "description": "Rigorous math training for aspiring mathematicians",
     "icon": "TrophyOutlined",
-    "color": "from-red-400 to-red-600",
+    "color": "bg-gradient-to-r from-red-400 to-red-600",
      "url":"/courses/math"
   }
 ]

@@ -101,7 +101,7 @@ const TableOfContents = ({ scrollToSection }) => {
 
 const MainContent = ({ contentRef }) => {
     return (
-        <div ref={contentRef} className="md:w-3/4 overflow-auto pr-4 max-h-[calc(100vh-120px)]">
+        <div ref={contentRef} className="md:w-3/4 overflow-auto pr-4 max-h-[calc(100vh-50px)]">
             <div id="introduction" className="section">
                 <Section title="1. Introduction to React">
                     <p>

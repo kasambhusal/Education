@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "../Context/ThemeContext";
 import Contact from "../Child Components/Others/Contact";
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     const { themeColor } = useTheme();
@@ -60,17 +61,26 @@ const Footer = () => {
                     <motion.div variants={itemVariants}>
                         <h3 className="text-xl font-semibold mb-4">Exam Prep</h3>
                         <ul className="space-y-2">
-                            {["NePho", "SAT"].map((item) => (
-                                <motion.li
-                                    key={item}
-                                    className="flex items-center"
-                                    whileHover={{ x: 5 }}
-                                    transition={{ type: "spring", stiffness: 300 }}
-                                >
-                                    <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                    {item}
-                                </motion.li>
-                            ))}
+                            <motion.li
+                                className="flex items-center"
+                                whileHover={{ x: 5 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <ChevronRightIcon className="w-4 h-4 mr-2" />
+                                <Link to="/courses/physics">
+                                    NePho
+                                </Link>
+                            </motion.li>
+                            <motion.li
+                                className="flex items-center"
+                                whileHover={{ x: 5 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <ChevronRightIcon className="w-4 h-4 mr-2" />
+                                <Link to="/courses/sat">
+                                    SAT
+                                </Link>
+                            </motion.li>
                         </ul>
                     </motion.div>
 
