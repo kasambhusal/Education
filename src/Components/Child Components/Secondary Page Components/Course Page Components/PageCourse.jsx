@@ -6,20 +6,18 @@ import SAT from './SAT'
 import LearnReact from './LearnReact'
 import PhysicsOlympaid from './PhysicsOlympaid'
 import MathOlympaid from './MathOlympaid'
-import Pending from './Pending'
-import Completed from './Completed'
+import PageAssignment from './Assignment Page Components/PageAssignment'
 const PageCourse = () => {
     return (
         <div>
 
             <Routes>
                 <Route path="/" element={<MainCourse />} />
-                <Route path="/sat" element={<SAT />} />
-                <Route path="/react" element={<LearnReact />} />
-                <Route path="/physics" element={<PhysicsOlympaid />} />
-                <Route path="/math" element={<MathOlympaid />} />
-                <Route path="/pending" element={<Pending />} />
-                <Route path="/completed" element={<Completed />} />
+                <Route path="/sat-preparation" element={<SAT />} />
+                <Route path="/web-development-with-react" element={<LearnReact />} />
+                <Route path="/physics-olympaid-guide" element={<PhysicsOlympaid />} />
+                <Route path="/math-olympaid-guide" element={<MathOlympaid />} />
+                <Route path="/assignment/*" element={<PageAssignment />} />
 
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

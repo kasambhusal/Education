@@ -57,8 +57,8 @@ const SecondaryCourses = () => {
             icon: <RocketOutlined />,
             label: "Assignments",
             children: [
-                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/courses/pending" },
-                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/courses/completed" },
+                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/courses/assignment/pending" },
+                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/courses/assignment/completed" },
             ],
         },
     ];
