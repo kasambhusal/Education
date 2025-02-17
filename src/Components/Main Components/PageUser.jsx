@@ -13,6 +13,7 @@ import ErrorPage from '../Child Components/Others/ErrorPage'
 import ExamPrep from './Exam-prep'
 import SinglePost from './SinglePost'
 import Courses from './Courses'
+import AIandQC from './AIandQC'
 
 const PageUser = () => {
     const location = useLocation();
@@ -33,6 +34,7 @@ const PageUser = () => {
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path='/courses/*' element={<Courses />} />
+                <Route path='/ai' element={<AIandQC/>}/>
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
