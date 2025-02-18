@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { LinkOutlined } from '@ant-design/icons';
