@@ -38,9 +38,9 @@ const AIandQC = () => {
             <motion.button
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 initial={{ left: "15vw" }}
-                animate={{ left: isCollapsed ? "5vw" : "16vw" }}
+                animate={{ left: isCollapsed ? "5vw" : "14vw" }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="bg-blue-600 text-white p-1 rounded-md shadow-md w-8 h-8 fixed top-[38vh]"
+                className="bg-blue-600 text-white p-1 rounded-md shadow-md w-8 h-8 fixed z-10 top-[38vh]"
             >
                 {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
             </motion.button>

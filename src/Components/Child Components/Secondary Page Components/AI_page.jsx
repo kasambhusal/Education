@@ -8,11 +8,11 @@ const topics = [
   },
   {
     id: "topic2",
-    title: "Concepts",
+    title: "Image Recognization",
   },
   {
     id: "topic3",
-    title: "Implementation",
+    title: "Neural Network",
   },
 ];
 
@@ -25,9 +25,9 @@ const AI_page = () => {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-[15vw] h-full p-5 sticky top-0 overflow-y-scroll"
+        className="w-[18vw] h-full p-5 sticky top-0 overflow-y-scroll shadow-2xl rounded-lg"
       >
-        <h2 className="text-lg font-bold mb-4">Table of Contents</h2>
+        <h2 className="text-2xl text-purple-900 font-bold mb-4">Table of Contents</h2>
         {topics.map((topic) => (
           <div
             key={topic.id}
@@ -48,24 +48,35 @@ const AI_page = () => {
           transition={{ duration: 0.5 }}
           className="p-6 bg-white shadow-lg rounded-lg"
         >
-          <h2 className="text-xl font-semibold mb-2">How Does a Computer Learn </h2>
-          <p className="text-gray-700 text-sm">Ever wondered how a lifeless box of metal and wires can recognize faces, recommend movies, or even chat like a human? Let’s break it down in the simplest way possible.</p>
-          <p className="text-gray-800 mt-10 text-md"> Imagine you found an alien on Earth who doesn’t know anything about human life. It has no idea what a dog is, what a cat is, or even what food tastes good. The only way it can learn is if you show it thousands of pictures of dogs and say, "This is a dog," and do the same for cats. Eventually, when it sees a new furry creature, it can take a guess—"Hey, that looks like a dog!" That’s exactly how a computer learns.<br/><br/>
-
-            <strong>Computers don’t think like humans.</strong> They don’t have instincts or common sense. Instead, they learn through <strong>patterns in data.</strong> Every time you type on your phone, search for something online, or watch a video, computers collect and analyze this data to recognize trends and make predictions.
-        <br/><br/>
-            Here's how it works:
-            - A computer is fed <strong>huge amounts of data</strong> (just like showing the alien many pictures of dogs and cats).
-            - It identifies <strong>patterns and relationships</strong> in the data.
-            - When given a <strong>new situation</strong>, it makes a prediction based on what it learned.
-
-            This process is called <strong>Machine Learning</strong>. The more data it gets, the better it becomes at making accurate decisions. That’s why your phone gets better at <strong>predicting text</strong>, your social media suggests posts you’d like, and YouTube keeps recommending videos that match your interests.
-
-            So the next time your phone suggests a song you love, just remember—it’s not because your phone has good taste. It just learned from what you played before!
+          <h2 className="text-3xl text-purple-900 font-bold mb-2">How Does a Computer Learn </h2>
+          <p className="text-amber-800 text-md mt-10">Ever wondered how a lifeless box of metal and wires can recognize faces, recommend movies, or even chat like a human? Let’s break it down in the simplest way possible.</p>
+          <p className="text-gray-800 mt-7 text-lg"> Imagine you found an alien on Earth who doesn’t know anything about human life. It has no idea what a dog is, what a cat is, or even what food tastes good. The only way it can learn is if you show it thousands of pictures of dogs and say, "This is a dog," and do the same for cats. Eventually, when it sees a new furry creature, it can take a guess—"Hey, that looks like a dog!" That’s exactly how a computer learns.<br /><br />
+            We will throughly discuss and write code to <strong>train our models</strong> and predict new things based on that experience.<br /><br />
+            <strong>Here is how this process is carried out</strong><br /><br />
+            ➡️ At first we make a file (commonly in excel or dictionary) where known data is stored<br /><br />
+            ➡️ Then, we will use <strong className="text-blue-600"><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank">Numpy</a></strong> and <strong className="text-blue-600"><a href="https://pandas.pydata.org/docs/getting_started/index.html#getting-started" target="_blank">Pandas</a></strong> to format data in proper order, so that we can accurately fed the data to our model.<br /><br />
+            ➡️ Next, we will import any model based on our preferance. There are lot of models available for different complexities of operations.<br />  (eg. Linear, Polynomial, Neural Networks, etc)<br /><br />
+            ➡️ We will show our known data to this model, where it identifies patterns and trends in data. Suppose we have data on free fall of objects, it's height and corresponding time of flight.<br /><br />
+            ➡️ Finally we can input a variable(suppose height) and get the computer predicted value(time) without using formula, just by analyzing previous data.<br /><br />
           </p>
-          <div id="ch-1_miniProject" className="miniproject w-full py-5 px-5 rounded-xl mt-5 flex flex-col gap-2 bg-slate-100">
+          <div id="ch-1_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
             <h3 className="text-lg font-semibold">Project Section</h3>
-            <div className="projectnamequest text-gray-700">A mini project to ....</div>
+            <div className="projectnamequest text-gray-700 mb-5">A mini project to understand how computer learns and predicts</div>
+            <button className="gotoproject px-4 py-2 bg-green-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200">Try a simple project </button>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="second_topic p-6 bg-white shadow-lg rounded-lg"
+        >
+
+          <div id="ch-2_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
+            <h3 className="text-lg font-semibold">Project Section</h3>
+            <div className="projectnamequest text-gray-700 mb-5">A small project to understand how computer imaging works by actually creating one on you own</div>
+            <button className="gotoproject px-4 py-2 bg-green-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200">Try a simple project </button>
           </div>
         </motion.div>
 
