@@ -15,7 +15,7 @@ const AIandQC = () => {
             <motion.div
                
                 initial={{ width: "15vw", scale: 0 }}
-                animate={{ width: isCollapsed ? "4vw" : "15vw", scale: 1 }}
+                animate={{ width: isCollapsed ? "4vw" : "20vw", scale: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className={`sidebar_of_AI flex flex-col gap-4 px-4 py-5 h-[100vh] bg-[#0349fc] text-slate-200 sticky top-0 ${isCollapsed ? "items-center px-2" : "px-4"
                     }`}
