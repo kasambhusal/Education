@@ -59,6 +59,7 @@ const AI_page = () => {
             ➡️ We will show our known data to this model, where it identifies patterns and trends in data. Suppose we have data on free fall of objects, it's height and corresponding time of flight.<br /><br />
             ➡️ Finally we can input a variable(suppose height) and get the computer predicted value(time) without using formula, just by analyzing previous data.<br /><br />
           </p>
+          <p className="text-lg mt-4 text-green-900">If it felt like overwhelming at first, <strong>No Need To Worry !!</strong> You can understand things more easily via a simple project.<br/> Are you ready to train your first AI model and predict new things !!!!</p>
           <div id="ch-1_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
             <h3 className="text-lg font-semibold">Project Section</h3>
             <div className="projectnamequest text-gray-700 mb-5">A mini project to understand how computer learns and predicts</div>
