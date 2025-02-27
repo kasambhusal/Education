@@ -26,7 +26,7 @@ export default function MainPageOpportunities({ name }) {
     const [isNewPostOpen, setIsNewPostOpen] = useState(false)
     const [uniqueTypes, setUniqueTypes] = useState([])
 
-    const { token } = useUser()
+    const { token, user } = useUser()
 
     useEffect(() => {
         fetchOpportunities()
@@ -41,7 +41,7 @@ export default function MainPageOpportunities({ name }) {
     const fetchOpportunities = async () => {
         try {
             const response = await Get({
-                url: `/opportunities/get?category=${name.toLowerCase()}`,
+                url: `/public/opportunities/get?category=${name.toLowerCase()}`,
                 headers: {
                     Authorization: token,
                     "Content-Type": "application/json",
@@ -102,12 +102,17 @@ export default function MainPageOpportunities({ name }) {
                         <option value="Closed">Closed</option>
                         <option value="Coming Soon">Coming Soon</option>
                     </select>
-                    <button
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                        onClick={() => setIsNewPostOpen(true)}
-                    >
-                        + Add New
-                    </button>
+                    {
+                        user.role === "ADMIN" && (
+                            <button
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                onClick={() => setIsNewPostOpen(true)}
+                            >
+                                + Add New
+                            </button>
+                        )
+                    }
+
                 </div>
             </div>
 

@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    const themeColor = "#3B426C";
+    const themeColor = "#2C3E50";
     const bgColor = ""
 
     return (

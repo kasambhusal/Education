@@ -13,6 +13,8 @@ import ErrorPage from '../Child Components/Others/ErrorPage'
 import ExamPrep from './Exam-prep'
 import SinglePost from './SinglePost'
 import Courses from './Courses'
+import DashboardLayout from '../DashboardComponents/DashboardLayout'
+import CourseMCQ from '../Child Components/Secondary Page Components/Course Page Components/Assignment Page Components/CourseMCQ'
 
 const PageUser = () => {
     const location = useLocation();
@@ -33,11 +35,14 @@ const PageUser = () => {
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path='/courses/*' element={<Courses />} />
+                <Route path='/dashboard/*' element={<DashboardLayout />} />
+                <Route path='/practise/:courseName' element={<CourseMCQ />} />
+
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
             {
-                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && !location.pathname.toLowerCase().includes("/opportunities") && !location.pathname.toLowerCase().includes("/courses") && <MainFooter />
+                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/clubs") && !location.pathname.toLowerCase().includes("/opportunities") && !location.pathname.toLowerCase().includes("/courses") && !location.pathname.toLowerCase().includes("/dashboard") && <MainFooter />
             }
 
         </div>

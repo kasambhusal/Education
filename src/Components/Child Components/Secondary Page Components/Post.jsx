@@ -35,7 +35,6 @@ const Post = ({ post: initialPost }) => {
             return () => clearTimeout(timer)
         }
     }, [isLikeAnimating])
-
     const handleLike = async () => {
         const userId = user._id
         const postId = post._id
@@ -54,7 +53,7 @@ const Post = ({ post: initialPost }) => {
             })
             if (response.ok) {
                 const { updatedPost } = await response.json()
-                setPost(updatedPost)
+                setPost(...updatedPost.likes)
                 setIsLiked(updatedPost.likes.includes(user._id))
                 setLikeCount(updatedPost.likes.length)
             }
@@ -104,7 +103,7 @@ const Post = ({ post: initialPost }) => {
 
             if (response.ok) {
                 const { updatedPost } = await response.json()
-                setPost(updatedPost) // Ensure the UI is updated with the correct data
+                setPost(...updatedPost.comments) // Ensure the UI is updated with the correct data
             }
         } catch (error) {
             console.error("Error posting comment:", error)
@@ -145,12 +144,21 @@ const Post = ({ post: initialPost }) => {
                         Posted by {post.from.name} on {new Date(post.createdAt).toLocaleDateString()}
                     </p>
                     {post.image && (
-                        <img
-                            src={post.image || "/placeholder.svg"}
-                            alt="Post content"
-                            className="max-w-full max-h-[400px] object-cover rounded-lg mb-4"
-                        />
+                        post.image.endsWith(".mp4") || post.image.endsWith(".webm") || post.image.endsWith(".ogg") ? (
+                            <video
+                                src={post.image}
+                                controls
+                                className="max-w-full max-h-[400px] object-cover rounded-lg mb-4"
+                            />
+                        ) : (
+                            <img
+                                src={post.image || "/placeholder.svg"}
+                                alt="Post content"
+                                className="max-w-full max-h-[400px] object-cover rounded-lg mb-4"
+                            />
+                        )
                     )}
+
 
                     <p className="text-gray-800 mb-4 text-justify">
                         {isTextExpanded || post.text.length <= 300 ? post.text : `${post.text.slice(0, 300)}...`}

@@ -1,7 +1,6 @@
-"use client"
-
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 // Context to manage global state across components
 const AppContext = React.createContext()
@@ -72,11 +71,12 @@ const TableOfContents = ({ scrollToSection }) => {
         { id: "state", title: "State Management" },
         { id: "routing", title: "React Router" },
         { id: "buildingApp", title: "Building a Simple React App" },
+        { id: "practisewithedusphere", title: "Practise with EduSphere" },
     ]
 
     return (
         <motion.div
-            className="md:w-1/4 p-4 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start overflow-auto max-h-[calc(100vh-120px)]"
+            className="md:w-1/4 p-4 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start overflow-auto max-h-[calc(100vh-50px)]"
             initial={{ x: -200 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.5 }}
@@ -251,6 +251,28 @@ const MainContent = ({ contentRef }) => {
                     />
                 </Section>
             </div>
+            <div id="practisewithedusphere" className="section">
+                <Section title="10. Practise with EduSphere">
+                    <p>
+                        EduSphere provides an interactive platform to test and refine your skills in various domains, including **React.js**.
+                        By practicing in a structured environment, learners can enhance their problem-solving abilities and deepen their understanding through real-world scenarios.
+                    </p>
+                    <p>
+                        Whether you're mastering **React components** or tackling challenging **MCQs**, EduSphere ensures a seamless and engaging learning experience. Start your journey now!
+                    </p>
+
+                    <CodeSnippet
+                        code={`import { Link } from "react-router-dom";\n\nfunction PracticeButton() {\n  return (\n    <Link to="/practise/Reactjs" className="text-blue-500 underline hover:text-blue-700">\n      Start Practicing with EduSphere\n    </Link>\n  );\n}`}
+                    />
+
+                    <div className="h-[10vh] flex items-center justify-end">
+                        <Link to="/practise/Reactjs" className="text-blue-500 underline hover:text-blue-700">
+                            Practise with EduSphere →
+                        </Link>
+                    </div>
+                </Section>
+            </div>
+
         </div>
     )
 }

@@ -113,7 +113,7 @@ const Footer = () => {
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                     <p className="text-sm text-gray-300">
-                        &copy; 2024 Education. All rights reserved.
+                        &copy; 2024 EduSphere. All rights reserved.
                     </p>
                     <p className="text-sm text-gray-300 mt-2 sm:mt-0">
                         Developed by{" "}

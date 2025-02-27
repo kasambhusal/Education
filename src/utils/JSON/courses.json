@@ -3,7 +3,7 @@
     "id": "1",
     "title": "Web Development with React.js",
     "description": "Learn to build modern web applications using React.js",
-    "icon": "RocketOutlined",
+    "icon": "CodeOutlined",
     "color": "bg-gradient-to-r from-blue-400 to-blue-600",
     "url":"/courses/web-development-with-react"
   },
