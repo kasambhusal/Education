@@ -75,7 +75,7 @@ export default function TopNav() {
         className="h-full flex items-center"
       >
         <Link className="flex gap-2" to="/">
-          <img className="h-[48px] w-[180px]" src="/logo.png" alt="logo" />
+          <img className="h-[48px] w-[180px]" src="/newlogo.png" alt="logo" />
         </Link>
       </motion.div>
       <motion.div

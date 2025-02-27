@@ -13,8 +13,12 @@ import ErrorPage from '../Child Components/Others/ErrorPage'
 import ExamPrep from './Exam-prep'
 import SinglePost from './SinglePost'
 import Courses from './Courses'
+<<<<<<< HEAD
 import DashboardLayout from '../DashboardComponents/DashboardLayout'
 import CourseMCQ from '../Child Components/Secondary Page Components/Course Page Components/Assignment Page Components/CourseMCQ'
+=======
+import AIandQC from './AIandQC'
+>>>>>>> 3f1d3e403a2ff48ac20480a79661008a90dbdff1
 
 const PageUser = () => {
     const location = useLocation();
@@ -35,9 +39,13 @@ const PageUser = () => {
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
                 <Route path="/exam-prep" element={<ExamPrep />} />
                 <Route path='/courses/*' element={<Courses />} />
+<<<<<<< HEAD
                 <Route path='/dashboard/*' element={<DashboardLayout />} />
                 <Route path='/practise/:courseName' element={<CourseMCQ />} />
 
+=======
+                <Route path='/ai' element={<AIandQC/>}/>
+>>>>>>> 3f1d3e403a2ff48ac20480a79661008a90dbdff1
                 <Route path="*" element={<ErrorPage />} />
 
             </Routes>
