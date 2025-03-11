@@ -9,7 +9,6 @@ export default function BottomNav() {
 
       <div className="flex w-[85%] gap-4 md:gap-10 md:pl-[150px] text-lg justify-center">
         <Link to="/opportunities" className="cursor-pointer hover:">Opportunities</Link>
-        <Link to="/exam-prep" className="cursor-pointer hover:">Exam-Prep</Link>
         <Link to="/clubs" className="cursor-pointer hover:">Clubs</Link>
         <Link to="/courses" className="cursor-pointer hover:">Courses</Link>
         <Link to="/ai" className="cursor-pointer hover:">AI & Quantum</Link>

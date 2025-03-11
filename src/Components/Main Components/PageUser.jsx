@@ -32,7 +32,7 @@ const PageUser = () => {
                 <Route path="/opportunities" element={<Oppourtunity />} />
                 <Route path="/clubs" element={<Clubs />} />
                 <Route path="/clubs/post/:id" element={<SinglePost />} />
-                <Route path="/exam-prep" element={<ExamPrep />} />
+                <Route path="/courses/physics-olympaid-guide/exam-prep" element={<ExamPrep />} />
                 <Route path='/courses/*' element={<Courses />} />
                 <Route path='/ai' element={<AIandQC/>}/>
                 <Route path="*" element={<ErrorPage />} />
