@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 
 
 const ExamPrep = () => {
-    const [activeSubject, setActiveSubject] = useState('physics')
+    const [activeSubject, setActiveSubject] = useState('physics-kinematics')
     const [isAnswer, setIsAnswer] = useState(false)
     const [currentID, setCurrentID] = useState('')
 
@@ -15,8 +15,8 @@ const ExamPrep = () => {
     const allSubjects = [
         {
             image: "/exam.svg",
-            head: "Physics Olympiad",
-            sub: "physics",
+            head: "Kinematics",
+            sub: "physics-kinematics",
             index: [
                 {
                     id: 'p1',
@@ -192,7 +192,16 @@ const ExamPrep = () => {
                         <p>After the explosion, the spaceship's mass is divided into three fragments moving at different velocities. Since momentum is conserved, the velocity components were calculated using vector resolution. The total kinetic energy after explosion includes the contribution from the released energy. Solving the energy equation provided the final velocities, which were used to compute kinetic energy for each fragment.</p>
                     `
                 },
-                
+
+        
+            ],
+            extra: "NePhO"
+        },
+        {
+            image: "/exam.svg",
+            head: "Thermodynamics",
+            sub: "physics-thermodynamics",
+            index: [
                 {
                     id: 'p3',
                     unit: "Thermodynamics",
@@ -243,47 +252,62 @@ const ExamPrep = () => {
                         <p><span style="font-size: larger; color: green;"><strong>ΔS = 2015.17 J/K</strong></span></p>
                         <p>This means that during the heating process, the entropy of the aluminum bar increases by 2015.17 J/K.</p>
                     `
-                }
+                },
+                {
+                    id: 'p4',
+                    unit: "Thermodynamics",
+                    question: "Suppose 1.00 kg of water at 100°C is placed in thermal contact with 1.00 kg of water at 0°C. What is the total change in entropy? Assume that the specific heat of water is constant at 4190 J/kg·K over this temperature range.",
+                    solution: `
+                        <p><strong>Step 1: Understanding the Process</strong></p>
+                        <p>This problem involves an <em>irreversible</em> heat transfer process. Two equal masses of water, one at <strong>100°C (373K)</strong> and the other at <strong>0°C (273K)</strong>, come into thermal contact. Eventually, they reach a common final temperature, which is the average of the two:</p>
+                        <p><span style="font-size: larger;">T_f = (T_H + T_C)/2 = (373K + 273K)/2 = 323K</span></p>
                 
-            ],
-            extra: "NePhO"
-        },
-        // {
-        //     image: "/exam.svg",
-        //     head: "Chemistry Olympiad",
-        //     sub: "chemistry",
-        //     index: [
-        //         {
-        //             id: 'c1',
-        //             unit: "Haloalkane",
-        //             question: "According to the first law of motion, a body moving at a constant speed in a straight line or at rest will continue to be in that state until some external force is applied",
-        //             solution: "solution1.mp4"
-        //         },
-        //         {
-        //             id: 'c2',
-        //             unit: "Radio Activity",
-        //             question: "According to the first law of motion, a body moving at a constant speed in a straight line or at rest will continue to be in that state until some external force is applied",
-        //             solution: "solution1.mp4"
-        //         },
-        //         {
-        //             id: 'c3',
-        //             unit: "Sedio Activity",
-        //             question: "According to the first law of motion, a body moving at a constant speed in a straight line or at rest will continue to be in that state until some external force is applied",
-        //             solution: "solution1.mp4"
-        //         },
-        //     ],
-        //     extra: "Chemtion"
-        // },
+                        <p><strong>Step 2: Using the Entropy Change Formula</strong></p>
+                        <p>The entropy change for a system where heat is transferred at varying temperatures is given by:</p>
+                        <p><span style="font-size: larger;">ΔS = mc ∫<sub>T1</sub><sup>T2</sup> dT/T</span></p>
+                        <p>We calculate the entropy change for both hot and cold water separately.</p>
+                
+                        <p><strong>Step 3: Calculating Entropy Change for Hot Water</strong></p>
+                        <p>Hot water cools down from 373K to 323K, so:</p>
+                        <p><span style="font-size: larger;">ΔS_H = (1.00 kg) (4190 J/kg·K) ∫<sub>373</sub><sup>323</sup> dT/T</span></p>
+                        <p>Evaluating the integral:</p>
+                        <p><span style="font-size: larger;">ΔS_H = (4190 J/K) ln(323/373)</span></p>
+                        <p>Since ln(323/373) ≈ -0.139:</p>
+                        <p><span style="font-size: larger;">ΔS_H = (4190 × -0.139) J/K</span></p>
+                        <p><span style="font-size: larger;">ΔS_H = -603 J/K</span></p>
+                
+                        <p><strong>Step 4: Calculating Entropy Change for Cold Water</strong></p>
+                        <p>Cold water warms up from 273K to 323K, so:</p>
+                        <p><span style="font-size: larger;">ΔS_C = (1.00 kg) (4190 J/kg·K) ∫<sub>273</sub><sup>323</sup> dT/T</span></p>
+                        <p>Evaluating the integral:</p>
+                        <p><span style="font-size: larger;">ΔS_C = (4190 J/K) ln(323/273)</span></p>
+                        <p>Since ln(323/273) ≈ 0.168:</p>
+                        <p><span style="font-size: larger;">ΔS_C = (4190 × 0.168) J/K</span></p>
+                        <p><span style="font-size: larger;">ΔS_C = +705 J/K</span></p>
+                
+                        <p><strong>Step 5: Total Entropy Change of the System</strong></p>
+                        <p>Since entropy is a state function, the total entropy change is:</p>
+                        <p><span style="font-size: larger;">ΔS_total = ΔS_H + ΔS_C</span></p>
+                        <p><span style="font-size: larger;">ΔS_total = (-603 J/K) + (705 J/K)</span></p>
+                        <p><span style="font-size: larger;">ΔS_total = +102 J/K</span></p>
+                
+                        <p><strong>Final Answer:</strong></p>
+                        <p><span style="font-size: larger; color: green;"><strong>ΔS_total = +102 J/K</strong></span></p>
+                        <p>This means the total entropy of the system increases by 102 J/K due to the irreversible heat transfer process.</p>
+                    `
+                },
+            ]
+        }
 
     ]
     // const getCurrentQuestionList = () => {
 
     // }
     useEffect(() => {
-        if (activeSubject == 'physics') {
+        if (activeSubject == 'physics-kinematics') {
             setCurrentQuestions(allSubjects[0])
         }
-        else if (activeSubject == 'chemistry') {
+        else if (activeSubject == 'physics-thermodynamics') {
             setCurrentQuestions(allSubjects[1])
         }
     }, [activeSubject])
@@ -345,10 +369,10 @@ const ExamPrep = () => {
                 {!isAnswer ? currentQuestions.index.map((item) => {
                     return (
                         <motion.div initial={{ scale: 0 }}  // Start from extremely small
-                        animate={{ scale: 1 }}  // Grow to normal size
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.5 }} // Triggers when 50% of the element is in view
-                        className="mainComponentExamSection flex flex-col gap-8 w-[90%] py-4 px-8 mx-auto border border-slate-300 border-t-blue-500 border-t-4 rounded-sm">
+                            animate={{ scale: 1 }}  // Grow to normal size
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                            viewport={{ once: true, amount: 0.5 }} // Triggers when 50% of the element is in view
+                            className="mainComponentExamSection flex flex-col gap-8 w-[90%] py-4 px-8 mx-auto border border-slate-300 border-t-blue-500 border-t-4 rounded-sm">
                             <div className="topExamComponent flex gap-2"><img src={`${currentQuestions.image}`} alt="image" /><div className='flex flex-col'><div className='text-blue-500 text-[14px] font-semibold'>{currentQuestions.head}</div><div className='font-semibold'>{item.unit}</div></div></div>
                             <div className="hrline w-[90%] h-[1px] mt-[-5px] bg-slate-300"></div>
                             <div className="midExamComponent text-slate-700">{item.question}</div>
