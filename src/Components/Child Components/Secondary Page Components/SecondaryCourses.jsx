@@ -26,7 +26,7 @@ const iconMap = {
 
 const SecondaryCourses = () => {
     const navigate = useNavigate(); // Initialize useNavigate
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const [selectedLabel, setSelectedLabel] = useState('Competitions');
 
     useEffect(() => {
@@ -57,8 +57,8 @@ const SecondaryCourses = () => {
             icon: <RocketOutlined />,
             label: "Assignments",
             children: [
-                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/courses/assignment/pending" },
-                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/courses/assignment/completed" },
+                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/menu/courses/assignment/pending" },
+                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/menu/courses/assignment/completed" },
             ],
         },
         {
@@ -66,7 +66,7 @@ const SecondaryCourses = () => {
             icon: <AimOutlined />,
             label: "Practise",
             children: [
-                { key: "review", icon: <BarChartOutlined />, label: "Review", url: "/courses/practise/review" },
+                { key: "review", icon: <BarChartOutlined />, label: "Review", url: "/menu/courses/practise/review" },
             ],
         },
     ];

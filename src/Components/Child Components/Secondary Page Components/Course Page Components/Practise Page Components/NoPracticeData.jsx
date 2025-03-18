@@ -32,7 +32,7 @@ const NoPracticeData = () => {
                             type="primary"
                             icon={<RocketOutlined />}
                             size="large"
-                            onClick={() => navigate('/courses')}
+                            onClick={() => navigate('/menu/courses')}
                             className="start-button"
                         >
                             Start Learning
@@ -40,7 +40,7 @@ const NoPracticeData = () => {
                         <Button
                             icon={<BookOutlined />}
                             size="large"
-                            onClick={() => navigate('/courses')}
+                            onClick={() => navigate('/menu/courses')}
                             className="explore-button"
                         >
                             Explore Courses

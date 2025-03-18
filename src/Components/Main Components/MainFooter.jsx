@@ -67,7 +67,7 @@ const Footer = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                <Link to="/courses/physics-olympaid-guide">
+                                <Link to="/menu/courses/physics-olympaid-guide">
                                     NePho
                                 </Link>
                             </motion.li>
@@ -77,7 +77,7 @@ const Footer = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                <Link to="/courses/sat">
+                                <Link to="/menu/courses/sat">
                                     SAT
                                 </Link>
                             </motion.li>

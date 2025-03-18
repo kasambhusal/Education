@@ -3,7 +3,6 @@ import { Progress, Card, Row, Col, Typography, List, Tag, Spin, Button } from 'a
 import { Get } from '../../../../../utils/API';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useUser } from '../../../../Context/UserContext';
-import { useNavigate } from 'react-router-dom';
 import NoPracticeData from './NoPracticeData';
 
 const { Title, Text } = Typography;
@@ -12,15 +11,20 @@ const Review = () => {
     const [reviewData, setReviewData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [correctPercentage, setCorrectPercentage] = useState(0);
-    const { user } = useUser();
-    const navigate = useNavigate();  // For redirection
+    const { user, token } = useUser();
 
     useEffect(() => {
         if (!user?._id) return;
 
         const fetchReviewData = async () => {
             try {
-                const response = await Get({ url: `/users/get/practise-review/${user._id}` });
+                const response = await Get({
+                    url: `/courses/get/practise-review/${user._id}`,
+                    headers: {
+                        Authorization: token,
+                        "Content-Type": "application/json",
+                    },
+                });
                 setReviewData(response);
                 setLoading(false);
             } catch (error) {

@@ -4,7 +4,7 @@ import SecondaryCourses from '../Child Components/Secondary Page Components/Seco
 export default function Courses() {
 
     useEffect(() => {
-        window.scrollTo({ top: 100, behavior: 'smooth' });
+        window.scrollTo({ top: 110, behavior: 'smooth' });
     }, []);
 
     return <SecondaryCourses />;

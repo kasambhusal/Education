@@ -8,7 +8,7 @@ export default function Clubs() {
   const { token } = useUser();
 
   useEffect(() => {
-    window.scrollTo({ top: 100, behavior: 'smooth' });
+    window.scrollTo({ top: 110, behavior: 'smooth' });
   }, []);
 
   if (!token) {
