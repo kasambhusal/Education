@@ -1,14 +1,14 @@
 "use client"
 
-import { useState } from "react"
-import { useTheme } from "../../Context/ThemeContext"
-import { Link, useLocation } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react";
+import { useTheme } from "../../Context/ThemeContext";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function BottomNav() {
-  const { themeColor } = useTheme()
-  const location = useLocation()
-  const [hoveredItem, setHoveredItem] = useState(null)
+  const { themeColor } = useTheme();
+  const location = useLocation();
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const navItems = [
     { path: "/menu/opportunities", label: "Opportunities" },
@@ -16,10 +16,9 @@ export default function BottomNav() {
     { path: "/menu/clubs", label: "Clubs" },
     { path: "/menu/courses", label: "Courses" },
     { path: "/menu/ai", label: "AI & Quantum" },
-  ]
+  ];
 
-  // Check if the current path matches the nav item path
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => location.pathname === path;
 
   return (
     <motion.div
@@ -42,8 +41,6 @@ export default function BottomNav() {
               className="cursor-pointer whitespace-nowrap px-3 py-2 rounded-md transition-all duration-300 flex items-center"
             >
               {item.label}
-
-              {/* Active indicator */}
               {isActive(item.path) && (
                 <motion.div
                   className="absolute bottom-[-12px] left-0 right-0 h-1 bg-white rounded-full mx-auto"
@@ -53,25 +50,22 @@ export default function BottomNav() {
                   style={{ width: "60%", left: "20%" }}
                 />
               )}
-
-              {/* Hover effect */}
-              <AnimatePresence>
-                {hoveredItem === item.path && !isActive(item.path) && (
-                  <motion.div
-                    className="absolute inset-0 bg-white/10 rounded-md z-[-1]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-              </AnimatePresence>
             </Link>
+            <AnimatePresence>
+              {hoveredItem === item.path && !isActive(item.path) && (
+                <motion.div
+                  className="absolute inset-0 bg-white/10 rounded-md z-[-1]"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
 
-      {/* Right Cutout - Enhanced with animation */}
       <motion.div
         className="absolute top-0 right-0 h-full w-[40px]"
         initial={{ opacity: 0, x: 20 }}
@@ -92,13 +86,10 @@ export default function BottomNav() {
             ],
           }}
           transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-          style={{
-            clipPath: "polygon(100% 0, 0 50%, 100% 100%)",
-          }}
+          style={{ clipPath: "polygon(100% 0, 0 50%, 100% 100%)" }}
         />
       </motion.div>
 
-      {/* Mobile indicator - shows on small screens */}
       <div className="md:hidden absolute bottom-[-8px] left-0 right-0 flex justify-center">
         <motion.div
           className="h-1 bg-white rounded-full"
@@ -108,6 +99,5 @@ export default function BottomNav() {
         />
       </div>
     </motion.div>
-  )
+  );
 }
-

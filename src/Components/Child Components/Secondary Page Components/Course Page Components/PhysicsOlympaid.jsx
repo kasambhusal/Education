@@ -3,6 +3,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { LinkOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 // Context to manage global state across components
 const PhysicsOlympiadContext = React.createContext()
@@ -70,6 +71,7 @@ const TableOfContents = ({ scrollToSection }) => {
         { id: "preparation", title: "Preparation Strategies" },
         { id: "past-achievements", title: "Nepal's Past Achievements" },
         { id: "resources", title: "Resources and Support" },
+        { id: "question-bank", title: "Question Bank" },
     ]
 
     return (
@@ -256,6 +258,10 @@ const MainContent = ({ contentRef }) => {
                     joining study groups or mentorship programs to further enhance your preparation. Many of these institutions also offer expert
                     guidance and personal support throughout your journey to the Olympiad.
                 </p>
+            </Section>
+            <Section id="question-bank" title="Practice Questions">
+                
+                <Link to={'/courses/physics-olympaid-guide/exam-prep'} className="px-4 py-2 bg-green-700 cursor-pointer text-white font-semibold rounded-lg text-xl">Question Bank</Link>
             </Section>
 
         </div>
