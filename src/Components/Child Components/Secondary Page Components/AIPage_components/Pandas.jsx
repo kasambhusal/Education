@@ -12,12 +12,13 @@ const Pandas = () => {
   <h2 className="text-3xl text-purple-900 font-bold mb-2">What is Pandas? 🐼</h2> 
 
   <p className="text-amber-800 text-md mt-10">
-    Ever wondered how AI models handle **huge amounts of data**? Before an AI can predict anything, the data needs to be **organized, cleaned, and analyzed**—that’s where **pandas** comes in!  
-    Pandas is a Python library that helps us **store, explore, and manipulate data efficiently.** Think of it as a **powerful Excel** inside Python!  
+    Ever wondered how AI models handle huge amounts of data? Before an AI can predict anything, the data needs to be organized, cleaned, and analyzed—that’s where <b>pandas</b> comes in!  
+    Pandas is a Python library that helps us<i> store, explore, and manipulate</i> data efficiently. Think of it as a powerful Excel inside Python!  
   </p> 
 
   <p className="text-gray-800 mt-7 text-lg">
-    Let's say we have test scores of students. We can store them in a pandas **DataFrame** (a table-like structure) and analyze it easily.  
+    Let's say we have test scores of students. We can store them in a pandas DataFrame (a table-like structure) and analyze it easily. 
+    A DataFrame is nothing but just a way to represent our data in tabular format as you see mostly in excel, i.e each column with a heading. 
   </p>  
 
   <div className="bg-gray-100 p-4 rounded-md">
@@ -25,7 +26,7 @@ const Pandas = () => {
       <span className="text-green-700"># First, import pandas</span><br/>
       import pandas as pd<br/><br/>
 
-      <span className="text-green-700"># Create a dictionary of student data</span><br/>
+      <span className="text-green-700"># Create a dictionary of student data where "Name", "Math Score", and "Science Score" will be headings for each column</span><br/>
       data = &#123; "Name": ["Alice", "Bob", "Charlie"],<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Math Score": [85, 90, 78],<br/>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Science Score": [88, 92, 80] &#125;<br/><br/>
