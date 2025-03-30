@@ -67,7 +67,7 @@ const Footer = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                <Link to="/courses/physics-olympaid-guide">
+                                <Link to="/menu/courses/physics-olympaid-guide">
                                     NePho
                                 </Link>
                             </motion.li>
@@ -77,7 +77,7 @@ const Footer = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                <Link to="/courses/sat">
+                                <Link to="/menu/courses/sat">
                                     SAT
                                 </Link>
                             </motion.li>
@@ -113,7 +113,7 @@ const Footer = () => {
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
                     <p className="text-sm text-gray-300">
-                        &copy; 2024 Education. All rights reserved.
+                        &copy; 2024 EduSphere. All rights reserved.
                     </p>
                     <p className="text-sm text-gray-300 mt-2 sm:mt-0">
                         Developed by{" "}

@@ -70,7 +70,7 @@ const SecondaryClubs = () => {
     }
 
     return (
-        <Layout className="min-h-screen max-h-screen overflow-hidden">
+        <Layout className="min-h-screen max-h-screen overflow-hidden" >
             <div
                 className="fixed top-1/2 left-0 -translate-y-1/2 z-50"
                 style={{

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const Base_Url = "http://192.168.11.115:4000"; // Replace with your base URL
+// const Base_Url = "http://localhost:4000"; // Replace with your base URL
+const Base_Url = "https://edusphere-backend-scgh.onrender.com"; // Replace with your base URL
 
 // Create an axios instance
 const axiosInstance = axios.create({

@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { motion, AnimatePresence } from 'framer-motion';
 import {
+    CodeOutlined,
     RocketOutlined,
     BookOutlined,
     TrophyOutlined,
     ClockCircleOutlined,
-    CheckCircleOutlined
+    CheckCircleOutlined,
+    BarChartOutlined,
+    AimOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
 import { getLocalStorage, setLocalStorage } from '../../../utils/localStorageUtils';
@@ -16,7 +19,7 @@ import PageCourse from './Course Page Components/PageCourse';
 const { Sider, Content } = Layout;
 
 const iconMap = {
-    RocketOutlined: <RocketOutlined />,
+    CodeOutlined: <CodeOutlined />,
     BookOutlined: <BookOutlined />,
     TrophyOutlined: <TrophyOutlined />,
 };
@@ -36,9 +39,6 @@ const SecondaryCourses = () => {
     }, []);
 
 
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
 
     const menuItems = [
         {
@@ -57,8 +57,16 @@ const SecondaryCourses = () => {
             icon: <RocketOutlined />,
             label: "Assignments",
             children: [
-                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/courses/assignment/pending" },
-                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/courses/assignment/completed" },
+                { key: "pending", icon: <ClockCircleOutlined />, label: "Pending", url: "/menu/courses/assignment/pending" },
+                { key: "completed", icon: <CheckCircleOutlined />, label: "Completed", url: "/menu/courses/assignment/completed" },
+            ],
+        },
+        {
+            key: "practise",
+            icon: <AimOutlined />,
+            label: "Practise",
+            children: [
+                { key: "review", icon: <BarChartOutlined />, label: "Review", url: "/menu/courses/practise/review" },
             ],
         },
     ];
@@ -66,6 +74,7 @@ const SecondaryCourses = () => {
     const handleMenuClick = ({ key, keyPath }) => {
         const isCourse = keyPath.includes("courses");
         const isAssignment = keyPath.includes("assignments");
+        const isPractise = keyPath.includes("practise");
 
         if (isCourse) {
             const selectedCourse = courseData.find(course => course.id === key);
@@ -74,7 +83,8 @@ const SecondaryCourses = () => {
                 setSelectedLabel(key);
                 setLocalStorage("selectedCourse", key, 300000);
             }
-        } else if (isAssignment) {
+        }
+        else if (isAssignment) {
             const selectedAssignment = menuItems.find(item => item.key === "assignments")
                 ?.children.find(child => child.key === key);
             if (selectedAssignment) {
@@ -82,7 +92,17 @@ const SecondaryCourses = () => {
                 setSelectedLabel(key);
                 setLocalStorage("selectedCourse", key, 300000);
             }
-        } else {
+        }
+        else if (isPractise) {
+            const selectedPractise = menuItems.find(item => item.key === "practise")
+                ?.children.find(child => child.key === key);
+            if (selectedPractise) {
+                navigate(selectedPractise.url); // Navigate to assignment page
+                setSelectedLabel(key);
+                setLocalStorage("selectedCourse", key, 300000);
+            }
+        }
+        else {
             setSelectedLabel(key);
             setLocalStorage("selectedCourse", key, 300000);
         }
@@ -152,7 +172,7 @@ const SecondaryCourses = () => {
             </Sider>
             <Layout>
                 <Content
-                    className="my-2 mx-4 py-3 px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
+                    className="my-2 md:mx-4 py-3 md:px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
                     style={{ height: 'calc(100vh - 96px)' }}
                 >
                     <AnimatePresence mode="wait">

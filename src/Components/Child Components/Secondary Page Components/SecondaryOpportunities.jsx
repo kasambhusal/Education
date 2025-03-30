@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
     CompassOutlined,
     TrophyOutlined,
     RocketOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import MainPageOpportunities from "../Others/MainPageOpportunities";
 import { getLocalStorage, setLocalStorage } from '../../../utils/localStorageUtils';
 
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 
 const SecondaryOpportunities = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -103,9 +101,6 @@ const SecondaryOpportunities = () => {
                 collapsible
                 collapsed={collapsed}
                 className="relative"
-                style={{
-                    background: 'linear-gradient(180deg, rgba(30,64,175,1) 0%, rgba(29,78,216,1) 100%)',
-                }}
                 width={260}
             >
                 <motion.div
@@ -128,6 +123,8 @@ const SecondaryOpportunities = () => {
                             background: 'transparent',
                         }}
                     />
+
+
                 </motion.div>
             </Sider>
             <Layout>

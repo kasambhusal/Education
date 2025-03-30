@@ -5,6 +5,7 @@ import { useUser } from "../../Context/UserContext"
 import { Settings, LogOut, UserPlus } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Post } from "../../../utils/API"
+import { DashboardOutlined } from "@ant-design/icons"
 // import Image from "next/image" //Removed import for Next.js Image
 const { Search } = Input
 
@@ -31,6 +32,7 @@ export default function TopNav() {
   const [showAccountManagement, setShowAccountManagement] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const [isRotated, setIsRotated] = useState(false)
+
   useEffect(() => {
     if (user._id && user.email) {
       setIsLoggedIn(true)
@@ -136,6 +138,21 @@ export default function TopNav() {
                     <UserPlus className="inline-block mr-2" size={18} />
                     Manage Account
                   </motion.button>
+                  {
+                    user?.role === "ADMIN" && (
+                      <motion.button
+                        whileHover={{ backgroundColor: "#f3f4f6" }}
+                        className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        <Link to="/dashboard/add-course">
+                          <DashboardOutlined className="inline-block mr-2" size={18} />
+                          Dashboard
+                        </Link>
+                      </motion.button>
+                    )
+                  }
+
                   <motion.button
                     whileHover={{ backgroundColor: "#f3f4f6" }}
                     onClick={handleLogout}

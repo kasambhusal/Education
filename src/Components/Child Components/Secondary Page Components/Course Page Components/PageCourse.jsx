@@ -7,6 +7,7 @@ import LearnReact from './LearnReact'
 import PhysicsOlympaid from './PhysicsOlympaid'
 import MathOlympaid from './MathOlympaid'
 import PageAssignment from './Assignment Page Components/PageAssignment'
+import PagePractise from './Practise Page Components/PagePractise'
 const PageCourse = () => {
     return (
         <div>
@@ -18,6 +19,7 @@ const PageCourse = () => {
                 <Route path="/physics-olympaid-guide" element={<PhysicsOlympaid />} />
                 <Route path="/math-olympaid-guide" element={<MathOlympaid />} />
                 <Route path="/assignment/*" element={<PageAssignment />} />
+                <Route path="/practise/*" element={<PagePractise />} />
 
                 <Route path="*" element={<ErrorPage />} />
             </Routes>

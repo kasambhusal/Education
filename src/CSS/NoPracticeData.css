@@ -1,0 +1,65 @@
+.no-practice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #f0f2f5;
+    padding: 24px;
+  }
+  
+  .no-practice-card {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+  
+  .no-practice-title {
+    margin-bottom: 16px !important;
+    color: #1890ff;
+  }
+  
+  .no-practice-text {
+    font-size: 16px;
+    color: #8c8c8c;
+    margin-bottom: 24px;
+    display: block;
+  }
+  
+  .no-practice-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .start-button {
+    background: linear-gradient(45deg, #1890ff, #36cfc9);
+    border: none;
+    transition: all 0.3s ease;
+  }
+  
+  .start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+  }
+  
+  .explore-button {
+    border: 2px solid #1890ff;
+    color: #1890ff;
+    transition: all 0.3s ease;
+  }
+  
+  .explore-button:hover {
+    background-color: #e6f7ff;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 576px) {
+    .no-practice-actions {
+      flex-direction: column;
+    }
+  }

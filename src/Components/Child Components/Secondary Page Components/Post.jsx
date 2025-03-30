@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect, useRef } from "react"
 import { HeartIcon, ShareIcon, ChatBubbleOvalLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline"
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid"
@@ -28,14 +30,13 @@ const Post = ({ post: initialPost }) => {
     const [visibleComments, setVisibleComments] = useState(10)
     const commentInputRef = useRef(null)
     const commentSectionRef = useRef(null)
-    const textToCopy = `http://localhost:5173/clubs/post/${post?._id}`
+    const textToCopy = `http://localhost:5173/menu/clubs/post/${post?._id}`
     useEffect(() => {
         if (isLikeAnimating) {
             const timer = setTimeout(() => setIsLikeAnimating(false), 1000)
             return () => clearTimeout(timer)
         }
     }, [isLikeAnimating])
-
     const handleLike = async () => {
         const userId = user._id
         const postId = post._id
@@ -54,7 +55,7 @@ const Post = ({ post: initialPost }) => {
             })
             if (response.ok) {
                 const { updatedPost } = await response.json()
-                setPost(updatedPost)
+                setPost(...updatedPost.likes)
                 setIsLiked(updatedPost.likes.includes(user._id))
                 setLikeCount(updatedPost.likes.length)
             }
@@ -104,7 +105,7 @@ const Post = ({ post: initialPost }) => {
 
             if (response.ok) {
                 const { updatedPost } = await response.json()
-                setPost(updatedPost) // Ensure the UI is updated with the correct data
+                setPost(...updatedPost.comments) // Ensure the UI is updated with the correct data
             }
         } catch (error) {
             console.error("Error posting comment:", error)
@@ -142,15 +143,43 @@ const Post = ({ post: initialPost }) => {
                 <div className="flex-grow">
                     <h3 className="font-semibold text-xl mb-2 line-clamp-1">{post.title}</h3>
                     <p className="text-gray-600 text-sm mb-4">
-                        Posted by {post.from.name} on {new Date(post.createdAt).toLocaleDateString()}
+                        Posted by {post.from.name}{" "}
+                        <span
+                            className="relative group cursor-default"
+                            title={new Date(post.createdAt).toLocaleString("en-US", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "2-digit",
+                                hour12: true,
+                            })}
+                        >
+                            on{" "}
+                            {new Date(post.createdAt).toLocaleString("en-US", {
+                                month: "long",
+                                day: "numeric",
+                            })}{" "}
+                            at{" "}
+                            {new Date(post.createdAt).toLocaleString("en-US", {
+                                hour: "numeric",
+                                minute: "2-digit",
+                                hour12: false,
+                            })}
+
+                        </span>
                     </p>
-                    {post.image && (
-                        <img
-                            src={post.image || "/placeholder.svg"}
-                            alt="Post content"
-                            className="max-w-full max-h-[400px] object-cover rounded-lg mb-4"
-                        />
-                    )}
+                    {post.image &&
+                        (post.image.endsWith(".mp4") || post.image.endsWith(".webm") || post.image.endsWith(".ogg") ? (
+                            <video src={post.image} controls className="max-w-full max-h-[400px] object-cover rounded-lg mb-4" />
+                        ) : (
+                            <img
+                                src={post.image || "/placeholder.svg"}
+                                alt="Post content"
+                                className="max-w-full max-h-[400px] object-cover rounded-lg mb-4"
+                            />
+                        ))}
 
                     <p className="text-gray-800 mb-4 text-justify">
                         {isTextExpanded || post.text.length <= 300 ? post.text : `${post.text.slice(0, 300)}...`}
@@ -187,9 +216,9 @@ const Post = ({ post: initialPost }) => {
                                 <Statistic
                                     value={formatNumber(likeCount)}
                                     valueStyle={{
-                                        color: "#6B7280", fontSize: "16px"
+                                        color: "#6B7280",
+                                        fontSize: "16px",
                                     }}
-
                                 />
                             </motion.span>
                         </motion.button>

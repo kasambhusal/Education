@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
     gender: '',
     standard: '',
     goal: '',
-    role: 'ADMIN'
+    role: ''
   });
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   // Update user state from localStorage if the token exists
@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
         setUser((prev) => ({
           ...prev,
           ...userData,
-          role: userData.role || 'ADMIN', // Default role if missing
+          role: userData.role, // Default role if missing
         }));
       }
     }
