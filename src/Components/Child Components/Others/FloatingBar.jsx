@@ -33,7 +33,6 @@ export default function FloatingBar() {
                         src={item.icon || "/placeholder.svg"} 
                         className="w-1/3 h-[50%]" 
                         alt={item.title}
-                        whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.5 }}
                     />
                     <div className="text-lg font-semibold">{item.title}</div>

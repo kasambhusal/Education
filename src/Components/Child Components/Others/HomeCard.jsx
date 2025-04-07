@@ -1,9 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "../../Context/ThemeContext";
+import { setLocalStorage } from "../../../utils/localStorageUtils";
 
-const HomeCard = ({ heading, image, text }) => {
+const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
   const { themeColor } = useTheme();
+  const navigate = useNavigate()
+  const ExploreClicked = () => {
+    console.log(redirect, local)
+    if (redirect != "") {
+      if (local != {}) {
+        setLocalStorage(local.key, local.label, 300000)
+      }
+      navigate(redirect)
+
+    }
+
+  }
   return (
     <motion.div
       className="relative overflow-hidden w-[400px] h-[480px] rounded-2xl shadow-2xl bg-gradient-to-b from-[#EDF2F7] to-[#A0AEC0]"
@@ -63,6 +77,7 @@ const HomeCard = ({ heading, image, text }) => {
             boxShadow: "0 0 15px rgba(107, 70, 193, 0.5)",
           }}
           whileTap={{ scale: 0.95 }}
+          onClick={ExploreClicked}
         >
           Explore
         </motion.button>

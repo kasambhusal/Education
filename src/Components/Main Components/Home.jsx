@@ -250,7 +250,12 @@ export default function Home() {
                         {
                             heading: 'Upcoming Hackathons',
                             image: 'homeImg.png',
-                            text: 'Be up-to-date about upcoming hackathon opportunities'
+                            text: 'Be up-to-date about upcoming hackathon opportunities',
+                            redirect: '/menu/opportunities',
+                            local: {
+                                key: "selectedOpportunity",
+                                label: "Hackathons"
+                            }
                         },
                         {
                             heading: 'Events that aligns with you',
