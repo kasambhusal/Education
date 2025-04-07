@@ -8,7 +8,6 @@ const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
   const { themeColor } = useTheme();
   const navigate = useNavigate()
   const ExploreClicked = () => {
-    console.log(redirect, local)
     if (redirect != "") {
       if (local != {}) {
         setLocalStorage(local.key, local.label, 300000)
@@ -16,7 +15,6 @@ const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
       navigate(redirect)
 
     }
-
   }
   return (
     <motion.div
@@ -50,9 +48,9 @@ const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
           whileHover={{ scale: 1.05 }}
         >
           <motion.img
-            src={`/${image}`}
+            src={`${image}` || `/${image}`}
             alt="cardImage"
-            className="h-full w-full object-cover"
+            className="h-full w-full "
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.3 }}
           />

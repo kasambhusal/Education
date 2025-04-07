@@ -16,6 +16,7 @@ import Courses from './Courses'
 import DashboardLayout from '../DashboardComponents/DashboardLayout'
 import CourseMCQ from '../Child Components/Secondary Page Components/Course Page Components/Assignment Page Components/CourseMCQ'
 import AIandQC from './AIandQC'
+import About from './About'
 
 const PageUser = () => {
     const location = useLocation();
@@ -28,6 +29,7 @@ const PageUser = () => {
 
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/know-more-about-us" element={<About />} />
                 <Route path="user/login" element={<Login />} />
                 <Route path="user/sign-up" element={<SignUp />} />
                 <Route path="user/password-forgot" element={<ForgotPassword />} />

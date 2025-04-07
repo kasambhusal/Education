@@ -75,7 +75,7 @@ export default function MainPageOpportunities({ name }) {
                 <div className="flex gap-4">
                     <input
                         type="text"
-                        placeholder="Search opportunities..."
+                        placeholder={`Search ${name}...`}
                         className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}

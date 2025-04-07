@@ -6,6 +6,7 @@ import HomeCard from '../Child Components/Others/HomeCard'
 import FloatingBar from '../Child Components/Others/FloatingBar'
 import Testimonial from '../Child Components/Others/Testimonial'
 import TrustSection from '../Child Components/Others/TrustSection'
+import { Link, redirect } from 'react-router-dom'
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -201,7 +202,7 @@ export default function Home() {
                         className="flex justify-center"
                     >
                         <button className="bg-white text-blue-600 font-bold py-3 px-6 rounded-full hover:bg-blue-100 transition duration-300">
-                            Learn More
+                            <Link to="/know-more-about-us">Learn More</Link>
                         </button>
                     </motion.div>
                 </div>
@@ -238,18 +239,20 @@ export default function Home() {
                 <div className="cardgrid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-x-20 md:gap-y-28 px-4">
                     {[
                         {
-                            heading: 'Olympiads for You',
-                            image: 'homeImg.png',
-                            text: 'Explore different opportunities for olympiads across various fields'
+                            heading: 'Prepare for Maths olympaid',
+                            image: 'https://www.mathassociationnepal.org.np/static/frontend/img/logo.png',
+                            text: 'Learn concepts and practice for Nepal Maths Olympiad',
+                            redirect: "/menu/courses/math-olympaid-guide"
                         },
                         {
                             heading: 'Prepare for NePhO',
-                            image: 'homeImg.png',
-                            text: 'Learn concepts and practice for Nepal Physics Olympiad'
+                            image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjfF1sxDtGAZI2It6Old1h16tPcTu2Uhu3Aw&s',
+                            text: 'Learn concepts and practice for Nepal Physics Olympiad',
+                            redirect: '/menu/courses/physics-olympaid-guide'
                         },
                         {
                             heading: 'Upcoming Hackathons',
-                            image: 'homeImg.png',
+                            image: 'https://media.istockphoto.com/id/1306326254/vector/hackathon-and-datathon-set-of-doodle-style-icons.jpg?s=612x612&w=0&k=20&c=hsAHpcpw5FfzPqRpRnL_RUtRkgH_0l3aQvuxSyTriuc=',
                             text: 'Be up-to-date about upcoming hackathon opportunities',
                             redirect: '/menu/opportunities',
                             local: {
@@ -258,9 +261,10 @@ export default function Home() {
                             }
                         },
                         {
-                            heading: 'Events that aligns with you',
-                            image: 'homeImg.png',
-                            text: 'Explore more workshops and events where you can be a part of'
+                            heading: 'Artificial intelligence & Quantum computing',
+                            image: 'https://cdn.prod.website-files.com/643d2eea03135260bdaca209/6585cbd47ce157b3cb7f24bf_ai-generated-face%20profile.webp',
+                            text: 'Tap to explore the future of AI & Quantum!',
+                            redirect: "/menu/ai"
                         }
                     ].map((card, index) => (
                         <motion.div

@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { useTheme } from "../Context/ThemeContext";
 import Contact from "../Child Components/Others/Contact";
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setLocalStorage } from "../../utils/localStorageUtils";
 
 const Footer = () => {
-    const { themeColor } = useTheme();
+    const navigate = useNavigate()
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -25,7 +26,11 @@ const Footer = () => {
             opacity: 1,
         },
     };
+    const OppourtunityClick = ( name ) => {
+        setLocalStorage("selectedOpportunity", name, 300000)
+        navigate("/menu/opportunities")
 
+    }
     return (
         <footer className="bg-gradient-to-b from-blue-900 to-blue-700 text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -44,12 +49,13 @@ const Footer = () => {
                     <motion.div variants={itemVariants}>
                         <h3 className="text-xl font-semibold mb-4">Opportunities</h3>
                         <ul className="space-y-2">
-                            {["Scholarships", "Hackathon", "Workshops", "Olympiad"].map((item) => (
+                            {["Competitions", "Hackathons", "Workshops", "Scholarships"].map((item) => (
                                 <motion.li
                                     key={item}
                                     className="flex items-center"
                                     whileHover={{ x: 5 }}
                                     transition={{ type: "spring", stiffness: 300 }}
+                                    onClick={() => OppourtunityClick(item)}
                                 >
                                     <ChevronRightIcon className="w-4 h-4 mr-2" />
                                     {item}
@@ -77,7 +83,17 @@ const Footer = () => {
                                 transition={{ type: "spring", stiffness: 300 }}
                             >
                                 <ChevronRightIcon className="w-4 h-4 mr-2" />
-                                <Link to="/menu/courses/sat">
+                                <Link to="/menu/courses/math-olympaid-guide">
+                                    MAT
+                                </Link>
+                            </motion.li>
+                            <motion.li
+                                className="flex items-center"
+                                whileHover={{ x: 5 }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <ChevronRightIcon className="w-4 h-4 mr-2" />
+                                <Link to="/menu/courses/sat-preparation">
                                     SAT
                                 </Link>
                             </motion.li>

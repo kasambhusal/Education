@@ -52,6 +52,11 @@ const SecondaryOpportunities = () => {
             icon: <CompassOutlined />,
             label: 'Workshops',
         },
+        {
+            key: '4',
+            icon: <TrophyOutlined />,
+            label: 'Scholarships',
+        },
     ];
 
     const handleMenuClick = ({ key }) => {
