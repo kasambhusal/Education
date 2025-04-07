@@ -11,7 +11,7 @@ export default function BottomNav() {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const navItems = [
-    { path: "/menu/opportunities", label: "Opportunities _" },
+    { path: "/menu/opportunities", label: "Opportunities" },
     { path: "/menu/exam-prep", label: "Exam-Prep" },
     { path: "/menu/clubs", label: "Clubs" },
     { path: "/menu/courses", label: "Courses" },
