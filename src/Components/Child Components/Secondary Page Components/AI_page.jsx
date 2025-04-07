@@ -1,18 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Pandas from "./AIPage_components/Pandas";
-import ComputerLearning from "./AIPage_components/ComputerLearning";
+import IntroToML from "./AIPage_components/IntroToML";
 import Numpy from "./AIPage_components/Numpy";
 import Matplotlib from "./AIPage_components/Matplotlib";
+import GettingStarted from "./AIPage_components/GettingStarted";
+import AI_UnitWise from "./AI_UnitWise";
+import GettingStartedData from "./Course Page Components/JsonFile_AI/AI_1.json";
 
 const topics = [
   {
+    id: "topic0",
+    title: "Getting Started"
+  },
+  
+  {
     id: "topic1",
-    title: "Pandas",
+    title: "Numpy",
   },
   {
     id: "topic2",
-    title: "Numpy",
+    title: "Pandas",
   },
   {
     id: "topic3",
@@ -20,19 +28,41 @@ const topics = [
   },
   {
     id: "topic4",
-    title: "Computers' Learning Way",
-  },
+    title: "Introduction to ML"
+  }
 ];
 
-const AI_page = () => {
 
-  const [activeTopic, setActiveTopic] = useState('Pandas')
+const AI_page = () => {
+console.log("getting started: ", GettingStartedData.getStarted)
+
+  // const [GettingStartedData, setGettingStartedData] = useState(null);
+
+  // useEffect(() => {
+  //   // Fetch the JSON file from the public folder
+  //   fetch("/AIGettingStarted.json") // Path relative to the public folder
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch JSON");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {setGettingStartedData(data)
+  //   console.log(data)})
+  //     .catch((error) => console.error("Error fetching JSON:", error));
+  // }, []);
+
+  const [activeTopic, setActiveTopic] = useState('Getting Started')
   const topicClicked = (title) => {
     setActiveTopic(title)
   }
   const renderComponent = ()=>{
+
     if(activeTopic == 'Pandas'){
       return <Pandas/>
+    }
+    else if(activeTopic == 'Getting Started'){
+      return <AI_UnitWise project={GettingStartedData.getStarted}/>
     }
     else if(activeTopic == 'Numpy'){
       return <Numpy/>
@@ -40,14 +70,14 @@ const AI_page = () => {
     else if(activeTopic == 'Matplotlib'){
       return <Matplotlib/>
     }
-    else if(activeTopic == "Computers' Learning Way"){
-      return <ComputerLearning/>
+    else if(activeTopic == "Introduction to ML"){
+      return <IntroToML/>
     }
   }
 
   return (
     <div className="flex h-screen overflow-y-auto w-full">
-      {/* Sidebar (Table of Contents) */}
+     
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

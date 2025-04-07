@@ -17,8 +17,9 @@ const Numpy = () => {
   </p> 
 
   <p className="text-gray-800 mt-7 text-lg">
-    Why do we need NumPy? Python lists are flexible, but they are <strong>slow</strong> when handling large numbers. NumPy arrays are <strong>faster, more efficient, and use less memory</strong>.  
+    Why do we need NumPy? Python lists are flexible, but as you might have heard that python is <strong>slow</strong> when handling large numbers. Numpy is a library which helps to sort the operations with large data in smaller amount of time with minimal efforts. NumPy arrays are <strong>faster, more efficient, and use less memory</strong>.  
   </p>  
+  <p>You might not feel the difference while working with smaller data sets, but when the number of data increases, saving computational time is very cruicial.</p>
 
   <div className="bg-gray-100 p-4 rounded-md">
     <pre className="text-sm text-red-700">
@@ -68,7 +69,7 @@ const Numpy = () => {
       np.linspace(1, 10, 5)  <span className="text-green-700"># Creates 5 evenly spaced numbers from 1 to 10</span>
     </pre>
   </div>
-
+<p className='text-gray-800 mt-7 text-lg'>np.linspace creates evenly spaced numbers within the given range. For instance- np.linspace(2, 20, 10) will give 10 different values from 2 to 20 with each being equally distanced from other, i.e 2, 4, 6, 8, ..., 20<br/> It is generally useful when creating data points</p>
   <p className="text-lg mt-6 text-green-900">
     Output of np.linspace(1, 10, 5):
   </p>
