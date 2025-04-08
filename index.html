@@ -56,5 +56,19 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PNWSQL8FXE"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PNWSQL8FXE");
+    </script>
   </body>
 </html>
