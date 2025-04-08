@@ -3,6 +3,7 @@ import { Button, Form, Input, Radio, notification } from 'antd';
 import { motion } from 'framer-motion';
 import { UserIcon, EnvelopeIcon, CameraIcon, LockClosedIcon } from '@heroicons/react/24/solid';
 import { Post } from '../../utils/API'; // Adjust the path as needed
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
     const onFinish = async (values) => {
@@ -58,13 +59,14 @@ const SignUp = () => {
                 >
                     {/* Logo Section */}
                     <motion.div
-                        className="text-center mb-8"
+                        className="text-center mb-8 "
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
                     >
-                        <span className="text-3xl font-bold text-indigo-600">LOGO</span>
-                        <span className="text-xl text-gray-600 ml-2">Kya huwa re</span>
+                        <Link to="/" className='w-full flex justify-center '>
+                            <img src="/logo.png" alt="Logo" className="max-w-[80%] max-h-[100px]" style={{ borderRadius: "10px", boxShadow: "0px 0px 16px black inset" }} />
+                        </Link>
                     </motion.div>
 
                     {/* Form Fields */}

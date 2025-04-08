@@ -26,7 +26,7 @@ const Footer = () => {
             opacity: 1,
         },
     };
-    const OppourtunityClick = ( name ) => {
+    const OppourtunityClick = (name) => {
         setLocalStorage("selectedOpportunity", name, 300000)
         navigate("/menu/opportunities")
 

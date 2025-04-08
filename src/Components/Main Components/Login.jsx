@@ -93,8 +93,9 @@ export default function Login() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
           >
-            <span className="text-3xl font-bold text-indigo-600">LOGO</span>
-            <span className="text-xl text-gray-600 ml-2">Kya huwa re</span>
+            <Link to="/" className='w-full flex justify-center '>
+              <img src="/logo.png" alt="Logo" className="max-w-[80%] max-h-[100px]" style={{ borderRadius: "10px", boxShadow: "0px 0px 16px black inset" }} />
+            </Link>
           </motion.div>
 
           <Form.Item

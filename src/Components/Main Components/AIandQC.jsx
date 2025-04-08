@@ -60,7 +60,7 @@ const AIandQC = () => {
                 
 
                 <div className="AI_Label flex justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 w-[70%] px-8 py-5 bg-gradient-to-r from-green-400 via-green-600 to-green-800 rounded-xl">
-                    <div className="image hover:scale-125 transition-all duration-200"><img src="ai.png" alt="AI" /></div>
+                    <div className="image hover:scale-125 transition-all duration-200"><img src="/ai.png" alt="AI" /></div>
                     <div className="content flex flex-col gap-4 mt-16">
                         <div className="head font-semibold text-2xl">Artificial Intelligence</div>
                         <div className="extrainfo text-slate-200">Get ready to learn about different aspects of AI with hands on projects to experience great learning curve</div>
@@ -68,7 +68,7 @@ const AIandQC = () => {
                     </div>
                 </div>
                 <div onClick={()=>setSelectedTopic('qc')} className="QC_Label flex items-center gap-5 justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 w-[70%] px-8 py-10 bg-gradient-to-r from-red-400 via-red-600 to-red-800 rounded-xl">
-                    <div className="image w-[60%] hover:scale-125 transition-all duration-200"><img className="w-full h-full" src="qc.webp" alt="quantum computing" /></div>
+                    <div className="image w-[60%] hover:scale-125 transition-all duration-200"><img className="w-full h-full" src="/qc.webp" alt="quantum computing" /></div>
                     <div className="content flex flex-col gap-4">
                         <div className="head font-semibold text-2xl">Quantum Computing</div>
                         <div className="extrainfo text-slate-200">Fulfill your hunger for physics and computers via Quantum Computing and learning along with some small projects</div>
