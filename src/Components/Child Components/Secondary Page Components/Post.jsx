@@ -37,7 +37,7 @@ const Post = ({ post: initialPost }) => {
     const commentInputRef = useRef(null)
     const commentSectionRef = useRef(null)
     const optionsRef = useRef(null)
-    const textToCopy = `http://localhost:5173/menu/clubs/post/${post?._id}`
+    const textToCopy = `https://www.edusphere.pro/menu/clubs/post/${post?._id}`
 
     useEffect(() => {
         if (isLikeAnimating) {
