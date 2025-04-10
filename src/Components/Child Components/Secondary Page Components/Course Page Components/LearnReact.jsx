@@ -1,19 +1,40 @@
-import React, { useState, useContext, useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+"use client"
+
+import React from "react"
+import { useState, useContext, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
+import { MenuOutlined, CloseOutlined, ArrowUpOutlined } from "@ant-design/icons"
 
 // Context to manage global state across components
 const AppContext = React.createContext()
 
 const LearnReact = () => {
     const [activeSection, setActiveSection] = useState("")
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    const [showScrollTop, setShowScrollTop] = useState(false)
     const contentRef = useRef(null)
+
+    // Check if we're on mobile
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
             if (contentRef.current) {
                 const sections = contentRef.current.querySelectorAll(".section")
                 let currentActiveSection = ""
+
+                // Show scroll-to-top button when scrolled down
+                setShowScrollTop(contentRef.current.scrollTop > 300)
 
                 sections.forEach((section) => {
                     const rect = section.getBoundingClientRect()
@@ -41,25 +62,111 @@ const LearnReact = () => {
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId)
         if (section && contentRef.current) {
+            // On mobile, add a slight delay to allow the menu to close first
+            if (isMobile) {
+                setMobileMenuOpen(false)
+                setTimeout(() => {
+                    contentRef.current.scrollTo({
+                        top: section.offsetTop - 70, // Account for the header
+                        behavior: "smooth",
+                    })
+                }, 300)
+            } else {
+                contentRef.current.scrollTo({
+                    top: section.offsetTop - 20,
+                    behavior: "smooth",
+                })
+            }
+        }
+    }
+
+    const scrollToTop = () => {
+        if (contentRef.current) {
             contentRef.current.scrollTo({
-                top: section.offsetTop - 20,
+                top: 0,
                 behavior: "smooth",
             })
         }
     }
 
     return (
-        <AppContext.Provider value={{ appName: "React Masterclass", activeSection }}>
-            <div className="flex flex-col md:flex-row h-full">
-                <TableOfContents scrollToSection={scrollToSection} />
-                <MainContent contentRef={contentRef} />
+        <AppContext.Provider value={{ appName: "React Masterclass", activeSection, isMobile }}>
+            <div className="flex flex-col h-full relative">
+                {/* Mobile header - fixed at the top */}
+                {isMobile && (
+                    <div className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-sm px-4 py-3 shadow-md flex justify-between items-center">
+                        <h2 className="text-xl font-semibold text-blue-800">React Guide</h2>
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="p-2 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
+                            aria-label="Toggle menu"
+                        >
+                            {mobileMenuOpen ? <CloseOutlined /> : <MenuOutlined />}
+                        </button>
+                    </div>
+                )}
+
+                {/* Mobile menu - slide in from the right */}
+                <AnimatePresence>
+                    {isMobile && mobileMenuOpen && (
+                        <>
+                            {/* Backdrop overlay */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 0.5 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="fixed inset-0 bg-black z-20"
+                                onClick={() => setMobileMenuOpen(false)}
+                            />
+
+                            {/* Menu panel */}
+                            <motion.div
+                                initial={{ x: "100%" }}
+                                animate={{ x: 0 }}
+                                exit={{ x: "100%" }}
+                                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                                className="fixed top-0 right-0 bottom-0 z-30 w-3/4 bg-white shadow-xl pt-16 px-4 overflow-auto"
+                            >
+                                <div className="pb-20">
+                                    <TableOfContents scrollToSection={scrollToSection} />
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                <div className={`flex flex-col md:flex-row h-full ${isMobile ? "pt-14" : ""}`}>
+                    {/* Desktop table of contents - hidden on mobile */}
+                    {!isMobile && <TableOfContents scrollToSection={scrollToSection} />}
+
+                    {/* Main content */}
+                    <MainContent contentRef={contentRef} />
+
+                    {/* Scroll to top button - only visible when scrolled down */}
+                    <AnimatePresence>
+                        {showScrollTop && isMobile && (
+                            <motion.button
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ duration: 0.2 }}
+                                onClick={scrollToTop}
+                                className="fixed bottom-6 right-6 z-20 p-3 rounded-full bg-blue-600 text-white shadow-lg"
+                                aria-label="Scroll to top"
+                            >
+                                <ArrowUpOutlined />
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
         </AppContext.Provider>
     )
 }
 
 const TableOfContents = ({ scrollToSection }) => {
-    const { activeSection } = useContext(AppContext)
+    const { activeSection, isMobile } = useContext(AppContext)
 
     const sections = [
         { id: "introduction", title: "Introduction to React" },
@@ -76,23 +183,34 @@ const TableOfContents = ({ scrollToSection }) => {
 
     return (
         <motion.div
-            className="md:w-1/4 p-4 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start overflow-auto max-h-[calc(100vh-50px)]"
-            initial={{ x: -200 }}
-            animate={{ x: 0 }}
+            className={`${isMobile
+                    ? "w-full"
+                    : "md:w-1/4 p-5 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start"
+                } overflow-auto ${isMobile ? "max-h-full" : "max-h-[calc(100vh-50px)]"}`}
+            initial={isMobile ? { opacity: 1 } : { x: -200 }}
+            animate={isMobile ? { opacity: 1 } : { x: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <h2 className="text-3xl font-semibold text-blue-800 mb-5">React Guide</h2>
-            <ul className="space-y-3 text-lg">
+            {!isMobile && <h2 className="text-3xl font-semibold text-blue-800 mb-5">React Guide</h2>}
+            <ul className="space-y-3">
                 {sections.map((section, index) => (
-                    <li key={section.id}>
+                    <motion.li key={section.id} whileTap={{ scale: 0.98 }}>
                         <button
                             onClick={() => scrollToSection(section.id)}
-                            className={`text-left w-full p-2 rounded ${activeSection === section.id ? "text-blue-600 font-semibold" : "text-gray-600 hover:text-blue-600"
+                            className={`text-left w-full p-3 rounded-lg transition-all ${activeSection === section.id
+                                    ? "bg-blue-50 text-blue-700 font-semibold shadow-sm"
+                                    : "text-gray-600 hover:bg-gray-50"
                                 }`}
                         >
-                            {`${index + 1}. ${section.title}`}
+                            <span
+                                className={`inline-block w-7 h-7 mr-2 rounded-full ${activeSection === section.id ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
+                                    } text-center leading-7 text-sm font-medium`}
+                            >
+                                {index + 1}
+                            </span>
+                            <span className={`${isMobile ? "text-base" : "text-lg"}`}>{section.title}</span>
                         </button>
-                    </li>
+                    </motion.li>
                 ))}
             </ul>
         </motion.div>
@@ -100,8 +218,14 @@ const TableOfContents = ({ scrollToSection }) => {
 }
 
 const MainContent = ({ contentRef }) => {
+    const { isMobile } = useContext(AppContext)
+
     return (
-        <div ref={contentRef} className="md:w-3/4 overflow-auto pr-4 max-h-[calc(100vh-50px)]">
+        <div
+            ref={contentRef}
+            className={`${isMobile ? "w-full" : "md:w-3/4"} overflow-auto px-4 md:pr-6 ${isMobile ? "max-h-[calc(100vh-56px)]" : "max-h-[calc(100vh-50px)]"
+                }`}
+        >
             <div id="introduction" className="section">
                 <Section title="1. Introduction to React">
                     <p>
@@ -254,11 +378,13 @@ const MainContent = ({ contentRef }) => {
             <div id="practisewithedusphere" className="section">
                 <Section title="10. Practise with EduSphere">
                     <p>
-                        EduSphere provides an interactive platform to test and refine your skills in various domains, including **React.js**.
-                        By practicing in a structured environment, learners can enhance their problem-solving abilities and deepen their understanding through real-world scenarios.
+                        EduSphere provides an interactive platform to test and refine your skills in various domains, including
+                        <strong> React.js</strong>. By practicing in a structured environment, learners can enhance their
+                        problem-solving abilities and deepen their understanding through real-world scenarios.
                     </p>
                     <p>
-                        Whether you're mastering **React components** or tackling challenging **MCQs**, EduSphere ensures a seamless and engaging learning experience. Start your journey now!
+                        Whether you're mastering <strong>React components</strong> or tackling challenging <strong>MCQs</strong>,
+                        EduSphere ensures a seamless and engaging learning experience. Start your journey now!
                     </p>
 
                     <CodeSnippet
@@ -266,34 +392,50 @@ const MainContent = ({ contentRef }) => {
                     />
 
                     <div className="h-[10vh] flex items-center justify-end">
-                        <Link to="/practise/Reactjs" className="text-blue-500 underline hover:text-blue-700">
+                        <Link
+                            to="/practise/Reactjs"
+                            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
                             Practise with EduSphere →
                         </Link>
                     </div>
                 </Section>
             </div>
-
         </div>
     )
 }
 
 const Section = ({ title, children }) => {
+    const { isMobile } = useContext(AppContext)
+
     return (
         <motion.div
-            className="section bg-white p-6 rounded-lg shadow-lg mb-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            className={`section bg-white p-5 md:p-6 rounded-xl shadow-lg mb-6 md:mb-8 border border-gray-100`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
         >
-            <h3 className="text-2xl font-semibold text-blue-800 mb-3">{title}</h3>
-            <div className="text-lg text-gray-700">{children}</div>
+            <h3 className={`${isMobile ? "text-xl" : "text-2xl"} font-semibold text-blue-800 mb-4 flex items-center`}>
+                <span className="bg-blue-100 text-blue-800 rounded-lg px-3 py-1 mr-3 inline-block">{title.split(".")[0]}.</span>
+                <span>{title.split(".")[1].trim()}</span>
+            </h3>
+            <div className={`${isMobile ? "text-base" : "text-lg"} text-gray-700 leading-relaxed`}>{children}</div>
         </motion.div>
     )
 }
 
 const CodeSnippet = ({ code }) => {
-    return <pre className="bg-gray-900 text-white p-4 rounded-lg font-mono overflow-x-auto">{code}</pre>
+    const { isMobile } = useContext(AppContext)
+
+    return (
+        <pre
+            className={`bg-gray-900 text-white p-3 md:p-4 rounded-lg font-mono overflow-x-auto text-sm md:text-base mt-4 mb-4`}
+        >
+            {code}
+        </pre>
+    )
 }
 
 export default LearnReact
-

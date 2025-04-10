@@ -23,10 +23,22 @@ export default function MainPageClubs({ name }) {
     const [currentPage, setCurrentPage] = useState(1)
     const [hasMore, setHasMore] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
     const limit = 10
     const { token } = useUser()
     const observer = useRef()
     const initialLoadDone = useRef(false)
+
+    // Check if we're on mobile
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+    }, [])
 
     const lastPostElementRef = useCallback(
         (node) => {
@@ -82,7 +94,7 @@ export default function MainPageClubs({ name }) {
                 setIsLoading(false)
             }
         },
-        [name, currentPage, token, hasMore, isLoading], // Added isLoading to dependencies
+        [name, currentPage, token, hasMore, isLoading],
     )
 
     useEffect(() => {
@@ -104,19 +116,21 @@ export default function MainPageClubs({ name }) {
 
     return (
         <motion.div variants={containerVariants} initial="hidden" animate="visible" className="h-full flex flex-col">
-            <div className="flex justify-between items-center mb-2">
-                <h2 className="text-3xl font-bold text-gray-800">{name} Discussions</h2>
+            <div
+                className={`flex ${isMobile ? "flex-col" : "justify-between"} items-${isMobile ? "start" : "center"} mb-2 ${isMobile ? "gap-2 ml-3" : ""}`}
+            >
+                <h2 className={`${isMobile ? "text-2xl" : "text-3xl"} font-bold text-gray-800  `}>{name} Discussions</h2>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className={` px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${isMobile ? "text-sm" : ""}`}
                     onClick={() => setIsNewPostOpen(true)}
                 >
                     + New Post
                 </motion.button>
             </div>
 
-            <div className="flex-grow overflow-y-auto pr-4 -mr-4">
+            <div className="flex-grow overflow-y-auto sm:pr-4 -mr-4">
                 {posts.map((post, index) => (
                     <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
                         <Post post={post} />
@@ -135,4 +149,3 @@ export default function MainPageClubs({ name }) {
         </motion.div>
     )
 }
-

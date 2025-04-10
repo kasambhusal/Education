@@ -50,7 +50,7 @@ export default function Login() {
       });
 
       // Redirect to the previous page if available, otherwise go to "/"
-      const redirectTo = location.state?.redirectTo || "/";
+      const redirectTo = location?.state?.redirectTo || "/";
       navigate(redirectTo, { replace: true });
 
     } catch (error) {
@@ -65,7 +65,6 @@ export default function Login() {
       });
     }
   };
-
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

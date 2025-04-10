@@ -25,8 +25,20 @@ export default function MainPageOpportunities({ name }) {
     const [selectedStatus, setSelectedStatus] = useState("All")
     const [isNewPostOpen, setIsNewPostOpen] = useState(false)
     const [uniqueTypes, setUniqueTypes] = useState([])
+    const [isMobile, setIsMobile] = useState(false)
 
     const { token, user } = useUser()
+
+    // Check if we're on mobile
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+    }, [])
 
     useEffect(() => {
         fetchOpportunities()
@@ -68,18 +80,18 @@ export default function MainPageOpportunities({ name }) {
         fetchOpportunities()
     }
 
-    return (
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="h-full">
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-800">{name}</h2>
-                <div className="flex gap-4">
-                    <input
-                        type="text"
-                        placeholder={`Search ${name}...`}
-                        className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+    // Render filters for mobile
+    const renderMobileFilters = () => {
+        return (
+            <div className="flex flex-col gap-3 mb-4">
+                <input
+                    type="text"
+                    placeholder={`Search ${name}...`}
+                    className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <div className="grid grid-cols-2 gap-2">
                     <select
                         className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
                         value={selectedType}
@@ -102,18 +114,69 @@ export default function MainPageOpportunities({ name }) {
                         <option value="Closed">Closed</option>
                         <option value="Coming Soon">Coming Soon</option>
                     </select>
-                    {
-                        user.role === "ADMIN" && (
-                            <button
-                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                onClick={() => setIsNewPostOpen(true)}
-                            >
-                                + Add New
-                            </button>
-                        )
-                    }
-
                 </div>
+                {user.role === "ADMIN" && (
+                    <button
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        onClick={() => setIsNewPostOpen(true)}
+                    >
+                        + Add New
+                    </button>
+                )}
+            </div>
+        )
+    }
+
+    // Render filters for desktop
+    const renderDesktopFilters = () => {
+        return (
+            <div className="flex gap-4">
+                <input
+                    type="text"
+                    placeholder={`Search ${name}...`}
+                    className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <select
+                    className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+                    value={selectedType}
+                    onChange={(e) => setSelectedType(e.target.value)}
+                >
+                    <option value="All">All Types</option>
+                    {uniqueTypes.map((type) => (
+                        <option key={type} value={type}>
+                            {type}
+                        </option>
+                    ))}
+                </select>
+                <select
+                    className="px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500"
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                >
+                    <option value="All">All Statuses</option>
+                    <option value="Open">Open</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Coming Soon">Coming Soon</option>
+                </select>
+                {user.role === "ADMIN" && (
+                    <button
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        onClick={() => setIsNewPostOpen(true)}
+                    >
+                        + Add New
+                    </button>
+                )}
+            </div>
+        )
+    }
+
+    return (
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="h-full">
+            <div className={`${isMobile ? "flex flex-col" : "flex justify-between items-center"} mb-${isMobile ? "4" : "8"}`}>
+                <h2 className={`text-2xl font-bold text-gray-800 ${isMobile ? "mb-3" : ""}`}>{name}</h2>
+                {isMobile ? renderMobileFilters() : renderDesktopFilters()}
             </div>
 
             <AnimatePresence>
@@ -144,4 +207,3 @@ export default function MainPageOpportunities({ name }) {
         </motion.div>
     )
 }
-
