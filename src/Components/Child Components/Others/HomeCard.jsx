@@ -63,16 +63,16 @@ const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
 
         {/* Card Image */}
         <motion.div
-          className="w-full aspect-video overflow-hidden rounded-xl"
+          className="w-full aspect-[4/3] overflow-hidden rounded-xl"
           style={{
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.06)",
+            backgroundColor: "white",
             border: "1px solid rgba(255, 255, 255, 0.7)",
           }}
         >
           <motion.img
             src={image || `/placeholder.svg?height=200&width=300`}
             alt={heading}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
             loading="lazy"

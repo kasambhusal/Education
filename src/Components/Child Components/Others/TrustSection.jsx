@@ -85,7 +85,6 @@ export default function TrustSection() {
                 <motion.div
                   className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mb-4 text-indigo-600"
                   whileHover={{
-                    rotate: 360,
                     scale: 1.1,
                     transition: { duration: 0.8, ease: "easeInOut" },
                   }}

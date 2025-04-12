@@ -1,9 +1,9 @@
 "use client"
-
 import React from "react"
 import { useState, useContext, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { LinkOutlined, MenuOutlined, CloseOutlined, ArrowUpOutlined } from "@ant-design/icons"
+import { LinkOutlined, MenuOutlined, CloseOutlined, ArrowUpOutlined, BackwardOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 // Context to manage global state across components
 const SATContext = React.createContext()
@@ -94,7 +94,9 @@ const SAT = () => {
         {/* Mobile header - fixed at the top */}
         {isMobile && (
           <div className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-sm px-4 py-3 shadow-md flex justify-between items-center">
-            <h2 className="text-xl font-semibold text-blue-800">SAT Guide</h2>
+
+            <h2 className="text-xl font-semibold text-blue-800">
+              <Link to="/menu/courses"> <BackwardOutlined className="mx-2 " /></Link> SAT Guide</h2>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
@@ -178,11 +180,10 @@ const TableOfContents = ({ scrollToSection }) => {
 
   return (
     <motion.div
-      className={`${
-        isMobile
-          ? "w-full"
-          : "md:w-1/4 p-5 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start"
-      } overflow-auto ${isMobile ? "max-h-full" : "max-h-[calc(100vh-120px)]"}`}
+      className={`${isMobile
+        ? "w-full"
+        : "md:w-1/4 p-5 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start"
+        } overflow-auto ${isMobile ? "max-h-full" : "max-h-[calc(100vh-120px)]"}`}
       initial={isMobile ? { opacity: 1 } : { x: -200 }}
       animate={isMobile ? { opacity: 1 } : { x: 0 }}
       transition={{ duration: 0.5 }}
@@ -193,16 +194,14 @@ const TableOfContents = ({ scrollToSection }) => {
           <motion.li key={section.id} whileTap={{ scale: 0.98 }}>
             <button
               onClick={() => scrollToSection(section.id)}
-              className={`text-left w-full p-3 rounded-lg transition-all ${
-                activeSection === section.id
-                  ? "bg-blue-50 text-blue-700 font-semibold shadow-sm"
-                  : "text-gray-600 hover:bg-gray-50"
-              }`}
+              className={`text-left w-full p-3 rounded-lg transition-all ${activeSection === section.id
+                ? "bg-blue-50 text-blue-700 font-semibold shadow-sm"
+                : "text-gray-600 hover:bg-gray-50"
+                }`}
             >
               <span
-                className={`inline-block w-7 h-7 mr-2 rounded-full ${
-                  activeSection === section.id ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
-                } text-center leading-7 text-sm font-medium`}
+                className={`inline-block w-7 h-7 mr-2 rounded-full ${activeSection === section.id ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700"
+                  } text-center leading-7 text-sm font-medium`}
               >
                 {index + 1}
               </span>
@@ -221,9 +220,8 @@ const MainContent = ({ contentRef }) => {
   return (
     <div
       ref={contentRef}
-      className={`${isMobile ? "w-full" : "md:w-3/4"} overflow-auto px-4 md:pr-6 ${
-        isMobile ? "max-h-[calc(100vh-56px)]" : "max-h-[calc(100vh-120px)]"
-      }`}
+      className={`${isMobile ? "w-full" : "md:w-3/4"} overflow-auto px-4 md:pr-6 ${isMobile ? "max-h-[calc(100vh-56px)]" : "max-h-[calc(100vh-120px)]"
+        }`}
     >
       <Section id="introduction" title="1. Introduction to SAT">
         <p>

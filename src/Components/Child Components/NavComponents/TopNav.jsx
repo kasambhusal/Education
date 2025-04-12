@@ -1,14 +1,60 @@
 "use client"
 
 import { Input } from "antd"
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { useEffect, useState, useRef } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { useUser } from "../../Context/UserContext"
-import { Settings, LogOut, UserPlus, Menu, X, SearchIcon } from "lucide-react"
+import { Settings, LogOut, UserPlus, Menu, X, SearchIcon, ArrowLeft, Zap } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Post } from "../../../utils/API"
 import { DashboardOutlined } from "@ant-design/icons"
 const { Search } = Input
+
+// Search data
+const searchData = [
+  {
+    id: 1,
+    name: "Oppourtunities",
+    URL: "/menu/opportunities",
+    icon: "🚀",
+  },
+  {
+    id: 2,
+    name: "Clubs",
+    URL: "/menu/clubs",
+    icon: "🤝",
+  },
+  {
+    id: 3,
+    name: "Learn React js",
+    URL: "/menu/courses/web-development-with-react",
+    icon: "⚛️",
+  },
+  {
+    id: 4,
+    name: "SAT preparation",
+    URL: "/menu/courses/sat-preparation",
+    icon: "📚",
+  },
+  {
+    id: 5,
+    name: "Physics Olympiad",
+    URL: "/menu/courses/physics-olympaid-guide",
+    icon: "🔭",
+  },
+  {
+    id: 6,
+    name: "Math Olympiad",
+    URL: "menu/courses/math-olympaid-guide",
+    icon: "🧮",
+  },
+  {
+    id: 7,
+    name: "AI and Quantum",
+    URL: "menu/courses/math-olympaid-guide",
+    icon: "🤖",
+  },
+]
 
 const AccountManagement = ({ onClose }) => (
   <motion.div
@@ -45,6 +91,16 @@ export default function TopNav() {
   const [isRotated, setIsRotated] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showMobileSearch, setShowMobileSearch] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [mobileSearchQuery, setMobileSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState([])
+  const [mobileSearchResults, setMobileSearchResults] = useState([])
+  const [showSearchResults, setShowSearchResults] = useState(false)
+  const [recentSearches, setRecentSearches] = useState([])
+  const searchResultsRef = useRef(null)
+  const searchInputRef = useRef(null)
+  const mobileSearchInputRef = useRef(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user._id && user.email) {
@@ -54,9 +110,84 @@ export default function TopNav() {
     }
   }, [user])
 
-  const onSearch = (value) => {
-    console.log(value)
+  useEffect(() => {
+    // Load recent searches from localStorage
+    const savedSearches = localStorage.getItem("recentSearches")
+    if (savedSearches) {
+      try {
+        setRecentSearches(JSON.parse(savedSearches).slice(0, 3))
+      } catch (e) {
+        console.error("Error parsing recent searches", e)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    // Close search results when clicking outside
+    const handleClickOutside = (event) => {
+      if (
+        searchResultsRef.current &&
+        !searchResultsRef.current.contains(event.target) &&
+        searchInputRef.current &&
+        !searchInputRef.current.contains(event.target)
+      ) {
+        setShowSearchResults(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const handleSearch = (value) => {
+    setSearchQuery(value)
+
+    if (value.trim() === "") {
+      setSearchResults([])
+      setShowSearchResults(false)
+      return
+    }
+
+    // Filter search data based on query
+    const filteredResults = searchData.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
+
+    setSearchResults(filteredResults)
+    setShowSearchResults(true)
+  }
+
+  const handleMobileSearch = (value) => {
+    setMobileSearchQuery(value)
+
+    if (value.trim() === "") {
+      setMobileSearchResults([])
+      return
+    }
+
+    // Filter search data based on query
+    const filteredResults = searchData.filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
+
+    setMobileSearchResults(filteredResults)
+  }
+
+  const saveRecentSearch = (item) => {
+    const newRecentSearches = [item, ...recentSearches.filter((search) => search.id !== item.id)].slice(0, 3)
+    setRecentSearches(newRecentSearches)
+    localStorage.setItem("recentSearches", JSON.stringify(newRecentSearches))
+  }
+
+  const handleSearchItemClick = (item) => {
+    setShowSearchResults(false)
+    setSearchQuery("")
+    saveRecentSearch(item)
+    navigate(item.URL)
+  }
+
+  const handleMobileSearchItemClick = (item) => {
+    setMobileSearchQuery("")
+    setMobileSearchResults([])
+    saveRecentSearch(item)
     setShowMobileSearch(false)
+    navigate(item.URL)
   }
 
   const handleLogout = () => {
@@ -89,6 +220,11 @@ export default function TopNav() {
 
   const toggleMobileSearch = () => {
     setShowMobileSearch(!showMobileSearch)
+    // Reset mobile search when toggling
+    if (!showMobileSearch) {
+      setMobileSearchQuery("")
+      setMobileSearchResults([])
+    }
   }
 
   // Animation variants
@@ -115,6 +251,54 @@ export default function TopNav() {
         delayChildren: 0.1,
       },
     },
+  }
+
+  const mobileSearchVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+      },
+    },
+  }
+
+  const searchResultsVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.2,
+        when: "afterChildren",
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+        when: "beforeChildren",
+        staggerChildren: 0.05,
+        delayChildren: 0.05,
+      },
+    },
+  }
+
+  const searchItemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
   }
 
   const menuItemVariants = {
@@ -186,7 +370,7 @@ export default function TopNav() {
   }
 
   return (
-    <div className="w-full bg-white shadow-md ">
+    <div className="w-full bg-white shadow-md">
       {/* Desktop Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -207,16 +391,54 @@ export default function TopNav() {
             variants={searchVariants}
             initial="initial"
             animate="animate"
-            className="hidden md:block flex-1 max-w-md mx-4"
+            className="hidden md:block flex-1 max-w-md mx-4 relative"
+            ref={searchInputRef}
           >
             <Search
-              placeholder="Search"
-              onSearch={onSearch}
+              placeholder="Search courses, opportunities..."
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              onSearch={handleSearch}
               className="rounded-lg"
               style={{
                 width: "100%",
               }}
             />
+
+            {/* Search Results Dropdown */}
+            <AnimatePresence>
+              {showSearchResults && searchResults.length > 0 && (
+                <motion.div
+                  ref={searchResultsRef}
+                  className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-20 overflow-hidden"
+                  variants={searchResultsVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                >
+                  <div className="py-2 max-h-[300px] overflow-y-auto">
+                    {searchResults.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={searchItemVariants}
+                        className="px-4 py-2 hover:bg-indigo-50 cursor-pointer transition-colors duration-150"
+                        onClick={() => handleSearchItemClick(item)}
+                      >
+                        <div className="flex items-center">
+                          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3">
+                            {item.icon || item.id}
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-800">{item.name}</p>
+                            <p className="text-xs text-gray-500">{item.URL}</p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Mobile Search Icon */}
@@ -344,24 +566,146 @@ export default function TopNav() {
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
+      {/* Mobile Search Fullscreen */}
       <AnimatePresence>
         {showMobileSearch && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden px-4 py-2 border-t border-gray-100"
+            className="fixed inset-0 bg-white z-50 flex flex-col"
+            style={{ height: "100vh" }}
           >
-            <Search
-              placeholder="Search"
-              onSearch={onSearch}
-              className="rounded-lg"
-              style={{
-                width: "100%",
-              }}
-            />
+            {/* Search Header */}
+            <div className="flex items-center p-4 border-b">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={toggleMobileSearch}
+                className="p-2 mr-2 rounded-full text-gray-600 hover:text-indigo-600 focus:outline-none"
+              >
+                <ArrowLeft size={20} />
+              </motion.button>
+              <div className="flex-1 relative" ref={mobileSearchInputRef}>
+                <Input
+                  placeholder="Search courses, opportunities..."
+                  value={mobileSearchQuery}
+                  onChange={(e) => handleMobileSearch(e.target.value)}
+                  autoFocus
+                  suffix={
+                    mobileSearchQuery ? (
+                      <X
+                        size={16}
+                        className="text-gray-400 cursor-pointer"
+                        onClick={() => {
+                          setMobileSearchQuery("")
+                          setMobileSearchResults([])
+                        }}
+                      />
+                    ) : (
+                      <SearchIcon size={16} className="text-gray-400" />
+                    )
+                  }
+                  className="rounded-lg"
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
+
+            {/* Search Content */}
+            <div className="flex-1 overflow-y-auto">
+              {/* Recent Searches */}
+              {mobileSearchQuery === "" && recentSearches.length > 0 && (
+                <motion.div variants={mobileSearchVariants} initial="hidden" animate="visible" className="p-4">
+                  <h3 className="text-sm font-medium text-gray-500 mb-2">Recent Searches</h3>
+                  <div className="space-y-2">
+                    {recentSearches.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={searchItemVariants}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="p-3 bg-gray-50 rounded-lg flex items-center cursor-pointer"
+                        onClick={() => handleMobileSearchItemClick(item)}
+                      >
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3">
+                          {item.icon || item.id}
+                        </div>
+                        <span className="font-medium">{item.name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Search Results */}
+              {mobileSearchQuery !== "" && (
+                <div className="p-4">
+                  {mobileSearchResults.length > 0 ? (
+                    <motion.div
+                      variants={searchResultsVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="space-y-2"
+                    >
+                      {mobileSearchResults.map((item) => (
+                        <motion.div
+                          key={item.id}
+                          variants={searchItemVariants}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="p-3 bg-white border border-gray-100 rounded-lg shadow-sm flex items-center cursor-pointer"
+                          onClick={() => handleMobileSearchItemClick(item)}
+                        >
+                          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-3 flex-shrink-0">
+                            {item.icon || item.id}
+                          </div>
+                          <div className="flex-1">
+                            <p className="font-medium text-gray-800">{item.name}</p>
+                            <p className="text-xs text-gray-500">{item.URL}</p>
+                          </div>
+                          <Zap size={16} className="text-indigo-400 ml-2" />
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  ) : (
+                    mobileSearchQuery.length > 0 && (
+                      <div className="text-center py-8">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
+                          <SearchIcon size={24} className="text-gray-400" />
+                        </div>
+                        <p className="text-gray-500">No results found for "{mobileSearchQuery}"</p>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+
+              {/* Quick Links */}
+              {mobileSearchQuery === "" && (
+                <motion.div variants={mobileSearchVariants} initial="hidden" animate="visible" className="p-4 border-t">
+                  <h3 className="text-sm font-medium text-gray-500 mb-2">Quick Links</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {searchData.slice(0, 4).map((item) => (
+                      <motion.div
+                        key={item.id}
+                        variants={searchItemVariants}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="p-3 bg-gray-50 rounded-lg flex items-center cursor-pointer"
+                        onClick={() => handleMobileSearchItemClick(item)}
+                      >
+                        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-100 text-indigo-600 mr-2">
+                          {item.icon || item.id}
+                        </div>
+                        <span className="font-medium text-sm truncate">{item.name}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

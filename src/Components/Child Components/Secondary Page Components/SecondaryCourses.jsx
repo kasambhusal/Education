@@ -38,7 +38,6 @@ const SecondaryCourses = () => {
         const checkMobile = () => {
             setIsMobile(window.innerWidth < 768)
         }
-
         checkMobile()
         window.addEventListener("resize", checkMobile)
         return () => window.removeEventListener("resize", checkMobile)
@@ -256,7 +255,7 @@ const SecondaryCourses = () => {
 
             <Layout>
                 <Content
-                    className="my-2 mx-2 md:mx-4 py-3 px-3 md:px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
+                    className="my-2 mx-2 md:mx-4 py-3 px-3 md:px-6 bg-white rounded-2xl shadow-sm relative overflow-auto hide-scrollbar"
                     style={{
                         height: 'calc(100vh - 96px)',
                         marginLeft: 0,

@@ -4,7 +4,7 @@ import React from "react"
 import { useState, useContext, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
-import { MenuOutlined, CloseOutlined, ArrowUpOutlined } from "@ant-design/icons"
+import { MenuOutlined, CloseOutlined, ArrowUpOutlined, BackwardOutlined } from "@ant-design/icons"
 
 // Context to manage global state across components
 const AppContext = React.createContext()
@@ -95,7 +95,8 @@ const LearnReact = () => {
                 {/* Mobile header - fixed at the top */}
                 {isMobile && (
                     <div className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-sm px-4 py-3 shadow-md flex justify-between items-center">
-                        <h2 className="text-xl font-semibold text-blue-800">React Guide</h2>
+                        <h2 className="text-xl font-semibold text-blue-800">
+                            <Link to="/menu/courses"> <BackwardOutlined className="mx-2 " /></Link>React Guide</h2>
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="p-2 rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
@@ -184,8 +185,8 @@ const TableOfContents = ({ scrollToSection }) => {
     return (
         <motion.div
             className={`${isMobile
-                    ? "w-full"
-                    : "md:w-1/4 p-5 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start"
+                ? "w-full"
+                : "md:w-1/4 p-5 bg-white rounded-lg shadow-md mb-10 md:mr-6 md:sticky md:top-5 md:self-start"
                 } overflow-auto ${isMobile ? "max-h-full" : "max-h-[calc(100vh-50px)]"}`}
             initial={isMobile ? { opacity: 1 } : { x: -200 }}
             animate={isMobile ? { opacity: 1 } : { x: 0 }}
@@ -198,8 +199,8 @@ const TableOfContents = ({ scrollToSection }) => {
                         <button
                             onClick={() => scrollToSection(section.id)}
                             className={`text-left w-full p-3 rounded-lg transition-all ${activeSection === section.id
-                                    ? "bg-blue-50 text-blue-700 font-semibold shadow-sm"
-                                    : "text-gray-600 hover:bg-gray-50"
+                                ? "bg-blue-50 text-blue-700 font-semibold shadow-sm"
+                                : "text-gray-600 hover:bg-gray-50"
                                 }`}
                         >
                             <span
@@ -388,7 +389,7 @@ const MainContent = ({ contentRef }) => {
                     </p>
 
                     <CodeSnippet
-                        code={`import { Link } from "react-router-dom";\n\nfunction PracticeButton() {\n  return (\n    <Link to="/practise/Reactjs" className="text-blue-500 underline hover:text-blue-700">\n      Start Practicing with EduSphere\n    </Link>\n  );\n}`}
+                        code={`import { Link } from "react-router-dom";\n\nfunction PracticeButton() {\n  return (\n    <Link to="/practise/Reactjs" \n      className="text-blue-500 underline hover:text-blue-700">\n      Start Practicing with EduSphere\n    </Link>\n  );\n}`}
                     />
 
                     <div className="h-[10vh] flex items-center justify-end">

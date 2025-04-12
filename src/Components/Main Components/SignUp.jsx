@@ -65,7 +65,7 @@ const SignUp = () => {
                         transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
                     >
                         <Link to="/" className='w-full flex justify-center '>
-                            <img src="/logo.png" alt="Logo" className="max-w-[80%] max-h-[100px]" style={{ borderRadius: "10px", boxShadow: "0px 0px 16px black inset" }} />
+                            <img src="/logo.png" alt="Logo" className="max-w-[80%] max-h-[100px]" />
                         </Link>
                     </motion.div>
 

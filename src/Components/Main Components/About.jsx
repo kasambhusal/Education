@@ -64,17 +64,20 @@ const About = () => {
                     </Title>
                 </motion.div>
                 <Row justify="center" gutter={[24, 24]} style={{ marginTop: 30 }}>
-                    {["rohit", "kasam", "aman"].map((name, index) => (
-                        <Col xs={24} sm={12} md={8} key={index}>
-                            <motion.div variants={fadeInUp} custom={index + 4} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                                <Card bordered style={{ textAlign: "center", borderRadius: 20 }}>
-                                    <Avatar size={100} src={`/${name}.jpg`} />
-                                    <Title level={4} style={{ marginTop: 15 }}>{name}</Title>
-                                    <Paragraph>Software Developer</Paragraph>
-                                </Card>
-                            </motion.div>
-                        </Col>
-                    ))}
+                    {["rohit", "kasam", "aman"].map((name, index) => {
+                        const designation = name === "rohit" ? "Graphics Designer" : "Software Developer"
+                        return (
+                            <Col xs={24} sm={12} md={8} key={index}>
+                                <motion.div variants={fadeInUp} custom={index + 4} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                                    <Card bordered style={{ textAlign: "center", borderRadius: 20 }}>
+                                        <Avatar size={100} src={`/${name}.jpg`} />
+                                        <Title level={4} style={{ marginTop: 15 }}>{name}</Title>
+                                        <Paragraph>{designation}</Paragraph>
+                                    </Card>
+                                </motion.div>
+                            </Col>
+                        )
+                    })}
                 </Row>
             </div>
 
@@ -98,7 +101,7 @@ const About = () => {
                     Reach out to us and let’s explore how we can build something great together.
                 </Paragraph>
                 <Button type="primary" size="large" shape="round" className="my-3">
-                    Contact Us
+                    <a href="mailto:developerkasam@gmail.com">Contact Us</a>
                 </Button>
             </motion.div>
         </div>

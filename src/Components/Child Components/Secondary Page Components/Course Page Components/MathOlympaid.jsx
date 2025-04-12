@@ -3,7 +3,8 @@
 import React from "react"
 import { useState, useContext, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { LinkOutlined, MenuOutlined, CloseOutlined, ArrowUpOutlined } from "@ant-design/icons"
+import { LinkOutlined, MenuOutlined, CloseOutlined, ArrowUpOutlined, BackwardOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 // Context to manage global state across components
 const MathOlympiadContext = React.createContext()
@@ -94,7 +95,8 @@ const MathOlympiad = () => {
                 {/* Mobile header - fixed at the top */}
                 {isMobile && (
                     <div className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-sm px-4 py-3 shadow-md flex justify-between items-center">
-                        <h2 className="text-xl font-semibold text-indigo-800">Math Olympiad Guide</h2>
+                        <h2 className="text-xl font-semibold text-indigo-800">
+                            <Link to="/menu/courses"> <BackwardOutlined className="mx-2 " /></Link>Math Olympiad Guide</h2>
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className="p-2 rounded-full bg-indigo-100 text-indigo-800 hover:bg-indigo-200 transition-colors"
