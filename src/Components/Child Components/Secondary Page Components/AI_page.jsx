@@ -7,6 +7,8 @@ import Matplotlib from "./AIPage_components/Matplotlib";
 import GettingStarted from "./AIPage_components/GettingStarted";
 import AI_UnitWise from "./AI_UnitWise";
 import GettingStartedData from "./Course Page Components/JsonFile_AI/AI_1.json";
+import Regression from "./AIPage_components/Regression";
+import Classification from "./AIPage_components/Classification";
 
 const topics = [
   {
@@ -29,28 +31,20 @@ const topics = [
   {
     id: "topic4",
     title: "Introduction to ML"
+  },
+  {
+    id: "topic5",
+    title: "Regression"
+  },
+  {
+    id: "topic6",
+    title: "Classification"
   }
 ];
 
 
 const AI_page = () => {
 console.log("getting started: ", GettingStartedData.getStarted)
-
-  // const [GettingStartedData, setGettingStartedData] = useState(null);
-
-  // useEffect(() => {
-  //   // Fetch the JSON file from the public folder
-  //   fetch("/AIGettingStarted.json") // Path relative to the public folder
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch JSON");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {setGettingStartedData(data)
-  //   console.log(data)})
-  //     .catch((error) => console.error("Error fetching JSON:", error));
-  // }, []);
 
   const [activeTopic, setActiveTopic] = useState('Getting Started')
   const topicClicked = (title) => {
@@ -73,10 +67,16 @@ console.log("getting started: ", GettingStartedData.getStarted)
     else if(activeTopic == "Introduction to ML"){
       return <IntroToML/>
     }
+    else if(activeTopic == "Regression"){
+      return <Regression/>
+    }
+    else if(activeTopic == "Classification"){
+      return <Classification/>
+    }
   }
 
   return (
-    <div className="flex h-screen overflow-y-auto w-full">
+    <div className="flex lg:flex-row flex-col lg:min-h-screen min-h-[60vh] overflow-y-auto w-full">
      
       <motion.div
         initial={{ x: -100, opacity: 0 }}

@@ -28,13 +28,13 @@ const topics = [
 const QC_page = () => {
   return (
     <div>
-      <div className="flex h-screen overflow-y-auto w-full">
+      <div className="md:flex-row flex-col flex h-screen overflow-y-auto w-full">
         {/* Sidebar (Table of Contents) */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-[18vw] h-full p-5 sticky top-0 overflow-y-scroll shadow-2xl rounded-lg"
+          className="md:w-[18vw] sm:w-[70vw] w-[90vw] md:min-h-full min-h-[60vh] sm:mx-0 mx-5 px-5 py-5 md:sticky static top-0 overflow-y-scroll shadow-2xl rounded-lg"
         >
           <h2 className="text-2xl text-purple-900 font-bold mb-4">Table of Contents</h2>
           {topics.map((topic) => (
@@ -49,7 +49,7 @@ const QC_page = () => {
 
         {/* Content Section */}
 
-        <div className="contentContainer p-10 space-y-20 min-h-full w-[65vw] pb-10">
+        <div className="contentContainer md:px-10 px-2 py-10 space-y-20 min-h-full md:w-[65vw] sm:w-[70vw] w-[100vw] pb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
