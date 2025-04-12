@@ -42,7 +42,7 @@ const SinglePost = () => {
     }, [id, token])
 
     const handleCancel = () => {
-        navigate("/clubs")
+        navigate("/menu/clubs")
     }
 
     const containerVariants = {
