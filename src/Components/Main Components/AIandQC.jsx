@@ -10,25 +10,26 @@ const AIandQC = () => {
     const [selectedTopic, setSelectedTopic] = useState("home")
     const [hoverOn, setHoverOn] = useState("none")
     const isMdBreakpoint = useMediaQuery({ query: '(max-width: 768px)' });
-    const sidebarGone = useMediaQuery({ query: '(max-width: 640px)' });
+    const islgBreakpoint = useMediaQuery({ query: '(max-width: 1024px)' });
+    const sidebarGone = useMediaQuery({ query: '(max-width: 768px)' });
    
     useEffect(() => {
-        if (isMdBreakpoint) {
+        if (islgBreakpoint) {
           setIsCollapsed(true);
         } else {
           setIsCollapsed(false);
         }
-      }, [isMdBreakpoint]);
+      }, [islgBreakpoint]);
 
     return (
-        <div className="mainComponent flex gap-4">
+        <div className="mainComponent flex lg:gap-4 gap-0">
             {/* Sidebar */}
             <motion.div
                
-                initial={{ width: "15vw", scale: 0}}
-                animate={{ width: isCollapsed ? "4vw" : "20vw", scale: 1}}
+                initial={{ width: "25vw", scale: 0}}
+                animate={{ width: isCollapsed ? "4vw" : "25vw", scale: 1}}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 px-4 py-5 h-[100vh] bg-[#0349fc] text-slate-200 sticky top-0 ${isCollapsed ? "items-center px-2" : "px-4"
+                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-[#0349fc] text-slate-200 sticky top-0 ${isCollapsed && "items-center px-2"
                     }`}
             >
                 <div onClick={() => setSelectedTopic("home")} onMouseOver={()=>setHoverOn("return")} className="Home flex items-center gap-2 cursor-pointer mb-5 border-b-2 pb-2">
@@ -67,7 +68,7 @@ const AIandQC = () => {
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 viewport={{ once: true, amount: 0.5 }} // Triggers when 50% of the element is in view 
                 onMouseOver={()=>setHoverOn('cancel')}
-                className={`${selectedTopic == "home" ? 'flex' : 'hidden'} Maindiv_of_AI overflow-x-auto flex-1 flex-col gap-10 pt-10 px-14 min-h-[100vh] bg-stone-100 pb-40`}>
+                className={`${selectedTopic == "home" ? 'flex' : 'hidden'} Maindiv_of_AI overflow-x-auto flex-1 flex-col gap-10 pt-10 450:px-14 px-2 min-h-[100vh] bg-stone-100 pb-40`}>
                 
 
                 <div className="AI_Label flex lg:flex-row flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 lg:w-[70%] w-[100%] px-8 py-5 bg-gradient-to-r from-green-400 via-green-600 to-green-800 rounded-xl">
@@ -89,12 +90,13 @@ const AIandQC = () => {
 
 
             </motion.div>
-            <motion.div className={`${selectedTopic == "ai" ? 'flex' : 'hidden'} AI_Course`} onMouseOver={()=>setHoverOn('cancel')}>
+            <motion.div className={`${selectedTopic == "ai" ? 'flex' : 'hidden'} AI_Course ${(sidebarGone || isCollapsed)?'w-[95vw]':'w-[75vw]'}`} onMouseOver={()=>setHoverOn('cancel')}>
                 <AI_page />
             </motion.div>
-            <motion.div className={`${selectedTopic == "qc" ? 'flex' : 'hidden'} QC_Course`} onMouseOver={()=>setHoverOn('cancel')}>
+            <motion.div className={`${selectedTopic == "qc" ? 'flex' : 'hidden'} QC_Course ${(sidebarGone || isCollapsed)?'w-[95vw]':'w-[75vw]'}`} onMouseOver={()=>setHoverOn('cancel')}>
                 <QC_page />
             </motion.div>
+            {/* <img src="/navigation.svg" alt="Menu" /> */}
         </div >
     );
 };
