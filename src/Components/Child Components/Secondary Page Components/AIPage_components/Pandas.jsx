@@ -16,7 +16,7 @@ const Pandas = () => {
           <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
             Difficulty: Medium
           </span>
-          <span className="text-gray-600">⏱️ Estimated Time: 20 min</span>
+          <span className="text-gray-600">⏱️ Estimated Time: 30 min</span>
         </div>
 
         <p className="text-gray-800 mb-4">Learn the fundamentals of Pandas, and how it is operated on data before feeding data to models</p>

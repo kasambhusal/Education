@@ -3,6 +3,32 @@ import { motion } from 'framer-motion'
 
 const Matplotlib = () => {
   return (
+    <div className="flex flex-col">
+        <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="project-section bg-slate-200 rounded-xl p-6 mt-8"
+              >
+                <h2 className="text-2xl font-bold text-purple-900">Matplotlib</h2>
+        
+                <div className="flex items-center gap-4 mt-2 mb-4">
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                    Difficulty: Easy
+                  </span>
+                  <span className="text-gray-600">⏱️ Estimated Time: 30 min</span>
+                </div>
+        
+                <p className="text-gray-800 mb-4">Learn to present data in pictorial manner</p>
+        
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-2">Objectives:</h3>
+                  <ul className="list-disc pl-5">
+                    - To plot data points in the graph <br></br>
+                    - Creating graphs with proper labeling
+                  </ul>
+                </div>
+              </motion.div>
     <motion.div
   initial={{ opacity: 0, y: 20 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -84,6 +110,7 @@ const Matplotlib = () => {
     </button>
   </div>
 </motion.div>
+</div>
 
   )
 }
