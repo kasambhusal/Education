@@ -1,8 +1,10 @@
 import { div } from 'framer-motion/client'
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ShowAnswerPage from './ShowAnswerPage'
 import { motion } from "framer-motion"
+import { useMediaQuery } from 'react-responsive';
+
 
 
 const ExamPrep = () => {
@@ -300,9 +302,7 @@ const ExamPrep = () => {
         }
 
     ]
-    // const getCurrentQuestionList = () => {
-
-    // }
+    
     useEffect(() => {
         if (activeSubject == 'physics-kinematics') {
             setCurrentQuestions(allSubjects[0])
@@ -327,20 +327,46 @@ const ExamPrep = () => {
     }
 
     const [currentQuestions, setCurrentQuestions] = useState(allSubjects[0])
+    const tableOfContentGone = useMediaQuery({ query: '(max-width: 768px)' });
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false)
+     const buttonRef = useRef(null)
+
+      useEffect(() => {
+             const handleClickOutside = (event) => {
+                 console.log(buttonRef.current)
+               // Check if the click is outside the button
+               if (buttonRef.current) {
+                 setIsSidebarVisible(false); // Set issidebarvisible to false when clicking outside
+                 console.log("Clicked outside. sidebarvisible is now false.");
+               }
+             };
+         
+             // Add event listener for clicks anywhere on the screen
+             window.addEventListener("click", handleClickOutside);
+         
+             return () => {
+               // Cleanup event listener on component unmount
+               window.removeEventListener("click", handleClickOutside);
+             };
+           }, []);
+     
 
     return (
         <motion.div initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className='mainContainerofExamPrep flex gap-2'>
+                
+                {/* Table of content */}
 
             <motion.div initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 100 }} className="sidebarExamPrep cursor-pointer w-[30vw] h-[80vh] overflow-auto gap-1 pt-5 sticky top-0 flex flex-col items-center">
+                transition={{ type: "spring", stiffness: 100 }} 
+                className={`${tableOfContentGone && 'hidden'} sidebarExamPrep cursor-pointer w-[30vw] h-[80vh] overflow-auto gap-1 pt-5 sticky top-0 flex flex-col items-center`}>
                 {allSubjects.map((item) => {
                     return (
                         <div key={item.head} className='w-full flex flex-col items-center gap-1'>
-                            <div onClick={() => { subClicked(item.sub) }} className={`${activeSubject == item.sub && 'bg-blue-200 '}oneSubjectSectionPhysics hover:bg-blue-100 flex gap-8 pl-4 py-3 w-[85%] border-b border-b-slate-300 border-l-blue-600 border-l-4`}>
+                            <div onClick={() => { subClicked(item.sub) }} className={`${activeSubject == item.sub && 'bg-blue-200 '} oneSubjectSectionPhysics hover:bg-blue-100 flex lg:gap-8 gap-2 lg:pl-4 pl-1 py-3 w-[85%] border-b border-b-slate-300 border-l-blue-600 border-l-4`}>
                                 <img src={`${item.image}`} alt="subject" />
                                 <div className="sideMiniDiv flex flex-col"><p className='font-semibold'>{item.head}</p><p className='text-slate-400 text-[13px] font-semibold'>{item.extra}</p></div>
                             </div>
@@ -365,7 +391,7 @@ const ExamPrep = () => {
             </motion.div>
 
 
-            <div className="examPrepMain w-[67vw] flex flex-col gap-8 pt-8">
+            <div className="examPrepMain md:w-[67vw] w-[95vw] mx-auto flex flex-col gap-8 pt-8">
                 {!isAnswer ? currentQuestions.index.map((item) => {
                     return (
                         <motion.div initial={{ scale: 0 }}  // Start from extremely small
@@ -389,6 +415,56 @@ const ExamPrep = () => {
 
 
             </div>
+
+                 {/* Hamburger Menu */}
+            {tableOfContentGone && (
+                <button
+                ref={buttonRef} // Attach ref to the button
+                 // Prevent the click from propagating to the window
+                onClick={(e) => {
+                        setIsSidebarVisible(!isSidebarVisible)
+                        e.stopPropagation();
+                    }}
+                    className={`${isSidebarVisible ? 'bottom-5 right-[6vw]': 'bottom-5 right-5'} hamburger-menu bg-black fixed z-50 border-2 ${isSidebarVisible ? 'border-blue-700':'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
+                >
+                    {isSidebarVisible ? (
+                        <img src="/cross.svg" alt="Close Sidebar" className="w-6 h-6" />
+                    ) : (
+                        <img src="/ham.svg" alt="Open Sidebar" className="w-6 h-6" />
+                    )}
+                </button>
+            )}
+
+            <motion.div initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 100 }} 
+                className={`${(tableOfContentGone && isSidebarVisible) ? 'bottom-0' : 'bottom-[-100%]'} sidebarExamPrep cursor-pointer bg-gray-400 transition-all duration-500 w-[95vw] mx-4 h-[50vh] overflow-auto gap-1 pt-5 fixed flex flex-col items-center`}>
+                {allSubjects.map((item) => {
+                    return (
+                        <div key={item.head} className='w-full flex flex-col items-center gap-1'>
+                            <div onClick={() => { subClicked(item.sub) }} className={`${activeSubject == item.sub && 'bg-blue-200 '} oneSubjectSectionPhysics hover:bg-blue-100 flex lg:gap-8 gap-2 lg:pl-4 pl-1 py-3 w-[85%] border-b border-b-slate-300 border-l-blue-600 border-l-4`}>
+                                <img src={`${item.image}`} alt="subject" />
+                                <div className="sideMiniDiv flex flex-col"><p className='font-semibold'>{item.head}</p><p className='text-slate-400 text-[13px] font-semibold'>{item.extra}</p></div>
+                            </div>
+                            <div className={`${activeSubject == item.sub ? 'flex' : 'hidden'} units flex-col gap-3 w-[90%] ml-6 rounded-sm`}>
+                                {item.index.map((secondItem) => {
+                                    return (
+
+                                        <div key={secondItem.id} onClick={() => {
+                                            setCurrentID(secondItem.id)
+                                            setIsAnswer(true)
+                                            toggleIsAnswer(secondItem.id)
+                                        }} className={`${isAnswer & (currentID == secondItem.id) && 'bg-slate-200'} unit w-[calc(100%-20px)] flex flex-col gap-1 px-5 border-b rounded-md border-b-slate-300 py-4 hover:bg-slate-200`}><p className="unitName text-slate-400">{secondItem.unit}</p><p className="question line-clamp-1">{secondItem.question}</p></div>
+
+                                    )
+                                })}
+                            </div>
+                        </div>
+                    )
+                })}
+
+
+            </motion.div>
 
         </motion.div>
     )
