@@ -8,6 +8,7 @@ import { Settings, LogOut, UserPlus, Menu, X, SearchIcon, ArrowLeft, Zap } from 
 import { AnimatePresence, motion } from "framer-motion"
 import { Post } from "../../../utils/API"
 import { DashboardOutlined } from "@ant-design/icons"
+import ModifyUser from "../../Main Components/ModifyUser"
 const { Search } = Input
 
 // Search data
@@ -55,32 +56,6 @@ const searchData = [
     icon: "🤖",
   },
 ]
-
-const AccountManagement = ({ onClose }) => (
-  <motion.div
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-  >
-    <motion.div
-      className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full"
-      initial={{ scale: 0.9, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.9, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-    >
-      <h1 className="text-2xl font-bold mb-4">This is account management section</h1>
-      <button
-        onClick={onClose}
-        className="mt-4 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-300"
-      >
-        Close
-      </button>
-    </motion.div>
-  </motion.div>
-)
 
 export default function TopNav() {
   const { user, logout, token } = useUser()
@@ -759,6 +734,7 @@ export default function TopNav() {
                       <Link
                         to="/dashboard/add-course"
                         className="flex items-center w-full p-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition-all duration-200"
+
                       >
                         <DashboardOutlined className="mr-3" />
                         <span>Dashboard</span>
@@ -796,7 +772,9 @@ export default function TopNav() {
 
       {/* Account Management Modal */}
       <AnimatePresence>
-        {showAccountManagement && <AccountManagement onClose={() => setShowAccountManagement(false)} />}
+        {showAccountManagement && (
+          <ModifyUser visible={showAccountManagement} onClose={() => setShowAccountManagement(false)} />
+        )}
       </AnimatePresence>
 
       {/* Logout Confirmation Modal */}

@@ -20,7 +20,7 @@ export default function Contact({ vertical = false }) {
             {/* Facebook Icon */}
             <span className="flex justify-center items-center">
                 <a
-                    href="https://kasambhusal.com.np/"
+                    href="https://www.facebook.com/profile.php?id=61574987500076"
                     target="_blank"
                     style={{ textDecoration: "none" }}
                     className="w-12 h-12  text-white rounded-full flex items-center justify-center shadow-md"
