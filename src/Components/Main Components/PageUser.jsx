@@ -36,7 +36,6 @@ const PageUser = () => {
                 <Route path="/menu/opportunities" element={<Oppourtunity />} />
                 <Route path="/menu/clubs" element={<Clubs />} />
                 <Route path="/menu/clubs/post/:id" element={<SinglePost />} />
-                <Route path="/menu/exam-prep" element={<ExamPrep />} />
                 <Route path='/menu/courses/*' element={<Courses />} />
                 <Route path='/dashboard/*' element={<DashboardLayout />} />
                 <Route path='/practise/:courseName' element={<CourseMCQ />} />

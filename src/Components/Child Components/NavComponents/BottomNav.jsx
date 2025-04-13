@@ -20,7 +20,6 @@ export default function BottomNav() {
 
   const navItems = [
     { path: "/menu/opportunities", label: "Opportunities", icon: "🚀" },
-    { path: "/menu/exam-prep", label: "Exam-Prep", icon: "📚" },
     { path: "/menu/clubs", label: "Clubs", icon: "🤝" },
     { path: "/menu/courses", label: "Courses", icon: "🎓" },
     { path: "/menu/ai", label: "AI & Quantum", icon: "🤖" },
