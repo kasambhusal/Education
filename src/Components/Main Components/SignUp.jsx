@@ -104,7 +104,7 @@ const SignUp = () => {
                 data: {
                     fullname: values.username,
                     email: values.email,
-                    image: values.image,
+                    image: values.image || "", // Provide empty string as default if no image
                     password: values.password,
                 },
             })
@@ -286,13 +286,13 @@ const SignUp = () => {
                                 <Form.Item
                                     name="image"
                                     rules={[
-                                        { required: true, message: "Please input your Image url!" },
-                                        { type: "url", message: "Please enter a valid url!" },
+                                        // Removed required rule
+                                        { type: "url", message: "Please enter a valid URL if providing an image" },
                                     ]}
                                 >
                                     <Input
                                         prefix={<CameraIcon className="h-5 w-5 text-gray-400" />}
-                                        placeholder="Profile Image URL"
+                                        placeholder="Profile Image URL (optional)"
                                         className="rounded-md py-2"
                                         size="large"
                                         onChange={handleImageChange}
