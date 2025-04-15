@@ -1,0 +1,100 @@
+<!-- Save this as a separate HTML file and open it directly in your browser -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meta Tag Debugger</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #333; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; }
+    button { background: #4CAF50; color: white; border: none; padding: 10px 15px; cursor: pointer; }
+    button:hover { background: #45a049; }
+    pre { background: #f5f5f5; padding: 15px; overflow: auto; }
+    .result { margin-top: 20px; }
+    .meta-tag { margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; }
+    .meta-tag.og { border-left: 4px solid #3b5998; }
+    .meta-tag.twitter { border-left: 4px solid #1da1f2; }
+    .meta-tag.basic { border-left: 4px solid #666; }
+  </style>
+</head>
+<body>
+  <h1>Meta Tag Debugger</h1>
+  
+  <div class="form-group">
+    <label for="url">Enter URL to check:</label>
+    <input type="text" id="url" placeholder="https://example.com/post/123">
+  </div>
+  
+  <button onclick="checkMetaTags()">Check Meta Tags</button>
+  
+  <div class="result" id="result" style="display: none;">
+    <h2>Results:</h2>
+    <div id="meta-tags"></div>
+    
+    <h3>Raw Response:</h3>
+    <pre id="raw-response"></pre>
+  </div>
+  
+  <script>
+    async function checkMetaTags() {
+      const url = document.getElementById('url').value;
+      if (!url) {
+        alert('Please enter a URL');
+        return;
+      }
+      
+      document.getElementById('result').style.display = 'none';
+      document.getElementById('meta-tags').innerHTML = 'Loading...';
+      document.getElementById('raw-response').textContent = '';
+      
+      try {
+        // Use a CORS proxy if needed
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+        const response = await fetch(proxyUrl + url);
+        const html = await response.text();
+        
+        document.getElementById('raw-response').textContent = html.substring(0, 5000) + '...';
+        
+        // Parse the HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Get all meta tags
+        const metaTags = doc.querySelectorAll('meta');
+        const title = doc.querySelector('title')?.textContent || 'No title found';
+        
+        let metaHtml = `<div class="meta-tag basic"><strong>Title:</strong> ${title}</div>`;
+        
+        metaTags.forEach(tag => {
+          const name = tag.getAttribute('name');
+          const property = tag.getAttribute('property');
+          const content = tag.getAttribute('content');
+          
+          if (!name && !property) return;
+          
+          let cssClass = 'basic';
+          if (property && property.startsWith('og:')) cssClass = 'og';
+          if (name && name.startsWith('twitter:')) cssClass = 'twitter';
+          
+          metaHtml += `
+            <div class="meta-tag ${cssClass}">
+              <strong>${property || name}:</strong> ${content}
+            </div>
+          `;
+        });
+        
+        document.getElementById('meta-tags').innerHTML = metaHtml;
+        document.getElementById('result').style.display = 'block';
+        
+      } catch (error) {
+        document.getElementById('meta-tags').innerHTML = `<p>Error: ${error.message}</p>`;
+        document.getElementById('result').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

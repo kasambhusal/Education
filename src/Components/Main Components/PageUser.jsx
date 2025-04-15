@@ -17,6 +17,7 @@ import DashboardLayout from '../DashboardComponents/DashboardLayout'
 import CourseMCQ from '../Child Components/Secondary Page Components/Course Page Components/Assignment Page Components/CourseMCQ'
 import AIandQC from './AIandQC'
 import About from './About'
+import MetaRefresher from '../OG Components/MetaRefresher'
 
 const PageUser = () => {
     const location = useLocation();
@@ -26,7 +27,7 @@ const PageUser = () => {
                 !location.pathname.toLowerCase().includes("/user") && <MainNav />
             }
             <ScrollToTop />
-
+            <MetaRefresher />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/know-more-about-us" element={<About />} />
