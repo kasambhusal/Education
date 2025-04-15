@@ -1,6 +1,5 @@
-"use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Input, Button, Modal, notification, Select } from "antd"
 import { motion, AnimatePresence } from "framer-motion"
 import { useUser } from "../../Context/UserContext"
@@ -8,21 +7,34 @@ import { Post } from "../../../utils/API"
 import { Link } from "react-router-dom"
 import { FiBookOpen, FiType, FiClock } from "react-icons/fi"
 
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
+
 const { Option } = Select
 const statusOptions = ["Coming Soon", "Open", "Closed"]
 
 import "../../../CSS/NewOpportunity.css"
+import "../../../CSS/quill-styles.css"
+
 
 const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
     const [form] = Form.useForm()
     const { user, token, logout } = useUser()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [editorContent, setEditorContent] = useState("")
+
+    // Set the form field value when editor content changes
+    useEffect(() => {
+        form.setFieldsValue({
+            text: editorContent,
+        })
+    }, [editorContent, form])
 
     const handleSubmit = async (values) => {
         setIsSubmitting(true)
         const postData = {
             title: values.title,
-            text: values.text,
+            text: values.text, // This will contain the HTML content from Quill
             category: category.toLowerCase(),
             type: values.type,
             status: values.status,
@@ -45,6 +57,7 @@ const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
             })
             onPostCreated()
             form.resetFields()
+            setEditorContent("")
             onClose()
         } catch (error) {
             console.error("Error submitting form:", error)
@@ -70,6 +83,19 @@ const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
             setIsSubmitting(false)
         }
     }
+
+    // Quill editor modules and formats configuration
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
+        ],
+    }
+
+    const formats = ["header", "bold", "italic", "underline", "strike", "list", "bullet", "link", "image"]
 
     return (
         <AnimatePresence>
@@ -123,11 +149,17 @@ const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
                                 rules={[{ required: true, message: "Please enter the content!" }]}
                                 label={<span className="text-gray-700 font-semibold">Description</span>}
                             >
-                                <Input.TextArea
-                                    placeholder="Describe the opportunity..."
-                                    rows={4}
-                                    className="bg-white bg-opacity-50 border-0 rounded-md shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-md resize-none"
-                                />
+                                <div className="quill-wrapper bg-white bg-opacity-50 rounded-md shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-md">
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={editorContent}
+                                        onChange={setEditorContent}
+                                        modules={modules}
+                                        formats={formats}
+                                        placeholder="Describe the opportunity..."
+                                        className="bg-white rounded-md"
+                                    />
+                                </div>
                             </Form.Item>
 
                             <Form.Item
@@ -195,4 +227,3 @@ const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
 }
 
 export default NewOpportunity
-

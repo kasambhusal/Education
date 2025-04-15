@@ -1,29 +1,42 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Input, Button, Modal, notification, Select } from "antd"
 import { motion } from "framer-motion"
 import { useUser } from "../../Context/UserContext"
 import { FiBookOpen, FiType, FiTag, FiClock } from "react-icons/fi"
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
 
 const { Option } = Select
 const statusOptions = ["Coming Soon", "Open", "Closed"]
 import "../../../CSS/NewOpportunity.css"
+import "../../../CSS/quill-styles.css"
 import { Put } from "../../../utils/API"
 
-const ModifyOpportunity = ({ isOpen, onClose, opportunity,  fetchOpportunities }) => {
+const ModifyOpportunity = ({ isOpen, onClose, opportunity, fetchOpportunities }) => {
     const [form] = Form.useForm()
     const { user, token } = useUser()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [editorContent, setEditorContent] = useState("")
 
-    React.useEffect(() => {
-        if (isOpen) {
+    // Set form values when modal opens or opportunity changes
+    useEffect(() => {
+        if (isOpen && opportunity) {
             form.setFieldsValue(opportunity)
+            setEditorContent(opportunity.text || "")
         }
     }, [isOpen, opportunity, form])
 
+    // Update form field when editor content changes
+    useEffect(() => {
+        form.setFieldsValue({
+            text: editorContent,
+        })
+    }, [editorContent, form])
+
     const handleSubmit = async (values) => {
-        setIsSubmitting(true);
+        setIsSubmitting(true)
         try {
             const response = await Put({
                 url: `/opportunities/put/${opportunity._id}`,
@@ -32,31 +45,43 @@ const ModifyOpportunity = ({ isOpen, onClose, opportunity,  fetchOpportunities }
                     Authorization: token,
                     "Content-Type": "application/json",
                 },
-            });
+            })
 
-            console.log("API Response:", response); // Debugging: Check what is actually returned
+            console.log("API Response:", response) // Debugging: Check what is actually returned
 
             // Ensure response has data before proceeding
             if (response.message === "Opportunity updated successfully") {
                 notification.success({
                     message: "Opportunity Updated",
                     description: "The opportunity has been successfully updated.",
-                });
-                await fetchOpportunities(); // Refresh opportunities list
-                onClose();
+                })
+                await fetchOpportunities() // Refresh opportunities list
+                onClose()
             }
         } catch (error) {
-            console.error("Error updating opportunity:", error);
+            console.error("Error updating opportunity:", error)
             notification.error({
                 message: "Update Failed",
                 description:
                     error.response?.data?.error || error.message || "An error occurred while updating the opportunity.",
-            });
+            })
         } finally {
-            setIsSubmitting(false);
+            setIsSubmitting(false)
         }
-    };
+    }
 
+    // Quill editor modules and formats configuration
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
+        ],
+    }
+
+    const formats = ["header", "bold", "italic", "underline", "strike", "list", "bullet", "link", "image"]
 
     return (
         <Modal
@@ -97,11 +122,17 @@ const ModifyOpportunity = ({ isOpen, onClose, opportunity,  fetchOpportunities }
                         rules={[{ required: true, message: "Please enter the content!" }]}
                         label={<span className="text-gray-700 font-semibold">Description</span>}
                     >
-                        <Input.TextArea
-                            placeholder="Describe the opportunity..."
-                            rows={4}
-                            className="bg-white bg-opacity-50 border-0 rounded-md shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-md resize-none"
-                        />
+                        <div className="quill-wrapper bg-white bg-opacity-50 rounded-md shadow-sm transition-all duration-300 hover:shadow-md focus:shadow-md">
+                            <ReactQuill
+                                theme="snow"
+                                value={editorContent}
+                                onChange={setEditorContent}
+                                modules={modules}
+                                formats={formats}
+                                placeholder="Describe the opportunity..."
+                                className="bg-white rounded-md"
+                            />
+                        </div>
                     </Form.Item>
 
                     <Form.Item
@@ -182,4 +213,3 @@ const ModifyOpportunity = ({ isOpen, onClose, opportunity,  fetchOpportunities }
 }
 
 export default ModifyOpportunity
-
