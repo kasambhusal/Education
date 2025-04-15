@@ -4,7 +4,7 @@ import PageUser from "./Components/Main Components/PageUser"
 import { ThemeProvider } from "./Components/Context/ThemeContext"
 import { UserProvider } from "./Components/Context/UserContext"
 import { HelmetProvider } from "react-helmet-async"
-import MetaTagCleaner from "./Components/Utilities/MetaTagCleaner"
+import MetaTagCleaner from "./Components/OG Components/MetaTagCleaner"
 
 function App() {
   return (
