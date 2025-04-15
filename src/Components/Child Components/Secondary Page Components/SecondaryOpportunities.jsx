@@ -65,7 +65,7 @@ const SecondaryOpportunities = () => {
         {
             key: '3',
             icon: <CompassOutlined />,
-            label: 'Workshops',
+            label: 'Programs',
         },
         {
             key: '4',

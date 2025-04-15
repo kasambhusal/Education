@@ -1,30 +1,31 @@
-'use client';
-
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
-import PostTime from "../Secondary Page Components/PostTime";
-import UserAvatar from "../Secondary Page Components/UserAvatar";
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
-import { useUser } from "../../Context/UserContext";
-import ModifyOpportunity from './ModifyOpportunity';
-import { Modal, Button } from 'antd';
-import { Delete } from '../../../utils/API';
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import PostTime from "../Secondary Page Components/PostTime"
+import UserAvatar from "../Secondary Page Components/UserAvatar"
+import { FiEdit2, FiTrash2 } from "react-icons/fi"
+import { useUser } from "../../Context/UserContext"
+import ModifyOpportunity from "./ModifyOpportunity"
+import { Modal, Button } from "antd"
+import { Delete } from "../../../utils/API"
 
 const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 },
-};
+}
 
 const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1 },
-};
+}
+
+import "../../../CSS/rich-text-styles.css"
+
 
 export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fetchOpportunities }) {
-    const [isHovered, setIsHovered] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const { user, token } = useUser();
+    const [isHovered, setIsHovered] = useState(false)
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+    const { user, token } = useUser()
 
     const handleDelete = async () => {
         try {
@@ -36,12 +37,13 @@ export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fet
                 },
             })
             fetchOpportunities()
-            onDelete(opportunity.id);
-            setIsDeleteModalOpen(false);
+            onDelete(opportunity.id)
+            setIsDeleteModalOpen(false)
         } catch (error) {
-            console.error("Error deleting opportunity:", error);
+            console.error("Error deleting opportunity:", error)
         }
-    };
+    }
+
     return (
         <>
             <motion.div
@@ -57,7 +59,9 @@ export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fet
                     <div className="flex items-center space-x-4">
                         <UserAvatar user={opportunity.from} />
                         <div>
-                            <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{opportunity.title}</h3>
+                            <h3 className="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                                {opportunity.title}
+                            </h3>
                             <div className="mt-1">
                                 <PostTime date={opportunity.createdAt} />
                             </div>
@@ -79,7 +83,12 @@ export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fet
                         </span>
                     </div>
                 </div>
-                <p className="mt-4 text-gray-700 xl:w-[80%] text-justify">{opportunity.text}</p>
+
+                {/* Rich text content display */}
+                <div
+                    className="mt-4 text-gray-700 xl:w-[80%] text-justify rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: opportunity.text }}
+                />
 
                 {user.role === "ADMIN" && (
                     <AnimatePresence>
@@ -133,5 +142,5 @@ export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fet
                 <p>Are you sure you want to delete this opportunity?</p>
             </Modal>
         </>
-    );
+    )
 }
