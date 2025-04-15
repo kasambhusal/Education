@@ -103,7 +103,7 @@ const Matplotlib = () => {
   <div id="ch-2_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
     <h3 className="text-lg font-semibold">Project Section</h3>
     <div className="projectnamequest text-gray-700 mb-5">
-      Try making your own visualization using Matplotlib! Experiment with different charts and datasets.
+      Try making your own visualization using Matplotlib! Make a graph of time vs height for a free falling object in absence of air resistance from matplotlib.
     </div>
     <button className="gotoproject px-4 py-2 bg-green-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200">
       Try a simple project

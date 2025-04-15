@@ -163,15 +163,15 @@ const Pandas = () => {
           Ready to dive deeper? Let’s go! 🚀
         </p>
 
-        <div id="ch-2_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
+        {/* <div id="ch-2_miniProject" className="miniproject w-full py-5 px-8 rounded-xl mt-5 flex flex-col gap-2 bg-slate-200">
           <h3 className="text-lg font-semibold">Project Section</h3>
           <div className="projectnamequest text-gray-700 mb-5">
-            Try analyzing real datasets using pandas. Load a dataset, clean it, and explore it!
+            Try analyzing real datasets using pandas. Load a dataset, clean it, and explore it! Play with all kind 
           </div>
           <button className="gotoproject px-4 py-2 bg-green-600 text-white font-semibold text-lg rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200">
             Try a simple project
           </button>
-        </div>
+        </div> */}
       </motion.div>
 
     </div>

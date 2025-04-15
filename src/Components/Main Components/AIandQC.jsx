@@ -53,7 +53,7 @@ const AIandQC = () => {
                 initial={{ width: "25vw", scale: 0 }}
                 animate={{ width: isCollapsed ? "4vw" : "25vw", scale: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-[#0349fc] text-slate-200 z-10 sticky top-0 ${isCollapsed && "items-center px-2"
+                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-gradient-to-r from-[#0349fc] to-purple-600 text-slate-200 z-10 sticky top-0 ${isCollapsed && "items-center px-2"
                     }`}
             >
                 <div onClick={() => setSelectedTopic("home")} onMouseOver={() => setHoverOn("return")} className="Home flex items-center gap-2 cursor-pointer mb-5 border-b-2 pb-2">
@@ -95,7 +95,7 @@ const AIandQC = () => {
                 className={`${selectedTopic == "home" ? 'flex' : 'hidden'} Maindiv_of_AI overflow-x-auto flex-1 flex-col gap-10 pt-10 450:px-14 px-2 min-h-[100vh] bg-stone-100 pb-40`}>
 
 
-                <div className="AI_Label flex lg:flex-row flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 lg:w-[70%] w-[100%] px-8 py-5 bg-gradient-to-r from-green-400 via-green-600 to-green-800 rounded-xl">
+                <div className="AI_Label flex lg:flex-row flex-col justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 lg:w-[70%] w-[100%] px-8 py-5 bg-gradient-to-r from-green-300 via-green-500 to-green-700 rounded-xl">
                     <div className="lg:flex hidden image w-[50%] lg:h-auto h-[50%] hover:scale-125 transition-all duration-200"><img className='w-full h-full' src="/ai.png" alt="AI" /></div>
                     <div className="content flex flex-col gap-4 lg:mt-16 mt-0">
                         <div className="head font-semibold text-2xl">Artificial Intelligence</div>
@@ -103,7 +103,7 @@ const AIandQC = () => {
                         <button onClick={() => setSelectedTopic('ai')} className="getinto mt-3 hover:scale-105 transition-all duration-200 hover:text-green-500 bg-stone-50 text-blue-800 px-4 py-2 rounded-2xl font-semibold w-24">Get into</button>
                     </div>
                 </div>
-                <div className="QC_Label flex lg:flex-row flex-col items-center gap-5 justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 lg:w-[70%] w-[100%] px-10 py-10 bg-gradient-to-r from-red-400 via-red-600 to-red-800 rounded-xl">
+                <div className="QC_Label flex lg:flex-row flex-col items-center gap-5 justify-between hover:scale-105 hover:shadow-2xl transition-all duration-200 lg:w-[70%] w-[100%] px-10 py-10 bg-gradient-to-r from-red-300 via-red-500 to-red-700 rounded-xl">
                     <div className="image lg:flex hidden w-[60%] hover:scale-125 transition-all duration-200"><img className="w-full h-full" src="/qc.webp" alt="quantum computing" /></div>
                     <div className="content flex flex-col gap-4">
                         <div className="head font-semibold text-2xl">Quantum Computing</div>

@@ -9,6 +9,7 @@ import AI_UnitWise from "./AI_UnitWise";
 import GettingStartedData from "./Course Page Components/JsonFile_AI/AI_1.json";
 import Regression from "./AIPage_components/Regression";
 import Classification from "./AIPage_components/Classification";
+import EnsembleLearning from "./AIPage_components/EnsembleLearning";
 
 const topics = [
   { id: "topic0", title: "Getting Started" },
@@ -18,6 +19,7 @@ const topics = [
   { id: "topic4", title: "Introduction to ML" },
   { id: "topic5", title: "Regression" },
   { id: "topic6", title: "Classification" },
+  { id: "topic7", title: "Ensemble Learning" },
 ];
 
 const AI_page = () => {
@@ -34,13 +36,14 @@ const AI_page = () => {
       case "Introduction to ML": return <IntroToML />;
       case "Regression": return <Regression />;
       case "Classification": return <Classification />;
+      case "Ensemble Learning": return <EnsembleLearning/>
       default: return null;
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row h-screen overflow-y-auto w-full">
-      
+
       {/* Sidebar */}
       <motion.div
         initial={{ x: -100, opacity: 0 }}
