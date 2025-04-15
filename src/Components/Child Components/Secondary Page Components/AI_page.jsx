@@ -49,7 +49,7 @@ const AI_page = () => {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="lg:w-[18vw] md:w-[25vw] w-[70vw] md:min-h-full min-h-[40vh] md:mx-0 mx-auto md:px-5 sm:px-0 px-8 py-5 md:sticky static top-0 overflow-y-scroll shadow-2xl rounded-lg"
+        className="lg:w-[18vw] md:w-[25vw] w-[70vw] bg-purple-100 md:min-h-full min-h-[40vh] md:mx-0 mx-auto md:px-5 sm:px-0 px-8 py-5 md:sticky static top-0 overflow-y-scroll shadow-2xl rounded-lg"
       >
         <h2 className="text-2xl text-purple-900 font-bold mb-4">Table of Contents</h2>
         {topics.map((topic) => (
@@ -64,7 +64,7 @@ const AI_page = () => {
       </motion.div>
 
       {/* Content Section */}
-      <div className="contentContainer mx-auto md:px-10 sm:px-2 450:px-8 px-6 py-10 space-y-20 min-h-full md:w-[58vw] sm:w-[70vw] w-[92vw] pb-10">
+      <div className="contentContainer bg-blue-50 mx-auto md:px-10 sm:px-2 450:px-8 px-6 py-10 space-y-20 min-h-full md:w-[58vw] sm:w-[70vw] w-[92vw] pb-10">
         {renderComponent()}
       </div>
     </div>

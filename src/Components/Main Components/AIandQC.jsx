@@ -53,7 +53,7 @@ const AIandQC = () => {
                 initial={{ width: "25vw", scale: 0 }}
                 animate={{ width: isCollapsed ? "4vw" : "25vw", scale: 1 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-gradient-to-r from-[#0349fc] to-purple-600 text-slate-200 z-10 sticky top-0 ${isCollapsed && "items-center px-2"
+                className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-gradient-to-r from-[#293b73] to-purple-600 text-slate-200 z-10 sticky top-0 ${isCollapsed && "items-center px-2"
                     }`}
             >
                 <div onClick={() => setSelectedTopic("home")} onMouseOver={() => setHoverOn("return")} className="Home flex items-center gap-2 cursor-pointer mb-5 border-b-2 pb-2">
