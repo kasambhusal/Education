@@ -15,6 +15,7 @@ import { useUser } from "../../Context/UserContext"
 import { Post as PostRequest } from "../../../utils/API"
 import PostTime from "./PostTime"
 import { formatNumber } from "../../JS/formatNumber"
+import "../../../CSS/linkedin-rich-text.css"
 
 const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -239,10 +240,17 @@ const Post = ({ post: initialPost }) => {
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h2>
                 <div className="text-gray-800 mb-3 text-base leading-relaxed">
                     {isTextExpanded || post.text.length <= 300 ? (
-                        <p className="whitespace-pre-line">{post.text}</p>
+                        <div
+                            className="mt-4 text-gray-700 xl:w-[80%] text-justify rich-text-content"
+                            dangerouslySetInnerHTML={{ __html: post.text }}
+                        />
                     ) : (
                         <>
                             <p className="whitespace-pre-line">{post.text.slice(0, 300)}...</p>
+                            <div
+                                className="mt-4 text-gray-700 xl:w-[80%] text-justify rich-text-content"
+                                dangerouslySetInnerHTML={{ __html: post.text.slice(0, 300) }}
+                            />
                             <button
                                 className="text-blue-600 hover:text-blue-800 font-medium mt-1"
                                 onClick={() => setIsTextExpanded(true)}

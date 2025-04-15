@@ -7,8 +7,9 @@ import { useUser } from "../../Context/UserContext"
 import { Post } from "../../../utils/API"
 import { Link } from "react-router-dom"
 import { ImageIcon, Upload, X, Loader } from "lucide-react"
-
-const { TextArea } = Input
+import ReactQuill from "react-quill"
+import "react-quill/dist/quill.snow.css"
+import "../../../CSS/post-editor-styles.css"
 
 const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
     const [form] = Form.useForm()
@@ -18,6 +19,7 @@ const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
     const [imageUrl, setImageUrl] = useState("")
     const [imageLoading, setImageLoading] = useState(false)
     const [imageError, setImageError] = useState(false)
+    const [editorContent, setEditorContent] = useState("")
 
     // Track when the form is mounted
     useEffect(() => {
@@ -47,11 +49,21 @@ const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
                 }
                 setImageUrl("")
                 setImageError(false)
+                setEditorContent("")
             }, 100)
 
             return () => clearTimeout(timer)
         }
     }, [isOpen, form])
+
+    // Update form field when editor content changes
+    useEffect(() => {
+        if (formMounted.current) {
+            form.setFieldsValue({
+                text: editorContent,
+            })
+        }
+    }, [editorContent, form])
 
     const handleImageChange = (e) => {
         const url = e.target.value
@@ -104,6 +116,7 @@ const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
                 form.resetFields()
             }
             setImageUrl("")
+            setEditorContent("")
             onPostCreated()
             onClose()
 
@@ -138,6 +151,19 @@ const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
             setIsSubmitting(false)
         }
     }
+
+    // Quill editor modules and formats configuration
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link"],
+            ["clean"],
+        ],
+    }
+
+    const formats = ["header", "bold", "italic", "underline", "strike", "list", "bullet", "link"]
 
     // Don't render anything if the modal is closed
     if (!isOpen) {
@@ -209,24 +235,24 @@ const NewPostForm = ({ isOpen, onClose, category, onPostCreated }) => {
                             </Form.Item>
                         </div>
 
-                        {/* Content textarea */}
+                        {/* Content - React Quill Editor */}
                         <div className="px-4 mt-2 mb-5">
                             <Form.Item
                                 name="text"
-                                rules={[
-                                    { required: true, message: "Please enter content for your post" },
-                                    { max: 1000, message: "Content must be less than 1000 characters" },
-                                ]}
+                                rules={[{ required: true, message: "Please enter content for your post" }]}
                                 className="mb-3"
                             >
-                                <TextArea
-                                    placeholder="What do you want to talk about?"
-                                    autoSize={{ minRows: 3, maxRows: 8 }}
-                                    className="text-base border-0 px-0 py-2 shadow-none focus:shadow-none hover:bg-gray-50 rounded-md resize-none"
-                                    bordered={false}
-                                    showCount
-                                    maxLength={1000}
-                                />
+                                <div className="quill-wrapper rounded-md hover:bg-gray-50">
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={editorContent}
+                                        onChange={setEditorContent}
+                                        modules={modules}
+                                        formats={formats}
+                                        placeholder="What do you want to talk about?"
+                                        className="post-editor"
+                                    />
+                                </div>
                             </Form.Item>
                         </div>
 
