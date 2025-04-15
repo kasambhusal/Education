@@ -142,6 +142,7 @@ const NewOpportunity = ({ isOpen, onClose, category, onPostCreated }) => {
                                     optionFilterProp="children"
                                     suffixIcon={<FiType className="text-blue-500" />}
                                 >
+                                    <Option value="general">General</Option>
                                     <Option value="internship">Internship</Option>
                                     <Option value="scholarship">Scholarship</Option>
                                     <Option value="competition">Competition</Option>
