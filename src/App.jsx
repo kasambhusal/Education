@@ -4,16 +4,15 @@ import PageUser from "./Components/Main Components/PageUser"
 import { ThemeProvider } from "./Components/Context/ThemeContext"
 import { UserProvider } from "./Components/Context/UserContext"
 import { HelmetProvider } from "react-helmet-async"
+import MetaTagCleaner from "./Components/Utilities/MetaTagCleaner"
 
 function App() {
-  // Create a fresh helmetContext for each app instance
-  const helmetContext = {}
-
   return (
     <BrowserRouter>
-      <HelmetProvider context={helmetContext}>
+      <HelmetProvider>
         <ThemeProvider>
           <UserProvider>
+            <MetaTagCleaner />
             <PageUser />
           </UserProvider>
         </ThemeProvider>
