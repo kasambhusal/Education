@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import {ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import AI_page from "../Child Components/Secondary Page Components/AI_page";
 import QC_page from "../Child Components/Secondary Page Components/QC_page";
 import { useMediaQuery } from 'react-responsive';
@@ -26,21 +26,21 @@ const AIandQC = () => {
     useEffect(() => {
         const handleClickOutside = (event) => {
             console.log(buttonRef.current)
-          // Check if the click is outside the button
-          if (buttonRef.current) {
-            setIsSidebarVisible(false); // Set issidebarvisible to false when clicking outside
-            console.log("Clicked outside. sidebarvisible is now false.");
-          }
+            // Check if the click is outside the button
+            if (buttonRef.current) {
+                setIsSidebarVisible(false); // Set issidebarvisible to false when clicking outside
+                console.log("Clicked outside. sidebarvisible is now false.");
+            }
         };
-    
+
         // Add event listener for clicks anywhere on the screen
         window.addEventListener("click", handleClickOutside);
-    
+
         return () => {
-          // Cleanup event listener on component unmount
-          window.removeEventListener("click", handleClickOutside);
+            // Cleanup event listener on component unmount
+            window.removeEventListener("click", handleClickOutside);
         };
-      }, []);
+    }, []);
 
 
     return (
@@ -50,9 +50,9 @@ const AIandQC = () => {
             {/* Sidebar */}
             <motion.div
 
-                initial={{ width: "25vw", scale: 0 }}
-                animate={{ width: isCollapsed ? "4vw" : "25vw", scale: 1 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
                 className={`sidebar_of_AI ${sidebarGone && 'hidden'} flex flex-col gap-4 lg:px-4 px-1 py-5 h-[100vh] bg-gradient-to-r from-[#293b73] to-purple-600 text-slate-200 z-10 sticky top-0 ${isCollapsed && "items-center px-2"
                     }`}
             >
@@ -87,10 +87,10 @@ const AIandQC = () => {
             {/* Main Content */}
 
 
-            <motion.div initial={{ scale: 0 }}  // Start from extremely small
-                animate={{ scale: 1 }}  // Grow to normal size
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.5 }} // Triggers when 50% of the element is in view 
+            <motion.div initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                // Triggers when 50% of the element is in view 
                 onMouseOver={() => setHoverOn('cancel')}
                 className={`${selectedTopic == "home" ? 'flex' : 'hidden'} Maindiv_of_AI overflow-x-auto flex-1 flex-col gap-10 pt-10 450:px-14 px-2 min-h-[100vh] bg-stone-100 pb-40`}>
 
@@ -123,13 +123,13 @@ const AIandQC = () => {
             {/* Hamburger Menu */}
             {sidebarGone && (
                 <button
-                ref={buttonRef} // Attach ref to the button
-                 // Prevent the click from propagating to the window
-                onClick={(e) => {
+                    ref={buttonRef} // Attach ref to the button
+                    // Prevent the click from propagating to the window
+                    onClick={(e) => {
                         setIsSidebarVisible(!isSidebarVisible)
                         e.stopPropagation();
                     }}
-                    className={`${isSidebarVisible ? 'bottom-[34vh] right-[10vw]': 'bottom-5 right-5'} hamburger-menu fixed z-50 border-2 ${isSidebarVisible ? 'border-white':'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
+                    className={`${isSidebarVisible ? 'bottom-[34vh] right-[10vw]' : 'bottom-5 right-5'} hamburger-menu fixed z-50 border-2 ${isSidebarVisible ? 'border-white' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
                 >
                     {isSidebarVisible ? (
                         <img src="/cross.svg" alt="Close Sidebar" className="w-6 h-6" />
@@ -151,7 +151,7 @@ const AIandQC = () => {
                 </div>
                 <div onClick={() => setSelectedTopic("qc")} onMouseOver={() => setHoverOn("qc")} className="QC flex items-center gap-4 hover:text-white hover:font-semibold cursor-pointer">
                     <img src="/qc.svg" className={`${hoverOn == 'qc' && 'rotate-[360deg]'} w-8 h-8 transition-all duration-200`} />
-                   <div className="name">Quantum Computing</div>
+                    <div className="name">Quantum Computing</div>
                 </div>
             </motion.div>
         </div >
