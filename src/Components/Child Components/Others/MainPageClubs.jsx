@@ -61,9 +61,6 @@ export default function MainPageClubs({ name }) {
             setIsLoading(true)
             try {
                 const pageToFetch = refresh ? 1 : currentPage
-                console.log("Loading posts for:", name.toLowerCase())
-                console.log("Page:", pageToFetch)
-                console.log("Limit:", limit)
                 const response = await Get({
                     url: `/clubs/get/${name.toLowerCase()}?page=${pageToFetch}&limit=${limit}`,
                     headers: {

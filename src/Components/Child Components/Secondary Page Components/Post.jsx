@@ -264,19 +264,19 @@ const Post = ({ post: initialPost }) => {
 
             {/* Post Media */}
             {post.image && (
-                <div className="mt-2 mb-3">
+                <div className="sm:mx-5 mb-3">
                     {post.image.endsWith(".mp4") || post.image.endsWith(".webm") || post.image.endsWith(".ogg") ? (
                         <video
                             src={post.image}
                             controls
-                            className="w-full max-h-[500px] object-contain bg-black"
+                            className="w-full sm:w-auto  max-h-[500px] object-contain bg-black"
                             preload="metadata"
                         />
                     ) : (
                         <img
                             src={post.image || "/placeholder.svg"}
                             alt="Post content"
-                            className="w-full max-h-[500px] object-contain"
+                            className="w-full sm:w-auto max-h-[500px] object-contain"
                             loading="lazy"
                         />
                     )}
