@@ -132,6 +132,7 @@ export default function SingleOpportunity({ opportunity, onDelete, onUpdate, fet
                 <div className="mt-4 relative">
                     <div
                         ref={contentRef}
+                        onClick={() => { setExpanded(true) }}
                         className={`text-gray-700 text-justify rich-text-content overflow-hidden transition-all duration-300 ${!expanded ? "max-h-[120px]" : "max-h-[2000px]"
                             }`}
                         dangerouslySetInnerHTML={{ __html: opportunity.text }}

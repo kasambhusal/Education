@@ -195,7 +195,7 @@ const ExamPrep = () => {
                     `
                 },
 
-        
+
             ],
             extra: "NePhO"
         },
@@ -302,7 +302,7 @@ const ExamPrep = () => {
         }
 
     ]
-    
+
     useEffect(() => {
         if (activeSubject == 'physics-kinematics') {
             setCurrentQuestions(allSubjects[0])
@@ -329,39 +329,39 @@ const ExamPrep = () => {
     const [currentQuestions, setCurrentQuestions] = useState(allSubjects[0])
     const tableOfContentGone = useMediaQuery({ query: '(max-width: 768px)' });
     const [isSidebarVisible, setIsSidebarVisible] = useState(false)
-     const buttonRef = useRef(null)
+    const buttonRef = useRef(null)
 
-      useEffect(() => {
-             const handleClickOutside = (event) => {
-                 console.log(buttonRef.current)
-               // Check if the click is outside the button
-               if (buttonRef.current) {
-                 setIsSidebarVisible(false); // Set issidebarvisible to false when clicking outside
-                 console.log("Clicked outside. sidebarvisible is now false.");
-               }
-             };
-         
-             // Add event listener for clicks anywhere on the screen
-             window.addEventListener("click", handleClickOutside);
-         
-             return () => {
-               // Cleanup event listener on component unmount
-               window.removeEventListener("click", handleClickOutside);
-             };
-           }, []);
-     
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            console.log(buttonRef.current)
+            // Check if the click is outside the button
+            if (buttonRef.current) {
+                setIsSidebarVisible(false); // Set issidebarvisible to false when clicking outside
+                console.log("Clicked outside. sidebarvisible is now false.");
+            }
+        };
+
+        // Add event listener for clicks anywhere on the screen
+        window.addEventListener("click", handleClickOutside);
+
+        return () => {
+            // Cleanup event listener on component unmount
+            window.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
+
 
     return (
         <motion.div initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className='mainContainerofExamPrep flex gap-2'>
-                
-                {/* Table of content */}
+
+            {/* Table of content */}
 
             <motion.div initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 100 }} 
+                transition={{ type: "spring", stiffness: 100 }}
                 className={`${tableOfContentGone && 'hidden'} sidebarExamPrep cursor-pointer w-[30vw] h-[80vh] overflow-auto gap-1 pt-5 sticky top-0 flex flex-col items-center`}>
                 {allSubjects.map((item) => {
                     return (
@@ -416,16 +416,16 @@ const ExamPrep = () => {
 
             </div>
 
-                 {/* Hamburger Menu */}
+            {/* Hamburger Menu */}
             {tableOfContentGone && (
                 <button
-                ref={buttonRef} // Attach ref to the button
-                 // Prevent the click from propagating to the window
-                onClick={(e) => {
+                    ref={buttonRef} // Attach ref to the button
+                    // Prevent the click from propagating to the window
+                    onClick={(e) => {
                         setIsSidebarVisible(!isSidebarVisible)
                         e.stopPropagation();
                     }}
-                    className={`${isSidebarVisible ? 'bottom-[44vh] right-[6vw] bg-white border-none': 'bottom-5 right-5'} hamburger-menu bg-black fixed z-50 border-2 ${isSidebarVisible ? 'border-blue-700':'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
+                    className={`${isSidebarVisible ? 'bottom-[44vh] right-[6vw] bg-white border-none' : 'bottom-5 right-5'} hamburger-menu bg-black fixed z-50 border-2 ${isSidebarVisible ? 'border-blue-700' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
                 >
                     {isSidebarVisible ? (
                         <img src="/cross.svg" alt="Close Sidebar" className="w-6 h-6" />
@@ -437,9 +437,9 @@ const ExamPrep = () => {
 
             <motion.div initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 100 }} 
+                transition={{ type: "spring", stiffness: 100 }}
                 className={`${(tableOfContentGone && isSidebarVisible) ? 'bottom-0' : 'bottom-[-100%]'} sidebarExamPrep cursor-pointer rounded-t-xl text-white bg-[#13096c] transition-all duration-500 w-[100vw] overflow-x-hidden h-[50vh] overflow-y-auto gap-1 pt-5 fixed flex flex-col items-center`}>
-                      <div className="title_examprep bg-white border-t-black border-[6px] text-black py-3 px-4 w-full mt-[-20px] mb-2">Physics Olympiad</div>
+                <div className="title_examprep bg-white border-t-black border-[6px] text-black py-3 px-4 w-full mt-[-20px] mb-2">Physics Olympiad</div>
                 {allSubjects.map((item) => {
                     return (
                         <div key={item.head} className='w-full flex flex-col items-center gap-1 rounded-lg'>
