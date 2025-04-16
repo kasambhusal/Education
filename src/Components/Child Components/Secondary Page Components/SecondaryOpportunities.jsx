@@ -223,7 +223,7 @@ const SecondaryOpportunities = () => {
 
             <Layout>
                 <Content
-                    className="my-2 mx-4 py-3 px-6 bg-white rounded-2xl shadow-sm relative overflow-auto"
+                    className="my-2 px-2 mx-2 sm:mx-4 py-3 sm:px-6 bg-white rounded-2xl shadow-sm relative overflow-auto hide-scrollbar"
                     style={{
                         height: 'calc(100vh - 96px)',
                         marginLeft: 0,

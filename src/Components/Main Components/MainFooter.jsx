@@ -3,7 +3,6 @@ import { motion } from "framer-motion"
 import Contact from "../Child Components/Others/Contact"
 import { ChevronRightIcon } from "@heroicons/react/20/solid"
 import { Link, useNavigate } from "react-router-dom"
-import { setLocalStorage } from "../../utils/localStorageUtils"
 
 const Footer = () => {
     const navigate = useNavigate()

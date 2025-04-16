@@ -133,18 +133,12 @@ export default function Home() {
         }
     }, [])
 
-    const scrollToUnlock = () => {
-        unlockSectionRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        })
-    }
 
     // Parallax effect for hero section
     const { scrollY } = useScroll()
-    const heroImageY = useTransform(scrollY, [0, 500], [0, 100])
-    const heroTextY = useTransform(scrollY, [0, 500], [0, 50])
-    const heroOpacity = useTransform(scrollY, [0, 500], [1, 0])
+    const heroImageY = useTransform(scrollY, [0, 1000], [0, 100])
+    const heroTextY = useTransform(scrollY, [0, 1000], [0, 50])
+    const heroOpacity = useTransform(scrollY, [0, 1000], [1, 0])
 
     return (
         <div className="overflow-x-hidden relative">
@@ -220,11 +214,12 @@ export default function Home() {
                                 <motion.button
                                     whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)" }}
                                     whileTap={{ scale: 0.95 }}
-                                    onClick={scrollToUnlock}
                                     className="px-8 py-4 font-bold text-lg text-white rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                                 >
-                                    Explore More
-                                    <ArrowRightOutlined className="animate-bounce" />
+                                    <Link to="/user/login">
+                                        Get Started
+                                        <ArrowRightOutlined className="animate-bounce" />
+                                    </Link>
                                 </motion.button>
 
                                 <motion.button

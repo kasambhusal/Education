@@ -30,7 +30,7 @@ export default function Contact({ vertical = false }) {
             </span>
 
             {/* Instagram Icon */}
-            <span className="flex justify-center items-center">
+            {/* <span className="flex justify-center items-center">
                 <a
                     href="https://kasambhusal.com.np/"
                     target="_blank"
@@ -39,10 +39,10 @@ export default function Contact({ vertical = false }) {
                 >
                     <img src="/insta.jpg" height={40} width={40} alt="Insta" />
                 </a>
-            </span>
+            </span> */}
 
             {/* Twitter Icon */}
-            <span className="flex justify-center items-center">
+            {/* <span className="flex justify-center items-center">
                 <a
                     href="https://kasambhusal.com.np/"
                     target="_blank"
@@ -52,10 +52,10 @@ export default function Contact({ vertical = false }) {
                 >
                     <img src="/x.png" width={40} height={40} alt="X" />
                 </a>
-            </span>
+            </span> */}
 
             {/* YouTube Icon */}
-            <span className="flex justify-center items-center">
+            {/* <span className="flex justify-center items-center">
                 <a
                     href="https://kasambhusal.com.np/"
                     target="_blank"
@@ -64,7 +64,7 @@ export default function Contact({ vertical = false }) {
                 >
                     <img src="/youtube.png" width={40} height={40} alt="Youtube" />
                 </a>
-            </span>
+            </span> */}
         </div>
     );
 }
