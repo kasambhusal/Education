@@ -129,7 +129,7 @@ const AIandQC = () => {
                         setIsSidebarVisible(!isSidebarVisible)
                         e.stopPropagation();
                     }}
-                    className={`${isSidebarVisible ? 'bottom-[34vh] right-[10vw]' : 'bottom-5 right-5'} hamburger-menu fixed z-50 border-2 ${isSidebarVisible ? 'border-white' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
+                    className={`${isSidebarVisible ? 'bottom-[35vh] right-[6vw] border-none' : 'bottom-5 right-5'} hamburger-menu fixed z-50 border-2 ${isSidebarVisible ? 'border-white' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
                 >
                     {isSidebarVisible ? (
                         <img src="/cross.svg" alt="Close Sidebar" className="w-6 h-6" />
@@ -139,8 +139,9 @@ const AIandQC = () => {
                 </button>
             )}
             <motion.div
-                className={`sidebar_of_AI ${(sidebarGone && isSidebarVisible) ? 'bottom-0' : 'bottom-[-100%]'} w-[93vw] rounded-xl mx-5 flex flex-col gap-4 transition-all duration-500 lg:px-4 px-5 py-5 h-[40vh] bg-[#0349fc] text-slate-200 z-10 fixed`}
+                className={`sidebar_of_AI ${(sidebarGone && isSidebarVisible) ? 'bottom-0' : 'bottom-[-100%]'} w-[100vw] overflow-x-hidden rounded-t-xl flex flex-col gap-4 transition-all duration-500 lg:px-4 px-5 py-5 h-[40vh] bg-[#0349fc] text-slate-200 z-10 fixed`}
             >
+                <div className="title_div bg-white text-black py-3 px-4 mt-[-20px] mx-[-20px]">AI and Quantum </div>
                 <div onClick={() => setSelectedTopic("home")} onMouseOver={() => setHoverOn("return")} className="Home flex items-center gap-2 cursor-pointer mb-5 border-b-2 pb-2">
                     <img src="/back.svg" className={`${hoverOn == 'return' && 'translate-x-[-8px]'} w-8 h-8 transition-all duration-200`} />
                     <div className={`${hoverOn == 'return' ? 'text-white text-lg' : 'text-slate-200'} name font-semibold transition-all duration-100`}>Return</div>
