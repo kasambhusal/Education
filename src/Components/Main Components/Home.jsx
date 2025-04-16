@@ -391,11 +391,7 @@ export default function Home() {
                             image:
                                 "https://media.istockphoto.com/id/1306326254/vector/hackathon-and-datathon-set-of-doodle-style-icons.jpg?s=612x612&w=0&k=20&c=hsAHpcpw5FfzPqRpRnL_RUtRkgH_0l3aQvuxSyTriuc=",
                             text: "Be up-to-date about upcoming hackathon opportunities",
-                            redirect: "/menu/opportunities",
-                            local: {
-                                key: "selectedOpportunity",
-                                label: "Hackathons",
-                            },
+                            redirect: "/menu/opportunities#hackathons",
                         },
                         {
                             heading: "Artificial intelligence & Quantum computing",

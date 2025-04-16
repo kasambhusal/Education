@@ -16,7 +16,7 @@ const { Sider, Content } = Layout;
 const SecondaryOpportunities = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [headText, setHeadText] = useState("");
-    const [selectedLabel, setSelectedLabel] = useState('Competitions');
+    const [selectedLabel, setSelectedLabel] = useState('Programs');
     const [isMobile, setIsMobile] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -32,30 +32,45 @@ const SecondaryOpportunities = () => {
     }, []);
 
     useEffect(() => {
-        const storedLabel = getLocalStorage("selectedOpportunity")
-        if (storedLabel) {
-            setSelectedLabel(storedLabel); // Set the saved label on page load
+        const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+
+        const hash = decodeURIComponent(window.location.hash.replace("#", "")).trim();
+        const hashLabel = capitalize(hash);
+        const storedLabel = getLocalStorage("selectedOpportunity");
+
+        const isValidLabel = menuItems.some((item) => item.label === hashLabel);
+
+        if (hash && isValidLabel) {
+            setSelectedLabel(hashLabel);
+            setLocalStorage("selectedOpportunity", hashLabel, 300000);
+        } else if (storedLabel && menuItems.some((item) => item.label === storedLabel)) {
+            setSelectedLabel(storedLabel);
         } else {
-            setSelectedLabel("Competitions"); // Default label if none is stored
+            setSelectedLabel("Programs");
         }
 
+        // Set header from URL path
         function getCapitalizedWordFromCurrentURL() {
             const url = window.location.href;
             const lastSegment = url.split('/').filter(Boolean).pop();
-            return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+            return capitalize(lastSegment);
         }
+
         setHeadText(getCapitalizedWordFromCurrentURL());
     }, []);
+
+
 
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
     const menuItems = [
+
         {
             key: '1',
-            icon: <TrophyOutlined />,
-            label: 'Competitions',
+            icon: <CompassOutlined />,
+            label: 'Programs',
         },
         {
             key: '2',
@@ -64,11 +79,6 @@ const SecondaryOpportunities = () => {
         },
         {
             key: '3',
-            icon: <CompassOutlined />,
-            label: 'Programs',
-        },
-        {
-            key: '4',
             icon: <TrophyOutlined />,
             label: 'Scholarships',
         },

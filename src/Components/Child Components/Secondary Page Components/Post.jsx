@@ -246,7 +246,6 @@ const Post = ({ post: initialPost }) => {
                         />
                     ) : (
                         <>
-                            <p className="whitespace-pre-line">{post.text.slice(0, 300)}...</p>
                             <div
                                 className="mt-4 text-gray-700 xl:w-[80%] text-justify rich-text-content"
                                 dangerouslySetInnerHTML={{ __html: post.text.slice(0, 300) }}

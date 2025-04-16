@@ -153,7 +153,7 @@ const SAT = () => {
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2 }}
                 onClick={scrollToTop}
-                className="fixed bottom-6 right-6 z-20 p-3 rounded-full bg-blue-600 text-white shadow-lg"
+                className="fixed bottom-6 left-6 z-20 w-[40px] h-[40px] rounded-full bg-indigo-600 text-white shadow-lg"
                 aria-label="Scroll to top"
               >
                 <ArrowUpOutlined />

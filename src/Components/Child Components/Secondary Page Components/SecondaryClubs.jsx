@@ -67,14 +67,26 @@ const SecondaryClubs = () => {
     ]
 
     useEffect(() => {
-        // Retrieve selected label from localStorage
+        const hash = decodeURIComponent(window.location.hash.replace("#", "")).trim()
+
+        const capitalizeFirstLetter = (str) => {
+            return str.charAt(0).toUpperCase() + str.slice(1)
+        }
+
+        const hashLabel = capitalizeFirstLetter(hash)
         const storedLabel = getLocalStorage("selectedClub")
-        if (storedLabel) {
-            setSelectedLabel(storedLabel) // Set the saved label on page load
+
+        if (hashLabel && menuItems.some((item) => item.label === hashLabel)) {
+            setSelectedLabel(hashLabel)
+            setLocalStorage("selectedClub", hashLabel, 300000)
+        } else if (storedLabel && menuItems.some((item) => item.label === storedLabel)) {
+            setSelectedLabel(storedLabel)
         } else {
-            setSelectedLabel("Physics Club") // Default to Physics Club if no label is saved
+            setSelectedLabel("Physics Club")
         }
     }, [])
+
+
 
     const handleMenuClick = ({ key }) => {
         const clickedItem = menuItems.find((item) => item.key === key)

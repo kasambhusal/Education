@@ -27,8 +27,7 @@ const Footer = () => {
     }
 
     const OppourtunityClick = (name) => {
-        setLocalStorage("selectedOpportunity", name, 300000)
-        navigate("/menu/opportunities")
+        navigate(`/menu/opportunities#${name}`)
     }
 
     return (
@@ -66,7 +65,7 @@ const Footer = () => {
                     <motion.div variants={itemVariants} className="col-span-1">
                         <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Opportunities</h3>
                         <ul className="space-y-1 md:space-y-2">
-                            {["Competitions", "Hackathons", "Workshops", "Scholarships"].map((item) => (
+                            {["Hackathons", "Programs", "Scholarships"].map((item) => (
                                 <motion.li
                                     key={item}
                                     className="flex items-center cursor-pointer text-sm md:text-base"

@@ -4,9 +4,8 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, useInView } from "framer-motion"
 import { useTheme } from "../../Context/ThemeContext"
-import { setLocalStorage } from "../../../utils/localStorageUtils"
 
-const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
+const HomeCard = ({ heading, image, text, redirect = "" }) => {
   const { themeColor } = useTheme()
   const navigate = useNavigate()
   const cardRef = React.useRef(null)
@@ -14,9 +13,6 @@ const HomeCard = ({ heading, image, text, redirect = "", local = {} }) => {
 
   const handleExplore = () => {
     if (redirect !== "") {
-      if (Object.keys(local).length > 0) {
-        setLocalStorage(local.key, local.label, 300000)
-      }
       navigate(redirect)
     }
   }
