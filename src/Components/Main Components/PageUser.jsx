@@ -47,7 +47,7 @@ const PageUser = () => {
 
             </Routes>
             {
-                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/menu") && !location.pathname.toLowerCase().includes("/dashboard") && !location.pathname.toLowerCase().includes("/practise") && <MainFooter />
+                !location.pathname.toLowerCase().includes("/user") && !location.pathname.toLowerCase().includes("/menu") && !location.pathname.toLowerCase().includes("/dashboard") && !location.pathname.toLowerCase().includes("/practise") && !location.pathname.toLowerCase().includes("/courses") && <MainFooter />
             }
 
         </div>
