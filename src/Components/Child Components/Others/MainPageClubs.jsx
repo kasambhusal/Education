@@ -6,6 +6,7 @@ import NewPostForm from "../Secondary Page Components/NewPostForm"
 import Post from "../Secondary Page Components/Post"
 import { Get } from "../../../utils/API"
 import { useUser } from "../../Context/UserContext"
+import Loader from "./Loader"
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -133,7 +134,11 @@ export default function MainPageClubs({ name }) {
                         <Post post={post} />
                     </div>
                 ))}
-                {isLoading && <p className="text-center text-gray-500 my-4">Loading more posts...</p>}
+                {isLoading && (
+                    <div className="flex justify-center items-center py-12">
+                        <Loader text="Loading posts" color="#4338ca" />
+                    </div>
+                )}
                 {!isLoading && !hasMore && <p className="text-center text-gray-500 my-4">No more posts in this club.</p>}
             </div>
 

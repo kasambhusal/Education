@@ -6,6 +6,7 @@ import { Get } from "../../../utils/API"
 import { useUser } from "../../Context/UserContext"
 import NewOpportunity from "../Secondary Page Components/NewOpportunity"
 import SingleOpportunity from "../Secondary Page Components/SingleOpportunity"
+import Loader from "../Others/Loader"
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -26,6 +27,7 @@ export default function MainPageOpportunities({ name }) {
     const [isNewPostOpen, setIsNewPostOpen] = useState(false)
     const [uniqueTypes, setUniqueTypes] = useState([])
     const [isMobile, setIsMobile] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     const { token, user } = useUser()
 
@@ -51,6 +53,7 @@ export default function MainPageOpportunities({ name }) {
     }, [opportunities])
 
     const fetchOpportunities = async () => {
+        setIsLoading(true)
         try {
             const response = await Get({
                 url: `/public/opportunities/get?category=${name.toLowerCase()}`,
@@ -62,6 +65,8 @@ export default function MainPageOpportunities({ name }) {
             setOpportunities(response)
         } catch (error) {
             console.error("Error fetching opportunities:", error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -179,15 +184,36 @@ export default function MainPageOpportunities({ name }) {
                 {isMobile ? renderMobileFilters() : renderDesktopFilters()}
             </div>
 
-            <AnimatePresence>
-                <motion.div className="grid gap-4">
-                    {filteredOpportunities.slice(0, visibleOpportunities).map((opportunity, index) => (
-                        <SingleOpportunity key={index} opportunity={opportunity} fetchOpportunities={handleNewPost} />
-                    ))}
-                </motion.div>
-            </AnimatePresence>
+            {isLoading ? (
+                <div className="flex justify-center items-center py-12">
+                    <Loader text="Loading opportunities" color="#4338ca" />
+                </div>
+            ) : filteredOpportunities.length > 0 ? (
+                <AnimatePresence>
+                    <motion.div className="grid gap-4">
+                        {filteredOpportunities.slice(0, visibleOpportunities).map((opportunity, index) => (
+                            <SingleOpportunity key={index} opportunity={opportunity} fetchOpportunities={handleNewPost} />
+                        ))}
+                    </motion.div>
+                </AnimatePresence>
+            ) : (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                    <div className="w-24 h-24 mb-4 text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={1.5}
+                                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-700">No opportunities found</h3>
+                    <p className="text-gray-500 mt-1">Try adjusting your search or filters</p>
+                </div>
+            )}
 
-            {visibleOpportunities < filteredOpportunities.length && (
+            {!isLoading && visibleOpportunities < filteredOpportunities.length && (
                 <motion.button
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
