@@ -115,7 +115,7 @@ const AIandQC = () => {
 
             </motion.div>
             <motion.div className={`${selectedTopic == "ai" ? 'flex' : 'hidden'} AI_Course ${(sidebarGone || isCollapsed) ? 'w-[100vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
-                <AI_page />
+                <AI_page isCollapsed={isCollapsed} />
             </motion.div>
             <motion.div className={`${selectedTopic == "qc" ? 'flex' : 'hidden'} QC_Course ${(sidebarGone || isCollapsed) ? 'w-[100vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
                 <QC_page />

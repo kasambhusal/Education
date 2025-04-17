@@ -26,7 +26,7 @@ const topics = [
   { id: "topic7", title: "Ensemble Learning" },
 ];
 
-const AI_page = () => {
+const AI_page = (isCollapsed) => {
   const [activeTopic, setActiveTopic] = useState("Getting Started");
   const [mdtableofcontent, setMdtableofcontent] = useState(false);
   // const [mdtableopen, setMdtableopen] = useState(false)
@@ -79,7 +79,7 @@ const AI_page = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-y-auto w-full">
+    <div className="md:flex-row flex flex-col h-screen overflow-y-auto w-full">
 
       {/* Sidebar */}
       <motion.div
@@ -101,7 +101,8 @@ const AI_page = () => {
       </motion.div>
 
       {/* Content Section */}
-      <div className="contentContainer bg-blue-50 mx-auto md:px-10 sm:px-2 px-1 py-10 space-y-20 min-h-full md:w-[65vw] sm:w-[70vw] w-[98vw] pb-10">
+      
+      <div className={`${isCollapsed.isCollapsed?'md:w-[65vw]':'md:w-[50vw]'} contentContainer bg-blue-50 mx-auto md:px-10 sm:px-2 px-1 py-10 space-y-20 min-h-full sm:w-[70vw] w-[92vw] pb-10`}>
         {renderComponent()}
       </div>
 
