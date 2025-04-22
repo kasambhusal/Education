@@ -114,10 +114,10 @@ const AIandQC = () => {
 
 
             </motion.div>
-            <motion.div className={`${selectedTopic == "ai" ? 'flex' : 'hidden'} AI_Course ${(sidebarGone || isCollapsed) ? 'w-[95vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
-                <AI_page />
+            <motion.div className={`${selectedTopic == "ai" ? 'flex' : 'hidden'} AI_Course ${(sidebarGone || isCollapsed) ? 'w-[100vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
+                <AI_page isCollapsed={isCollapsed} />
             </motion.div>
-            <motion.div className={`${selectedTopic == "qc" ? 'flex' : 'hidden'} QC_Course ${(sidebarGone || isCollapsed) ? 'w-[95vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
+            <motion.div className={`${selectedTopic == "qc" ? 'flex' : 'hidden'} QC_Course ${(sidebarGone || isCollapsed) ? 'w-[100vw]' : 'w-[75vw]'}`} onMouseOver={() => setHoverOn('cancel')}>
                 <QC_page />
             </motion.div>
             {/* Hamburger Menu */}
@@ -129,7 +129,7 @@ const AIandQC = () => {
                         setIsSidebarVisible(!isSidebarVisible)
                         e.stopPropagation();
                     }}
-                    className={`${isSidebarVisible ? 'bottom-[35vh] right-[6vw] border-none' : 'bottom-5 right-5'} hamburger-menu fixed z-50 border-2 ${isSidebarVisible ? 'border-white' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
+                    className={`${isSidebarVisible ? 'bottom-[35vh] right-[6vw] border-none' : 'bottom-5 right-5'} hamburger-menu bg-white fixed z-50 border-2 ${isSidebarVisible ? 'border-white' : 'border-black'} text-white p-2 transition-all duration-500 rounded-md shadow-md`}
                 >
                     {isSidebarVisible ? (
                         <img src="/cross.svg" alt="Close Sidebar" className="w-6 h-6" />

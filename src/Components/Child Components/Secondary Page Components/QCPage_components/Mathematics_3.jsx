@@ -3,18 +3,18 @@ import { motion } from 'framer-motion';
 
 const Mathematics_3 = () => {
 return (
-<div className="flex flex-col">
+<div className="flex flex-col gap-8">
 <motion.div
 initial={{ opacity: 0, y: 20 }}
 whileInView={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.5 }}
-className="project-section bg-slate-200 rounded-xl p-6 mt-8"
+className="project-section bg-zinc-50 border-2 border-green-600 shadow-2xl rounded-xl py-6 px-4"
 >
 <h2 className="text-2xl font-bold text-purple-900">Mathematical Foundations</h2>
 
 text
           <div className="flex items-center gap-4 mt-2 mb-4">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-sm">
               Difficulty: Intermediate
             </span>
             <span className="text-gray-600">⏱️ Estimated Time: 35 min</span>
