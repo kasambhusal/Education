@@ -2,6 +2,7 @@ import axios from "axios";
 
 // const Base_Url = "http://192.168.1.94:3000"; // Replace with your base URL
 const Base_Url = "https://edusphere-backend-scgh.onrender.com"; // Replace with your base URL
+// const Base_Url = "http://api.edusphere.pro/"; // Replace with your base URL
 
 // Create an axios instance
 const axiosInstance = axios.create({
