@@ -20,7 +20,7 @@ export default function Clubs() {
   }, []);
 
   if (!token) {
-    return <PleaseLogin />
+    return <PleaseLogin what="clubs" />
   }
 
   return <SecondaryClubs />;

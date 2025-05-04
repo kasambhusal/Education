@@ -20,7 +20,7 @@ export default function Oppourtunity() {
 
     if (!token) {
         return (
-            <PleaseLogin />
+            <PleaseLogin what="opportunities" />
         );
     }
 

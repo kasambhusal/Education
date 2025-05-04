@@ -25,9 +25,6 @@ const Footer = () => {
         },
     }
 
-    const OppourtunityClick = (name) => {
-        navigate(`/menu/opportunities#${name}`)
-    }
 
     return (
         <footer className="bg-gradient-to-b from-[#6264D9] to-[#30415A] text-white">
@@ -65,7 +62,7 @@ const Footer = () => {
                         <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Opportunities</h3>
                         <ul className="space-y-1 md:space-y-2">
                             {["Hackathons", "Programs", "Scholarships"].map((item) => (
-                                <motion.li
+                                <motion
                                     key={item}
                                     className="flex items-center cursor-pointer text-sm md:text-base"
                                     whileHover={{ x: 5 }}
@@ -73,8 +70,8 @@ const Footer = () => {
                                     onClick={() => OppourtunityClick(item)}
                                 >
                                     <ChevronRightIcon className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 flex-shrink-0" />
-                                    <span className="line-clamp-1">{item}</span>
-                                </motion.li>
+                                    <Link to={`/menu/opportunities#${item}`} className="line-clamp-1">{item}</Link>
+                                </motion>
                             ))}
                         </ul>
                     </motion.div>
@@ -121,18 +118,19 @@ const Footer = () => {
                         <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4">Team Members</h3>
                         <div className="grid grid-cols-2 md:grid-cols-1 gap-3">
                             {[
-                                { name: "Kasam Bhusal", role: "Founder" },
-                                { name: "Aman Bhandari", role: "Co-Founder" },
-                                { name: "Rohit Busal", role: "Co-Founder" },
+                                { name: "Kasam Bhusal", role: "Founder", url: "https://kasambhusal.com.np/" },
+                                { name: "Aman Bhandari", role: "Co-Founder", url: "https://www.facebook.com/aman.bhandari.564203" },
+                                { name: "Rohit Bhusal", role: "Co-Founder", url: "https://www.facebook.com/rohit.bhusal.442056" },
+                                { name: "Sameer Bhusal", role: "Outreach Manager", url: "https://www.facebook.com/sameer.bhusal.1293" },
                             ].map((member) => (
                                 <motion.div
                                     key={member.name}
-                                    className="mb-1 md:mb-2"
-                                    whileHover={{ scale: 1.05 }}
+                                    className="mb-1"
+                                    whileHover={{ scale: 1.01 }}
                                     transition={{ type: "spring", stiffness: 300 }}
                                 >
                                     <p className="font-semibold text-gray-300 text-xs md:text-sm">{member.role}</p>
-                                    <p className="text-sm md:text-base">{member.name}</p>
+                                    <a href={member.url} target="_blank" className="text-sm md:text-base">{member.name}</a>
                                 </motion.div>
                             ))}
                         </div>
@@ -158,7 +156,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                             className="underline hover:text-white transition-colors"
                         >
-                            KRA Group
+                            Team members
                         </a>
                     </p>
                 </div>

@@ -44,7 +44,7 @@ const floatAnimation = {
     },
 }
 
-export default function PleaseLogin() {
+export default function PleaseLogin({ what = "" }) {
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -161,7 +161,7 @@ export default function PleaseLogin() {
 
                 <motion.div variants={itemVariants}>
                     <Divider className="my-4">
-                        <Text type="secondary">Edusphere Clubs</Text>
+                        <Text type="secondary">Edusphere {what}</Text>
                     </Divider>
                 </motion.div>
 
