@@ -41,11 +41,11 @@ const AI_page = (isCollapsed) => {
   }, [])
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log(buttonRef.current)
+      console.log(buttonRef, "buttonref")
+      console.log(buttonRef.current, "button ref")
       // Check if the click is outside the button
       if (buttonRef.current) {
         setMdtableofcontent(false); // Set issidebarvisible to false when clicking outside
-        console.log("Clicked outside. sidebarvisible is now false.");
       }
     };
 
@@ -62,7 +62,10 @@ const AI_page = (isCollapsed) => {
 
 
 
-  const topicClicked = (title) => setActiveTopic(title);
+  const topicClicked = (title) => {
+    setActiveTopic(title);
+   
+  }
 
   const renderComponent = () => {
     switch (activeTopic) {
